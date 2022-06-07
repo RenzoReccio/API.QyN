@@ -15,7 +15,6 @@ export class ClientController {
   }
 
   @Get()
-  @UseGuards(AuthenticationGuard)
   @ApiResponse({ type: ClientModel, isArray: true, status: 200 })
   async getClients(): Promise<CustomResponse<ClientModel[]>> {
     let clients = await this.clientUseCase.getClients();
