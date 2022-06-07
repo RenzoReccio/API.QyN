@@ -7,6 +7,8 @@ import { ValidationException } from './utils/globalErrorHandler/validation.error
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  
+  //Swagger
   const config = new DocumentBuilder().build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
@@ -24,6 +26,6 @@ async function bootstrap() {
   app.useGlobalFilters(new GlobalExceptionHandler());
   await app.listen(3000);
 
-  //Global Guards)
+  //Global Guards
 }
 bootstrap();

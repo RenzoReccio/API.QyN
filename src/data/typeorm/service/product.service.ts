@@ -1,6 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Product } from 'src/domain/model/interface/product.interface';
+import { ProductRepository } from 'src/domain/repository/product.repository';
 import { ProductEntity } from '../entity/product.entity';
 
 @Injectable()
-export class ProductService extends Repository<ProductEntity> { }
+export class ProductService implements ProductRepository {
+  async getOneByCode(code: string): Promise<Product> {
+    return await ProductEntity.findOne({ where: { code: code } });
+  }
+  async insert(product: Product): Promise<Product> {
+    return await ProductEntity.create(product).save();
+  }
+  async findAll(relations?: string[]): Promise<Product[]> {
+    return await ProductEntity.find({ relations: relations ?? [] });
+  }
+}
