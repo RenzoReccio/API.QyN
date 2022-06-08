@@ -1,10 +1,9 @@
-import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ClientModel } from 'src/domain/model/client.model';
 import { ClientUseCase } from 'src/domain/usecase/client.usecase';
 import { CreateClientDto, UpdateClientDto } from 'src/domain/usecase/dto/client.dto';
 import { CustomResponse } from 'src/utils/response/response.model';
-import { AuthenticationGuard } from '../guard/authentication.guard';
 
 @Controller('client')
 @ApiTags('Client')
@@ -52,8 +51,8 @@ export class ClientController {
 
   @Put(':id')
   @ApiResponse({ type: ClientModel, isArray: false, status: 200 })
-  async updateClient(@Param('id') id: number, @Body() client: UpdateClientDto): Promise<CustomResponse<ClientModel>> {
-    let clientToUpdate = await this.clientUseCase.updateClient(id, client);
+  async updateClient(@Param('id') id: string, @Body() client: UpdateClientDto): Promise<CustomResponse<ClientModel>> {
+    let clientToUpdate = await this.clientUseCase.updateClient(Number(id), client);
     let response = new CustomResponse<ClientModel>(
       `Cliente con RUC: ${client.ruc}, actualizado.`,
       clientToUpdate,

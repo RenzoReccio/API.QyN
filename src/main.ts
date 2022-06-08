@@ -7,7 +7,11 @@ import { ValidationException } from './utils/globalErrorHandler/validation.error
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  
+
+  //Cors
+  app.enableCors({origin: process.env.ORIGIN});
+
+
   //Swagger
   const config = new DocumentBuilder().build();
   const document = SwaggerModule.createDocument(app, config);
