@@ -10,6 +10,8 @@ export class GlobalExceptionHandler implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
     const statusCode = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+    console.error(exception.message);
+
     const message = exception instanceof HttpException ? exception.message : 'Internal Server Error';
     let errors = [message];
 

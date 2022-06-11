@@ -1,5 +1,4 @@
-import { Injectable } from "@nestjs/common";
-import { ProductService } from "src/data/typeorm/service/product.service";
+import { Inject, Injectable } from "@nestjs/common";
 import { ResourceAlreadyRegistered } from "../error/resourceAlreadyRegistered.error";
 import { Product } from "../model/interface/product.interface";
 import { ProductModel } from "../model/product.model";
@@ -10,9 +9,9 @@ import { CreateProductDto } from "./dto/product.dto";
 export class ProductUseCase {
   private _productRepository: ProductRepository;
   constructor(
-    productService: ProductService
+    @Inject('ProductRepository') productRepository: ProductRepository,
   ) {
-    this._productRepository = productService;
+    this._productRepository = productRepository;
   }
 
   async getProducts(): Promise<Product[]> {

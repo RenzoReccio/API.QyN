@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { UserService } from "src/data/typeorm/service/user.service";
 import { IAuthService } from "src/utils/auth/auth.inteface";
 import { AuthService } from "src/utils/auth/auth.service";
@@ -13,10 +13,10 @@ export class AuthUseCase {
   private _userRepository: UserRepository
   private _authService: IAuthService;
   constructor(
-    userService: UserService,
+    @Inject('UserRepository') userRepository: UserRepository,
     authService: AuthService
   ) {
-    this._userRepository = userService;
+    this._userRepository = userRepository;
     this._authService = authService;
   }
 
@@ -25,7 +25,6 @@ export class AuthUseCase {
     if (!user) throw new ResourceNotFound(`No se encontró el usuario con correo: ${loginDto.email.trim()}`);
 
     const isPasswordMatching: boolean = await this._authService.validatePassword(loginDto.password.trim(), user.password.trim());
-    console.log(isPasswordMatching)
     if (!isPasswordMatching) throw new IncorrectPassword();
 
     const dataToken: DataStoredInToken = {

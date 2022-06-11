@@ -1,6 +1,4 @@
-import { Injectable } from "@nestjs/common";
-import { ClientService } from "src/data/typeorm/service/client.service";
-import { UserService } from "src/data/typeorm/service/user.service";
+import { Inject, Injectable } from "@nestjs/common";
 import { ClientRepository } from "src/domain/repository/client.repository";
 import { ResourceAlreadyRegistered } from "../error/resourceAlreadyRegistered.error";
 import { ResourceNotFound } from "../error/resourceNotFound.exception";
@@ -15,12 +13,11 @@ export class ClientUseCase {
   private _userRepository: UserRepository
 
   constructor(
-    clientService: ClientService,
-    userService: UserService,
-
+    @Inject('ClientRepository') clientRepositor: ClientRepository,
+    @Inject('UserRepository') userRepository: UserRepository,
   ) {
-    this._clientRepository = clientService;
-    this._userRepository = userService;
+    this._clientRepository = clientRepositor;
+    this._userRepository = userRepository;
   }
 
   async getClients(): Promise<ClientModel[]> {
