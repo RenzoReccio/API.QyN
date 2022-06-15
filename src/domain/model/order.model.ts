@@ -3,6 +3,7 @@ import { StatusOrderEnum } from "src/data/typeorm/enum/order.enum";
 import { Client } from "./interface/client.interface";
 import { Order } from "./interface/order.interface";
 import { OrderDetail } from "./interface/orderDetail.interface";
+import { OrderDetailModel } from "./orderDetail.model";
 
 export class OrderModel implements Order {
   @ApiProperty()
@@ -20,12 +21,12 @@ export class OrderModel implements Order {
   @ApiProperty()
   comments: String;
 
-  @ApiProperty()
+  @ApiProperty({ type: OrderDetailModel, isArray: true })
   orderDetails: OrderDetail[];
 
   constructor(
     id: number, client: Client, status: StatusOrderEnum,
-    estimatedDate: Date,  comments: string, orderDetails: OrderDetail[]
+    estimatedDate: Date, comments: string, orderDetails: OrderDetail[]
   ) {
     this.id = id;
     this.client = client;

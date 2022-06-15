@@ -31,8 +31,8 @@ export class OrderUseCase {
       let clientInsert = new ClientModel(
         null, createOrderDto.rucClient, createOrderDto.nameClient, 'Sin especificar',
         createOrderDto.phoneClient, createOrderDto.emailClient, [], []
-      )
-      clientFind = await this._clientRepository.insert(clientInsert)
+      );
+      clientFind = await this._clientRepository.insert(clientInsert);
     }
     let orderInsert = new OrderModel(
       null, clientFind, StatusOrderEnum.CREADO, new Date(), createOrderDto.comments, []
@@ -42,11 +42,12 @@ export class OrderUseCase {
     let orderDetailInsert: OrderDetailModel[] = [];
     for (const orderDetail of createOrderDto.orderDetail) {
       let product = new ProductModel(orderDetail.idProduct, null, null, null, null, null, null, null, null)
-      orderDetailInsert.push(new OrderDetailModel(null, orderInsert, product, orderDetail.quantity));
+      let order = new OrderModel(orderInsert.id, null, null, null, null, null);
+      orderDetailInsert.push(new OrderDetailModel(null, order, product, orderDetail.quantity));
     }
 
     orderDetailInsert = await this._orderDetailRepository.insertMany(orderDetailInsert);
-  
+
     orderInsert.orderDetails = orderDetailInsert;
 
     return orderInsert;

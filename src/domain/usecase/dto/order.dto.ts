@@ -1,6 +1,28 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsEmail, IsNumber, IsPhoneNumber, IsString, MaxLength, MinLength } from "class-validator";
 
+export class CreateDetailOrderDto {
+  @ApiProperty()
+  @IsNumber({
+    allowInfinity: false,
+    allowNaN: false,
+    maxDecimalPlaces: 0
+  }, {
+    message: 'La cantidad no tiene el formato correcto.'
+  })
+  idProduct: number;
+
+  @ApiProperty()
+  @IsNumber({
+    allowInfinity: false,
+    allowNaN: false,
+    maxDecimalPlaces: 0
+  }, {
+    message: 'La cantidad no tiene el formato correcto.'
+  })
+  quantity: number;
+}
+
 export class CreateOrderDto {
   @ApiProperty()
   @IsString({ message: 'No tiene el formato correcto.' })
@@ -26,29 +48,7 @@ export class CreateOrderDto {
   })
   emailClient: string;
 
-  @ApiProperty()
+  @ApiProperty( {type: CreateDetailOrderDto})
   @IsArray({ message: 'No tiene el formato correcto.' })
   orderDetail: CreateDetailOrderDto[]
-}
-
-export class CreateDetailOrderDto {
-  @ApiProperty()
-  @IsNumber({
-    allowInfinity: false,
-    allowNaN: false,
-    maxDecimalPlaces: 0
-  }, {
-    message: 'La cantidad no tiene el formato correcto.'
-  })
-  idProduct: number;
-
-  @ApiProperty()
-  @IsNumber({
-    allowInfinity: false,
-    allowNaN: false,
-    maxDecimalPlaces: 0
-  }, {
-    message: 'La cantidad no tiene el formato correcto.'
-  })
-  quantity: number;
 }
