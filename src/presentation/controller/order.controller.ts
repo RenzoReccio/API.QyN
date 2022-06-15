@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrderModel } from 'src/domain/model/order.model';
 import { CreateOrderDto } from 'src/domain/usecase/dto/order.dto';
@@ -11,6 +11,18 @@ export class OrderController {
   constructor(
     private readonly orderUseCase: OrderUseCase
   ) {
+  }
+
+  @Get('')
+  @ApiResponse({ type: OrderModel, isArray: true, status: 200 })
+  async getProducts() {
+    let orders = await this.orderUseCase.getOrders();
+    let response = new CustomResponse<OrderModel[]>(
+      `Pedidos encontrados: ${orders.length}.`,
+      orders,
+      null
+    )
+    return response;
   }
 
   @Post('')

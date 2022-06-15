@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { StatusOrderEnum } from "../enum/order.enum";
 import { ClientEntity } from "./client.entity";
 import { Order } from "../../../domain/model/interface/order.interface";
@@ -23,4 +23,12 @@ export class OrderEntity extends BaseEntity implements Order {
 
   @Column()
   comments: String;
+
+  @Column()
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @Column()
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

@@ -34,9 +34,14 @@ export class OrderUseCase {
       );
       clientFind = await this._clientRepository.insert(clientInsert);
     }
+
+    var estimatedDate = new Date();
+    estimatedDate.setDate(estimatedDate.getDate() + 5);
+
     let orderInsert = new OrderModel(
-      null, clientFind, StatusOrderEnum.CREADO, new Date(), createOrderDto.comments, []
+      null, clientFind, StatusOrderEnum.CREADO, estimatedDate, createOrderDto.comments, []
     );
+
 
     orderInsert = await this._orderRepository.insert(orderInsert);
     let orderDetailInsert: OrderDetailModel[] = [];
@@ -51,5 +56,9 @@ export class OrderUseCase {
     orderInsert.orderDetails = orderDetailInsert;
 
     return orderInsert;
+  }
+
+  async getOrders() {
+    return await this._orderRepository.findAll(['client']);
   }
 }
