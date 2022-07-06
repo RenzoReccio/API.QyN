@@ -5,9 +5,18 @@ import { OrderEntity } from '../entity/order.entity';
 
 @Injectable()
 export class OrderService implements OrderRepository {
+  async findOne(id: number, relations?: string[]): Promise<Order> {
+    return await OrderEntity.findOne({ relations: relations ?? [], where: { id: id } });
+  }
+
+  async update(order: Order): Promise<Order> {
+    return await OrderEntity.create(order).save();
+  }
+
   async findAll(relations?: string[]): Promise<Order[]> {
     return OrderEntity.find({ relations: relations ?? [], order: { id: 'ASC' } })
   }
+
   async insert(order: Order): Promise<Order> {
     return await OrderEntity.create(order).save();
   }

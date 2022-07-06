@@ -1,5 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { StatusOrderEnum } from "src/data/typeorm/enum/order.enum";
+import { ResourceNotFound } from "../error/resourceNotFound.exception";
 import { ClientModel } from "../model/client.model";
 import { OrderModel } from "../model/order.model";
 import { OrderDetailModel } from "../model/orderDetail.model";
@@ -7,7 +8,7 @@ import { ProductModel } from "../model/product.model";
 import { ClientRepository } from "../repository/client.repository";
 import { OrderRepository } from "../repository/order.repository";
 import { OrderDetailRepository } from "../repository/orderDetail.repository";
-import { CreateOrderDto } from "./dto/order.dto";
+import { CreateOrderDto, UpdateOrderDto } from "./dto/order.dto";
 
 @Injectable()
 export class OrderUseCase {
@@ -60,5 +61,21 @@ export class OrderUseCase {
 
   async getOrders() {
     return await this._orderRepository.findAll(['client']);
+  }
+
+  async getOrderById(id: number) {
+    return await this._orderRepository.findOne(id, ['client','orderDetails', 'orderDetails.product'])
+  }
+
+  async updateOrder(updateOrderDto: UpdateOrderDto, idOrder: number): Promise<OrderModel> {
+    let orderUpdate = new OrderModel(
+      idOrder, undefined, updateOrderDto.status, new Date(updateOrderDto.estimatedDate), updateOrderDto.comments, undefined
+    );
+
+    let orderExist = await this._orderRepository.findOne(orderUpdate.id);
+
+    if (!orderExist) throw new ResourceNotFound('No existe la orden con el id indicado');
+
+    return await this._orderRepository.update(orderUpdate);
   }
 }
