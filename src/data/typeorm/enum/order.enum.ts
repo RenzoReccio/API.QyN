@@ -4,5 +4,6 @@ export enum StatusOrderEnum {
   EN_FABRICACION = "En Fabricacion",
   LISTO_ENVIO = "Listo para enviar",
   EN_CAMINO = "En camino",
-  ENTREGADO = "Entregado"
+  ENTREGADO = "Entregado",
+  RECHAZADO = "Rechazado",
 }

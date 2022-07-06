@@ -25,6 +25,18 @@ export class OrderController {
     return response;
   }
 
+  @Get('states')
+  @ApiResponse({ type: String, isArray: true, status: 200 })
+  async getOrderStates() {
+    let states = await this.orderUseCase.getOrdersStates();
+    let response = new CustomResponse<string[]>(
+      `Estados encontrados: ${states.length}.`,
+      states,
+      null
+    )
+    return response;
+  }
+
   @Get(':id')
   @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
   async getOrderById(@Param('id') id: number): Promise<CustomResponse<OrderModel>> {
@@ -36,7 +48,7 @@ export class OrderController {
     )
     return response;
   }
-  
+
   @Post('')
   @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
   async insertOrder(@Body() order: CreateOrderDto): Promise<CustomResponse<OrderModel>> {

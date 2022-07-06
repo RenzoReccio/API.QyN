@@ -63,6 +63,10 @@ export class OrderUseCase {
     return await this._orderRepository.findAll(['client']);
   }
 
+  async getOrdersStates() {
+    return await this._orderRepository.getStates();
+  }
+
   async getOrderById(id: number) {
     return await this._orderRepository.findOne(id, ['client','orderDetails', 'orderDetails.product'])
   }

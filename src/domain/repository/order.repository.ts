@@ -5,4 +5,5 @@ export interface OrderRepository {
   update(order: Order): Promise<Order>;
   findAll(relations?: string[]): Promise<Order[]>;
   findOne(id: number, relations?: string[]): Promise<Order>;
+  getStates(): Promise<string[]>;
 }
