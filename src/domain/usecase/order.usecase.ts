@@ -73,7 +73,7 @@ export class OrderUseCase {
 
   async updateOrder(updateOrderDto: UpdateOrderDto, idOrder: number): Promise<OrderModel> {
     let orderUpdate = new OrderModel(
-      idOrder, undefined, updateOrderDto.status, new Date(updateOrderDto.estimatedDate), updateOrderDto.comments, undefined
+      idOrder, undefined, updateOrderDto.status, undefined, updateOrderDto.comments, undefined
     );
 
     let orderExist = await this._orderRepository.findOne(orderUpdate.id);

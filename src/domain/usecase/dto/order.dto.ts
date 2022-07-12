@@ -59,10 +59,6 @@ export class UpdateOrderDto {
   @IsString({ message: 'No tiene el formato correcto.' })
   comments: string;
 
-  @ApiProperty()
-  @IsDateString({ message: 'No tiene el formato correcto.' })
-  estimatedDate: string;
-
   @ApiProperty({enum: StatusOrderEnum})
   @IsEnum(StatusOrderEnum, { message: 'No se seleccionó un estado admitido.' })
   status: StatusOrderEnum;
