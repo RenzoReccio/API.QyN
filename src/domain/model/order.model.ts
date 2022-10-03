@@ -19,13 +19,15 @@ export class OrderModel implements Order {
   estimatedDate: Date;
 
   @ApiProperty()
-  comments: String;
+  comments: string;
 
   @ApiProperty({ type: OrderDetailModel, isArray: true })
   orderDetails: OrderDetail[];
 
+  @ApiProperty()  
+  address: string;
   constructor(
-    id: number, client: Client, status: StatusOrderEnum,
+    id: number, client: Client, status: StatusOrderEnum, address: string,
     estimatedDate: Date, comments: string, orderDetails: OrderDetail[]
   ) {
     this.id = id;
@@ -34,5 +36,6 @@ export class OrderModel implements Order {
     this.estimatedDate = estimatedDate;
     this.comments = comments;
     this.orderDetails = orderDetails;
+    this.address = address;
   }
 }

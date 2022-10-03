@@ -22,8 +22,11 @@ export class OrderEntity extends BaseEntity implements Order {
   estimatedDate: Date;
 
   @Column()
-  comments: String;
+  comments: string;
 
+  @Column({nullable: true})
+  address: string;
+  
   @Column()
   @CreateDateColumn()
   createdAt: Date;

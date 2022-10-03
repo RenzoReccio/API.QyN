@@ -50,14 +50,27 @@ export class CreateOrderDto {
   emailClient: string;
 
   @ApiProperty({ type: CreateDetailOrderDto })
-  @IsArray({ message: 'No tiene el formato correcto.' })
+  @IsArray({ message: 'El detalle de orden no tiene el formato correcto.' })
   orderDetail: CreateDetailOrderDto[]
+
+  @ApiProperty()
+  @IsString({ message: 'La direccion no tiene el formato correcto.' })
+  address: string
 }
 
 export class UpdateOrderDto {
   @ApiProperty()
-  @IsString({ message: 'No tiene el formato correcto.' })
+  @IsString({ message: 'Los comentarios no tienen el formato correcto.' })
   comments: string;
+
+  @ApiProperty()
+  @IsDateString()
+  @IsString({ message: 'La fecha no tiene el formato correcto.' })
+  estimatedDate: string
+  
+  @ApiProperty()
+  @IsString({ message: 'La direccion no tiene el formato correcto.' })
+  address: string
 
   @ApiProperty({enum: StatusOrderEnum})
   @IsEnum(StatusOrderEnum, { message: 'No se seleccionó un estado admitido.' })

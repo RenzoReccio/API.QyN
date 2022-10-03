@@ -6,7 +6,8 @@ export interface Order {
   id: number;
   client: Client;
   status: StatusOrderEnum;
+  address: string;
   estimatedDate: Date;
-  comments: String;
+  comments: string;
   orderDetails: OrderDetail[];
 }

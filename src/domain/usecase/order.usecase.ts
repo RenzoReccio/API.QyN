@@ -40,7 +40,7 @@ export class OrderUseCase {
     estimatedDate.setDate(estimatedDate.getDate() + 5);
 
     let orderInsert = new OrderModel(
-      null, clientFind, StatusOrderEnum.CREADO, estimatedDate, createOrderDto.comments, []
+      null, clientFind, StatusOrderEnum.CREADO, createOrderDto.address,estimatedDate, createOrderDto.comments, []
     );
 
 
@@ -48,7 +48,7 @@ export class OrderUseCase {
     let orderDetailInsert: OrderDetailModel[] = [];
     for (const orderDetail of createOrderDto.orderDetail) {
       let product = new ProductModel(orderDetail.idProduct, null, null, null, null, null, null, null, null)
-      let order = new OrderModel(orderInsert.id, null, null, null, null, null);
+      let order = new OrderModel(orderInsert.id, null, null, null, null,null, null);
       orderDetailInsert.push(new OrderDetailModel(null, order, product, orderDetail.quantity));
     }
 
@@ -73,7 +73,7 @@ export class OrderUseCase {
 
   async updateOrder(updateOrderDto: UpdateOrderDto, idOrder: number): Promise<OrderModel> {
     let orderUpdate = new OrderModel(
-      idOrder, undefined, updateOrderDto.status, undefined, updateOrderDto.comments, undefined
+      idOrder, undefined, updateOrderDto.status, updateOrderDto.address, new Date(updateOrderDto.estimatedDate), updateOrderDto.comments, undefined
     );
 
     let orderExist = await this._orderRepository.findOne(orderUpdate.id);
