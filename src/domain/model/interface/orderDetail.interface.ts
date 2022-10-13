@@ -6,4 +6,5 @@ export interface OrderDetail {
   order: Order;
   product: Product;
   quantity: number;
+  salesPrice: number;
 }

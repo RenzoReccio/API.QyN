@@ -7,12 +7,16 @@ import { ProductEntity } from "./product.entity";
 export class OrderDetailEntity extends BaseEntity implements OrderDetail {
   @PrimaryGeneratedColumn()
   id: number;
+  
   @ManyToOne(() => OrderEntity, (orderEntity) => orderEntity.orderDetails)
   order: OrderEntity;
-
+  
   @ManyToOne(() => ProductEntity)
   product: ProductEntity;
 
   @Column()
   quantity: number;
+
+  @Column()
+  salesPrice: number;
 }

@@ -1,10 +1,10 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { TypeProductEnum } from "../enum/product.enum";
+import { Category } from "src/domain/model/interface/category.interface";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "../../../domain/model/interface/product.interface";
+import { CategoryEntity } from "./category.entity";
 
 @Entity()
 export class ProductEntity extends BaseEntity implements Product {
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -13,12 +13,6 @@ export class ProductEntity extends BaseEntity implements Product {
 
   @Column()
   name: string;
-
-  @Column({
-    type: 'enum',
-    enum: TypeProductEnum
-  })
-  type: TypeProductEnum;
 
   @Column({ nullable: true, default: 0 })
   salesPrice: number;
@@ -34,4 +28,13 @@ export class ProductEntity extends BaseEntity implements Product {
 
   @Column({ nullable: true, default: '' })
   urlImage: string;
+
+  @ManyToOne(() => CategoryEntity)
+  category: Category;
+
+  @Column()
+  minStock: number;
+
+  @Column()
+  maxStock: number;
 }

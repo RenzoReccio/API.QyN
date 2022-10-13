@@ -1,8 +1,8 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { StatusOrderEnum } from "../enum/order.enum";
-import { ClientEntity } from "./client.entity";
 import { Order } from "../../../domain/model/interface/order.interface";
+import { ClientEntity } from "./client.entity";
 import { OrderDetailEntity } from "./orderDetail.entity";
+import { OrderStatusEntity } from "./orderStatus.entity";
 
 @Entity()
 export class OrderEntity extends BaseEntity implements Order {
@@ -15,8 +15,8 @@ export class OrderEntity extends BaseEntity implements Order {
   @OneToMany(() => OrderDetailEntity, (orderDetailEntity) => orderDetailEntity.order)
   orderDetails: OrderDetailEntity[];
 
-  @Column({ type: 'enum', enum: StatusOrderEnum, default: StatusOrderEnum.CREADO })
-  status: StatusOrderEnum;
+  @ManyToOne(() => OrderStatusEntity)
+  orderStatus: OrderStatusEntity;
 
   @Column()
   estimatedDate: Date;
@@ -24,9 +24,9 @@ export class OrderEntity extends BaseEntity implements Order {
   @Column()
   comments: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   address: string;
-  
+
   @Column()
   @CreateDateColumn()
   createdAt: Date;

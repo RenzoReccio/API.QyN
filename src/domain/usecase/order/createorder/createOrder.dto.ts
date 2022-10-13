@@ -1,6 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsArray, IsDateString, IsEmail, IsEnum, IsNumber, IsPhoneNumber, IsString, MaxLength, MinLength } from "class-validator";
-import { StatusOrderEnum } from "src/data/typeorm/enum/order.enum";
+import { IsArray, IsEmail, IsNumber, IsPhoneNumber, IsString, MaxLength, MinLength } from "class-validator";
 
 export class CreateDetailOrderDto {
   @ApiProperty()
@@ -56,23 +55,4 @@ export class CreateOrderDto {
   @ApiProperty()
   @IsString({ message: 'La direccion no tiene el formato correcto.' })
   address: string
-}
-
-export class UpdateOrderDto {
-  @ApiProperty()
-  @IsString({ message: 'Los comentarios no tienen el formato correcto.' })
-  comments: string;
-
-  @ApiProperty()
-  @IsDateString()
-  @IsString({ message: 'La fecha no tiene el formato correcto.' })
-  estimatedDate: string
-  
-  @ApiProperty()
-  @IsString({ message: 'La direccion no tiene el formato correcto.' })
-  address: string
-
-  @ApiProperty({enum: StatusOrderEnum})
-  @IsEnum(StatusOrderEnum, { message: 'No se seleccionó un estado admitido.' })
-  status: StatusOrderEnum;
 }

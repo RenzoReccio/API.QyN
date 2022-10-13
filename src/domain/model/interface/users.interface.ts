@@ -1,12 +1,11 @@
 import { Client } from "./client.interface";
+import { Person } from "./person.interface";
 
 export interface User {
   id: number;
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
-  surName: string;
   isActive: boolean;
-  clients: Client[];
+  client: Client;
+  person: Person;
 }
