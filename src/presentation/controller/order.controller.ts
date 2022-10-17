@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrderModel } from 'src/domain/model/order.model';
-// import { CreateOrderDto } from 'src/domain/usecase/order/createOrder/createOrder.dto';
-// import { CreateOrderUseCase } from 'src/domain/usecase/order/createOrder/createOrder.usecase';
 import { ListOrderResponse } from 'src/domain/usecase/order/listOrders/listOrders.response';
 import { ListOrdersUseCase } from 'src/domain/usecase/order/listOrders/listOrders.usecase';
+import { ListOrderStatusResponse } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.response';
+import { ListOrderStatusUseCase } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { UpdateOrderDto } from 'src/domain/usecase/order/updateOrder/updateOrder.dto';
 import { UpdateOrderResponse } from 'src/domain/usecase/order/updateOrder/updateOrder.response';
 import { UpdateOrderUseCase } from 'src/domain/usecase/order/updateOrder/updateOrder.usecase';
@@ -14,10 +14,9 @@ import { CustomResponse } from 'src/utils/response/response.model';
 @ApiTags('order')
 export class OrderController {
   constructor(
-    // private createOrderUseCase: CreateOrderUseCase,
     private listOrdersUseCase: ListOrdersUseCase,
     private updateOrderUseCase: UpdateOrderUseCase,
-
+    private listOrderStatusUseCase: ListOrderStatusUseCase
   ) {
   }
 
@@ -33,17 +32,17 @@ export class OrderController {
     return response;
   }
 
-  // @Get('states')
-  // @ApiResponse({ type: String, isArray: true, status: 200 })
-  // async getOrderStates() {
-  //   let states = await this.orderUseCase.getOrdersStates();
-  //   let response = new CustomResponse<string[]>(
-  //     `Estados encontrados: ${states.length}.`,
-  //     states,
-  //     null
-  //   )
-  //   return response;
-  // }
+  @Get('status')
+  @ApiResponse({ type: ListOrderStatusResponse, isArray: true, status: 200 })
+  async getOrderStates() {
+    let status = await this.listOrderStatusUseCase.get();
+    let response = new CustomResponse<ListOrderStatusResponse[]>(
+      `Estados encontrados: ${status.length}.`,
+      status,
+      null
+    )
+    return response;
+  }
 
   // @Get(':id')
   // @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
