@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Put, UsePipes, ValidationPipe } fro
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrderModel } from 'src/domain/model/order.model';
 import { CreateOrderDto } from 'src/domain/usecase/order/createOrder/createOrder.dto';
-import { CreateOrderUseCase } from 'src/domain/usecase/order/createOrder/createOrder.usecase';
+// import { CreateOrderUseCase } from 'src/domain/usecase/order/createOrder/createOrder.usecase';
 import { ListOrderResponse } from 'src/domain/usecase/order/listOrders/listOrders.response';
 import { ListOrdersUseCase } from 'src/domain/usecase/order/listOrders/listOrders.usecase';
 import { UpdateOrderDto } from 'src/domain/usecase/order/updateOrder/updateOrder.dto';
@@ -14,7 +14,7 @@ import { CustomResponse } from 'src/utils/response/response.model';
 @ApiTags('order')
 export class OrderController {
   constructor(
-    private createOrderUseCase: CreateOrderUseCase,
+    // private createOrderUseCase: CreateOrderUseCase,
     private listOrdersUseCase: ListOrdersUseCase,
     private updateOrderUseCase: UpdateOrderUseCase,
 
@@ -58,18 +58,18 @@ export class OrderController {
   // }
 
 
-  @Post('')
-  @UsePipes(new ValidationPipe({ transform: true }))
-  @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
-  async insertOrder(@Body() order: CreateOrderDto): Promise<CustomResponse<OrderModel>> {
-    let orderInsert = await this.createOrderUseCase.get(order);
-    let response = new CustomResponse<OrderModel>(
-      `Pedido con código: ${orderInsert.id}, registrado.`,
-      orderInsert,
-      null
-    )
-    return response;
-  }
+  // @Post('')
+  // @UsePipes(new ValidationPipe({ transform: true }))
+  // @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
+  // async insertOrder(@Body() order: CreateOrderDto): Promise<CustomResponse<OrderModel>> {
+  //   let orderInsert = await this.createOrderUseCase.get(order);
+  //   let response = new CustomResponse<OrderModel>(
+  //     `Pedido con código: ${orderInsert.id}, registrado.`,
+  //     orderInsert,
+  //     null
+  //   )
+  //   return response;
+  // }
 
   @Put(':id')
   @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
