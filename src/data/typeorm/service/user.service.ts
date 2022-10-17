@@ -9,7 +9,7 @@ export class UserService implements UserRepository {
     return await UserEntity.findByIds(Array.from(ids));
   }
   
-  async findByEmail(email: string): Promise<User> {
-    return await UserEntity.findOne({ where: { email: email } });
+  async findByEmail(email: string, relations: string[]): Promise<User> {
+    return await UserEntity.findOne({ relations: relations ?? [], where: { email: email } });
   }
 }

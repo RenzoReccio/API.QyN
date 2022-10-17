@@ -59,20 +59,6 @@ export class OrderController {
     return response;
   }
 
-
-  // @Post('')
-  // @UsePipes(new ValidationPipe({ transform: true }))
-  // @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
-  // async insertOrder(@Body() order: CreateOrderDto): Promise<CustomResponse<OrderModel>> {
-  //   let orderInsert = await this.createOrderUseCase.get(order);
-  //   let response = new CustomResponse<OrderModel>(
-  //     `Pedido con código: ${orderInsert.id}, registrado.`,
-  //     orderInsert,
-  //     null
-  //   )
-  //   return response;
-  // }
-
   @Put(':id')
   @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
   async updateOrder(@Param('id') id: string, @Body() order: UpdateOrderDto): Promise<CustomResponse<UpdateOrderResponse>> {

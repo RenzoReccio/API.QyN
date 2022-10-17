@@ -1,8 +1,9 @@
-import { Inject } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { OrderRepository } from "src/domain/repository/order.repository";
 import { BaseUseCase } from "../../base/base.usecase";
 import { ListOrderByIdResponse } from "./listOrderById.response";
 
+@Injectable()
 export class ListOrderByIdUseCase implements BaseUseCase<number, ListOrderByIdResponse>{
 
   constructor(

@@ -1,26 +1,27 @@
-// import { Body, Controller, Post, Response } from '@nestjs/common';
-// import { ApiResponse } from '@nestjs/swagger';
-// import { Response as Res } from 'express';
-// import { AuthUseCase } from 'src/domain/usecase/auth.usecase';
-// import { LoginDto } from 'src/domain/usecase/dto/auth.dto';
-// import { CustomResponse } from 'src/utils/response/response.model';
+import { Body, Controller, Post, Response } from '@nestjs/common';
+import { ApiResponse } from '@nestjs/swagger';
+import { Response as Res } from 'express';
+import { LoginDto } from 'src/domain/usecase/auth/login/login.dto';
+import { LoginUseCase } from 'src/domain/usecase/auth/login/login.usecase';
 
-// @Controller('login')
-// export class AuthController {
-//   constructor(
-//     private _authUseCase: AuthUseCase
-//   ) { }
+import { CustomResponse } from 'src/utils/response/response.model';
 
-//   @Post('')
-//   @ApiResponse({ type: String, isArray: false, status: 200 })
-//   async login(@Body() loginDto: LoginDto, @Response() res: Res): Promise<Res<any, Record<string, any>>> {
-//     let bearerToken = await this._authUseCase.login(loginDto);
-//     let response = new CustomResponse<string>(
-//       `Inicio de sesión correcto.`,
-//       'Correcto',
-//       null
-//     )
-//     return res.header('Authorization', bearerToken).json(response);
-//   }
+@Controller('login')
+export class AuthController {
+  constructor(
+    private _loginUseCase: LoginUseCase
+  ) { }
 
-// }
+  @Post('')
+  @ApiResponse({ type: String, isArray: false, status: 200 })
+  async login(@Body() loginDto: LoginDto, @Response() res: Res): Promise<Res<any, Record<string, any>>> {
+    let bearerToken = await this._loginUseCase.get(loginDto);
+    let response = new CustomResponse<string>(
+      `Inicio de sesión correcto.`,
+      'Correcto',
+      null
+    )
+    return res.header('Authorization', bearerToken).json(response);
+  }
+
+}

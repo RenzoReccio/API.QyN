@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { compare, hash } from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
 import { ConfigService } from '../config/config.service';
-import { IAuthService } from './auth.inteface';
+import { IAuthService } from './auth.interface';
 import { DataStoredInToken } from './models/auth.interface';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class AuthService implements IAuthService {
     const expiresIn: number = 60 * 60;
 
 
-    return sign(dataStoredInToken, secretKey, { expiresIn });
+    return sign({ data: dataStoredInToken }, secretKey, { expiresIn });
   }
 
   public async verifyToken(token: string): Promise<DataStoredInToken> {
