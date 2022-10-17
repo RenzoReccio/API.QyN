@@ -6,6 +6,7 @@ import { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE } from 'src/utils/c
 import { ClientService } from './service/client.service';
 import { OrderDetailService } from './service/order-detail.service';
 import { OrderService } from './service/order.service';
+import { OrderStatusService } from './service/orderStatus.service';
 import { ProductService } from './service/product.service';
 import { UserService } from './service/user.service';
 
@@ -32,13 +33,15 @@ import { UserService } from './service/user.service';
     OrderService,
     ProductService,
     UserService,
+    OrderStatusService
   ],
   providers: [
     ClientService,
     OrderDetailService,
     OrderService,
     ProductService,
-    UserService
+    UserService,
+    OrderStatusService
   ]
 })
 export class TypeormModule { }

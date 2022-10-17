@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsArray, IsEmail, IsNumber, IsPhoneNumber, IsString, MaxLength, MinLength } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 export class CreateDetailOrderDto {
   @ApiProperty()
@@ -25,34 +25,15 @@ export class CreateDetailOrderDto {
 
 export class CreateOrderDto {
   @ApiProperty()
-  @IsString({ message: 'No tiene el formato correcto.' })
+  @IsString({ message: 'Los comentarios no tienen el formato correcto.' })
   comments: string;
 
-  //Client Properties
-  @ApiProperty()
-  @IsString({ message: 'No tiene el formato correcto.' })
-  @MaxLength(11, { message: 'El RUC debe tener 11 digitos' })
-  @MinLength(11, { message: 'El RUC debe tener 11 digitos' })
-  rucClient: string;
 
-  @ApiProperty()
-  nameClient: string;
+  // @ApiProperty({ type: CreateDetailOrderDto })
+  // @IsArray({ message: 'El detalle de orden no tiene el formato correcto.' })
+  // orderDetail: CreateDetailOrderDto[]
 
-  @ApiProperty()
-  @IsPhoneNumber(null, { message: 'El telefono no tiene el formato correcto' })
-  phoneClient: string;
-
-  @ApiProperty()
-  @IsEmail({}, {
-    message: 'El email no tiene el formato correcto'
-  })
-  emailClient: string;
-
-  @ApiProperty({ type: CreateDetailOrderDto })
-  @IsArray({ message: 'El detalle de orden no tiene el formato correcto.' })
-  orderDetail: CreateDetailOrderDto[]
-
-  @ApiProperty()
-  @IsString({ message: 'La direccion no tiene el formato correcto.' })
-  address: string
+  // @ApiProperty()
+  // @IsString({ message: 'La direccion no tiene el formato correcto.' })
+  // address: string
 }

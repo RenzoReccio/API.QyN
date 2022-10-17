@@ -7,13 +7,13 @@ import { OrderStatus } from "./interface/orderStatus.interface";
 export class OrderModel implements Order {
 
     
-  address: string;
   id: number;
   client: Client;
   orderStatus: OrderStatus;
   estimatedDate: Date;
   comments: string;
   orderDetails: OrderDetail[];
+  address: string;
   createdAt: Date;
   updatedAt: Date;
 
@@ -28,5 +28,7 @@ export class OrderModel implements Order {
     this.comments = comments;
     this.orderDetails = orderDetails;
     this.address = address;
+    this.createdAt = undefined;
+    this.updatedAt = undefined;
   }
 }

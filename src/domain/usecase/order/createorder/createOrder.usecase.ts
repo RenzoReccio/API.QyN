@@ -1,28 +1,20 @@
-import { Inject } from "@nestjs/common";
-import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
+import { Inject, Injectable } from "@nestjs/common";
 import { OrderModel } from "src/domain/model/order.model";
 import { ClientRepository } from "src/domain/repository/client.repository";
 import { OrderRepository } from "src/domain/repository/order.repository";
 import { OrderDetailRepository } from "src/domain/repository/orderDetail.repository";
 import { CreateOrderDto } from "./createOrder.dto";
 
-export class CreateOrderUseCase {
-  constructor(
-    public readonly createOrderDto: CreateOrderDto,
-  ) { }
-}
-
-@CommandHandler(CreateOrderUseCase)
-export class CreateOrderUseCaseHandler implements ICommandHandler<CreateOrderUseCase> {
+@Injectable()
+export class CreateOrderUseCase  {
   constructor(
     @Inject('OrderRepository') private _orderRepository: OrderRepository,
     @Inject('OrderDetailRepository') private _orderDetailRepository: OrderDetailRepository,
     @Inject('ClientRepository') private _clientRepository: ClientRepository,
   ) { }
 
-  async execute(command: CreateOrderUseCase) {
-    let { createOrderDto } = command;
-    let clientFind = await this._clientRepository.findByRuc(createOrderDto.rucClient.trim());
+  async get(createOrderDto: CreateOrderDto) {
+    // let clientFind = await this._clientRepository.findByRuc(createOrderDto.rucClient.trim());
     // if (!clientFind) {
     //   let clientInsert = new ClientModel(
     //     null, createOrderDto.rucClient, createOrderDto.nameClient, 'Sin especificar',
@@ -34,12 +26,10 @@ export class CreateOrderUseCaseHandler implements ICommandHandler<CreateOrderUse
     var estimatedDate = new Date();
     estimatedDate.setDate(estimatedDate.getDate() + 5);
 
-    // let orderInsert = new OrderModel(
-    //   null, clientFind, , createOrderDto.address, estimatedDate, createOrderDto.comments, []
-    // );
+    let orderInsert = new OrderModel(undefined, null, null, '', estimatedDate, createOrderDto.comments, [])
 
 
-    // orderInsert = await this._orderRepository.insert(orderInsert);
+    orderInsert = await this._orderRepository.insert(orderInsert);
     // let orderDetailInsert: OrderDetailModel[] = [];
     // for (const orderDetail of createOrderDto.orderDetail) {
     //   let product = new ProductModel(orderDetail.idProduct, null, null, null, null, null, null, null, null)
@@ -51,6 +41,6 @@ export class CreateOrderUseCaseHandler implements ICommandHandler<CreateOrderUse
 
     // orderInsert.orderDetails = orderDetailInsert;
 
-    return {};
+    return orderInsert;
   }
 }
