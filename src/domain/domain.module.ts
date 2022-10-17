@@ -2,6 +2,7 @@ import { Module, Provider } from '@nestjs/common';
 import { DataModule } from 'src/data/data.module';
 import { TypeormModule } from 'src/data/typeorm/typeorm.module';
 import { UtilsModule } from 'src/utils/utils.module';
+import { ListOrderByIdUseCase } from './usecase/order/listOrderById/listOrderById.usecase';
 import { ListOrdersUseCase } from './usecase/order/listOrders/listOrders.usecase';
 import { ListOrderStatusUseCase } from './usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { UpdateOrderUseCase } from './usecase/order/updateOrder/updateOrder.usecase';
@@ -15,7 +16,8 @@ const typeOrmProviders = (): Provider[] => {
 const OrderUseCases = [
   ListOrdersUseCase, 
   UpdateOrderUseCase,
-  ListOrderStatusUseCase
+  ListOrderStatusUseCase,
+  ListOrderByIdUseCase
 ]
 
 const ProductUseCases = [

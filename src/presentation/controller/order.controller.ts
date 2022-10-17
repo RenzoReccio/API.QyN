@@ -1,6 +1,8 @@
 import { Body, Controller, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrderModel } from 'src/domain/model/order.model';
+import { ListOrderByIdResponse } from 'src/domain/usecase/order/listOrderById/listOrderById.response';
+import { ListOrderByIdUseCase } from 'src/domain/usecase/order/listOrderById/listOrderById.usecase';
 import { ListOrderResponse } from 'src/domain/usecase/order/listOrders/listOrders.response';
 import { ListOrdersUseCase } from 'src/domain/usecase/order/listOrders/listOrders.usecase';
 import { ListOrderStatusResponse } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.response';
@@ -16,7 +18,8 @@ export class OrderController {
   constructor(
     private listOrdersUseCase: ListOrdersUseCase,
     private updateOrderUseCase: UpdateOrderUseCase,
-    private listOrderStatusUseCase: ListOrderStatusUseCase
+    private listOrderStatusUseCase: ListOrderStatusUseCase,
+    private listOrderByIdUseCase: ListOrderByIdUseCase
   ) {
   }
 
@@ -44,17 +47,17 @@ export class OrderController {
     return response;
   }
 
-  // @Get(':id')
-  // @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
-  // async getOrderById(@Param('id') id: number): Promise<CustomResponse<OrderModel>> {
-  //   let client = await this.orderUseCase.getOrderById(id);
-  //   let response = new CustomResponse<OrderModel>(
-  //     `Pedido con Id: ${client.id}, encontrado.`,
-  //     client,
-  //     null
-  //   )
-  //   return response;
-  // }
+  @Get(':id')
+  @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
+  async getOrderById(@Param('id') id: number): Promise<CustomResponse<ListOrderByIdResponse>> {
+    let order = await this.listOrderByIdUseCase.get(Number(id));
+    let response = new CustomResponse<ListOrderByIdResponse>(
+      `Pedido con Id: ${order.id}, encontrado.`,
+      order,
+      null
+    )
+    return response;
+  }
 
 
   // @Post('')
