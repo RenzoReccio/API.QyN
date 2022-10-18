@@ -3,6 +3,7 @@ import { DataModule } from 'src/data/data.module';
 import { TypeormModule } from 'src/data/typeorm/typeorm.module';
 import { UtilsModule } from 'src/utils/utils.module';
 import { LoginUseCase } from './usecase/auth/login/login.usecase';
+import { CreateClientOrderUseCase } from './usecase/order/createClientOrder/createClientOrder.usecase';
 import { ListOrderByIdUseCase } from './usecase/order/listOrderById/listOrderById.usecase';
 import { ListOrdersUseCase } from './usecase/order/listOrders/listOrders.usecase';
 import { ListOrderStatusUseCase } from './usecase/order/listOrderStatus/listOrderStatus.usecase';
@@ -21,7 +22,8 @@ const OrderUseCases = [
   ListOrdersUseCase,
   UpdateOrderUseCase,
   ListOrderStatusUseCase,
-  ListOrderByIdUseCase
+  ListOrderByIdUseCase,
+  CreateClientOrderUseCase
 ]
 
 const ProductUseCases = [

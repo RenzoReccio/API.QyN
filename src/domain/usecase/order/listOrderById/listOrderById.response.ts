@@ -85,6 +85,7 @@ export class ListOrderByIdResponse {
   orderDetails: OrderDetailListOrderByIdResponse[];
 
   constructor(order: Order) {
+    this.id = order.id;
     this.orderStatusId = order.orderStatus.id;
     this.estimatedDate = order.estimatedDate;
     this.address = order.address;

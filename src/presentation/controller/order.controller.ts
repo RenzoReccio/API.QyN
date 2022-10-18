@@ -1,6 +1,8 @@
-import { Body, Controller, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrderModel } from 'src/domain/model/order.model';
+import { CreateClientOrderDto } from 'src/domain/usecase/order/createClientOrder/createClientOrder.dto';
+import { CreateClientOrderUseCase } from 'src/domain/usecase/order/createClientOrder/createClientOrder.usecase';
 import { ListOrderByIdResponse } from 'src/domain/usecase/order/listOrderById/listOrderById.response';
 import { ListOrderByIdUseCase } from 'src/domain/usecase/order/listOrderById/listOrderById.usecase';
 import { ListOrderResponse } from 'src/domain/usecase/order/listOrders/listOrders.response';
@@ -10,7 +12,10 @@ import { ListOrderStatusUseCase } from 'src/domain/usecase/order/listOrderStatus
 import { UpdateOrderDto } from 'src/domain/usecase/order/updateOrder/updateOrder.dto';
 import { UpdateOrderResponse } from 'src/domain/usecase/order/updateOrder/updateOrder.response';
 import { UpdateOrderUseCase } from 'src/domain/usecase/order/updateOrder/updateOrder.usecase';
+import { DataStoredInToken } from 'src/utils/auth/models/auth.interface';
 import { CustomResponse } from 'src/utils/response/response.model';
+import { AuthenticationGuard } from '../guard/authentication.guard';
+import { BearerTokenInformation } from '../interceptor/header-token.interceptor';
 
 @Controller('order')
 @ApiTags('order')
@@ -19,7 +24,8 @@ export class OrderController {
     private listOrdersUseCase: ListOrdersUseCase,
     private updateOrderUseCase: UpdateOrderUseCase,
     private listOrderStatusUseCase: ListOrderStatusUseCase,
-    private listOrderByIdUseCase: ListOrderByIdUseCase
+    private listOrderByIdUseCase: ListOrderByIdUseCase,
+    private createClientOrderUseCase: CreateClientOrderUseCase
   ) {
   }
 
@@ -54,6 +60,20 @@ export class OrderController {
     let response = new CustomResponse<ListOrderByIdResponse>(
       `Pedido con Id: ${order.id}, encontrado.`,
       order,
+      null
+    )
+    return response;
+  }
+
+  @Post('client')
+  @UseGuards(AuthenticationGuard)
+  @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
+  async createOrderClient(@BearerTokenInformation() information: DataStoredInToken,  @Body() order: CreateClientOrderDto) {
+    order.userId = Number(information.id);
+    let orderInsert = await this.createClientOrderUseCase.get(order);
+    let response = new CustomResponse<UpdateOrderResponse>(
+      `Pedido con código: ${orderInsert.id}, creado.`,
+      orderInsert,
       null
     )
     return response;

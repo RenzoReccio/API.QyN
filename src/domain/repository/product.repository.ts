@@ -5,4 +5,5 @@ export interface ProductRepository {
   findAllCatalog(relations?: string[]): Promise<Product[]>;
   insert(product: Product): Promise<Product>;
   getOneByCode(code: string): Promise<Product>;
+  getByIds(ids: number[]): Promise<Product[]>;
 }

@@ -7,8 +7,9 @@ import { ClientEntity } from '../entity/client.entity';
 @Injectable()
 export class ClientService implements ClientRepository {
 
-  clientRepository: Repository<ClientEntity>;
-  constructor() {
+
+  async findByUserId(userId: number): Promise<Client> {
+    return await ClientEntity.createQueryBuilder("client").leftJoinAndSelect("client.user", "user").where("user.id = :userId", { userId: userId }).getOne()
   }
 
   async findByRuc(ruc: string): Promise<Client> {

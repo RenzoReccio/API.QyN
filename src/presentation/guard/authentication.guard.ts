@@ -21,7 +21,7 @@ export class AuthenticationGuard implements CanActivate {
     const Authorization = (request.header('Authorization') ? request.header('Authorization').split('Bearer ')[1] : null);
     if (Authorization) {
       try {
-        (await this._authService.verifyToken(Authorization))
+        request.BearerTokenSecurity = (await this._authService.verifyToken(Authorization))
       } catch (error) {
         throw new HttpException('Token invalido.', 401);
       }
