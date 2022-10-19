@@ -9,6 +9,7 @@ import { OrderService } from './service/order.service';
 import { OrderStatusService } from './service/orderStatus.service';
 import { ProductService } from './service/product.service';
 import { UserService } from './service/user.service';
+import { VehicleService } from './service/vehicle.service';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { UserService } from './service/user.service';
     OrderService,
     ProductService,
     UserService,
-    OrderStatusService
+    OrderStatusService,
+    VehicleService
   ],
   providers: [
     ClientService,
@@ -41,7 +43,8 @@ import { UserService } from './service/user.service';
     OrderService,
     ProductService,
     UserService,
-    OrderStatusService
+    OrderStatusService,
+    VehicleService
   ]
 })
 export class TypeormModule { }

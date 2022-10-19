@@ -19,6 +19,7 @@ export class ListCatalogResponse {
   
   @ApiProperty()
   urlImage: string;
+  
   constructor(product: Product) {
     this.id = product.id;
     this.code = product.code;

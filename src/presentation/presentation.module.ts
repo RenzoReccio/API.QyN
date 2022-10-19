@@ -7,6 +7,7 @@ import { OrderController } from './controller/order.controller';
 // import { ClientController } from './controller/client.controller';
 // import { OrderController } from './controller/order.controller';
 import { ProductController } from './controller/product.controller';
+import { VehicleController } from './controller/vehicle.controller';
 import { AuthenticationGuard } from './guard/authentication.guard';
 
 @Module({
@@ -15,7 +16,8 @@ import { AuthenticationGuard } from './guard/authentication.guard';
     // ClientController,
     AuthController,
     ProductController,
-    OrderController
+    OrderController,
+    VehicleController
   ],
   providers: [
     AuthenticationGuard,

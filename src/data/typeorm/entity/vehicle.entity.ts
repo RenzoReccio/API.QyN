@@ -8,6 +8,7 @@ import { TypeVehicleEntity } from "./typeVehicle.entity";
 @Entity()
 export class VehicleEntity extends BaseEntity implements Vehicle {
 
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -25,4 +26,8 @@ export class VehicleEntity extends BaseEntity implements Vehicle {
 
   @Column()
   color: string;
+
+  @Column()
+  status: boolean;
+
 }

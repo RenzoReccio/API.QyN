@@ -9,6 +9,7 @@ import { ListOrdersUseCase } from './usecase/order/listOrders/listOrders.usecase
 import { ListOrderStatusUseCase } from './usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { UpdateOrderUseCase } from './usecase/order/updateOrder/updateOrder.usecase';
 import { ListCatalogUseCase } from './usecase/product/listCatalog/listCatalog.usecase';
+import { ListVehiclesUseCase } from './usecase/vehicle/listVehicles/listVehicles.usecase';
 
 
 const typeOrmProviders = (): Provider[] => {
@@ -30,19 +31,24 @@ const ProductUseCases = [
   ListCatalogUseCase
 ]
 
+const VehiclesUseCases = [
+  ListVehiclesUseCase
+]
 
 @Module({
   imports: [DataModule, UtilsModule],
   exports: [
     ...OrderUseCases,
     ...ProductUseCases,
-    ...AuthUseCases
+    ...AuthUseCases,
+    ...VehiclesUseCases
   ],
   providers: [
     ...typeOrmProviders(),
     ...OrderUseCases,
     ...ProductUseCases,
-    ...AuthUseCases
+    ...AuthUseCases,
+    ...VehiclesUseCases
   ]
 })
 export class DomainModule { }

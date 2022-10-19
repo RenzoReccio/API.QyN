@@ -8,4 +8,5 @@ export interface Vehicle {
   plate: string;
   brand: string;
   color: string;
+  status: boolean;
 }
