@@ -2,11 +2,13 @@ import { Module } from '@nestjs/common';
 import { DomainModule } from 'src/domain/domain.module';
 import { UtilsModule } from 'src/utils/utils.module';
 import { AuthController } from './controller/auth.controller';
+import { DriverController } from './controller/driver.controller';
 import { OrderController } from './controller/order.controller';
 // import { AuthController } from './controller/auth.controller';
 // import { ClientController } from './controller/client.controller';
 // import { OrderController } from './controller/order.controller';
 import { ProductController } from './controller/product.controller';
+import { TypeVehicleController } from './controller/typeVehicle.controller';
 import { VehicleController } from './controller/vehicle.controller';
 import { AuthenticationGuard } from './guard/authentication.guard';
 
@@ -17,7 +19,9 @@ import { AuthenticationGuard } from './guard/authentication.guard';
     AuthController,
     ProductController,
     OrderController,
-    VehicleController
+    VehicleController,
+    DriverController,
+    TypeVehicleController
   ],
   providers: [
     AuthenticationGuard,

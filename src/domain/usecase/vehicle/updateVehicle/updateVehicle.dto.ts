@@ -1,6 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class CreateVehicleDto {
+export class UpdateVehicleDto {
+  @ApiProperty()
+  id: number;
+
   @ApiProperty()
   typeVehicleId: number;
 
@@ -12,7 +15,10 @@ export class CreateVehicleDto {
 
   @ApiProperty()
   brand: string;
-  
+
   @ApiProperty()
   color: string;
+
+  @ApiProperty()
+  status: boolean
 }

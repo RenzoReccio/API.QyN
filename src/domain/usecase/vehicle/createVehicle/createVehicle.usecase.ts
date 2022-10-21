@@ -5,7 +5,6 @@ import { CreateVehicleResponse } from "./createVehicle.response";
 import { TypeVehicleRepository } from "../../../repository/typeVehicle.repository"
 import { DriverRepository } from "../../../repository/driver.repository"
 import { VehicleRepository } from "../../../repository/vehicle.repository"
-
 import { VehicleModel } from "src/domain/model/vehicle.model";
 
 export class CreateVehicleUseCase implements BaseUseCase<CreateVehicleDto, CreateVehicleResponse>{

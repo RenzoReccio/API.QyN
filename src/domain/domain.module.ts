@@ -3,13 +3,18 @@ import { DataModule } from 'src/data/data.module';
 import { TypeormModule } from 'src/data/typeorm/typeorm.module';
 import { UtilsModule } from 'src/utils/utils.module';
 import { LoginUseCase } from './usecase/auth/login/login.usecase';
+import { ListDriversUseCase } from './usecase/driver/listDrivers/listDrivers.usecase';
 import { CreateClientOrderUseCase } from './usecase/order/createClientOrder/createClientOrder.usecase';
 import { ListOrderByIdUseCase } from './usecase/order/listOrderById/listOrderById.usecase';
 import { ListOrdersUseCase } from './usecase/order/listOrders/listOrders.usecase';
 import { ListOrderStatusUseCase } from './usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { UpdateOrderUseCase } from './usecase/order/updateOrder/updateOrder.usecase';
 import { ListCatalogUseCase } from './usecase/product/listCatalog/listCatalog.usecase';
+import { ListTypeVehiclesUseCase } from './usecase/typeVehicle/listTypeVehicles/listTypeVehicles.usecase';
+import { CreateVehicleUseCase } from './usecase/vehicle/createVehicle/createVehicle.usecase';
+import { ListVehicleByIdUseCase } from './usecase/vehicle/listVehicleById/listVehicleById.usecase';
 import { ListVehiclesUseCase } from './usecase/vehicle/listVehicles/listVehicles.usecase';
+import { UpdateVehicleUseCase } from './usecase/vehicle/updateVehicle/updateVehicle.usecase';
 
 
 const typeOrmProviders = (): Provider[] => {
@@ -32,7 +37,18 @@ const ProductUseCases = [
 ]
 
 const VehiclesUseCases = [
-  ListVehiclesUseCase
+  ListVehiclesUseCase,
+  ListVehicleByIdUseCase,
+  CreateVehicleUseCase,
+  UpdateVehicleUseCase
+]
+
+const DriverUseCases = [
+  ListDriversUseCase
+]
+
+const TypeVehicleUseCases  = [
+  ListTypeVehiclesUseCase
 ]
 
 @Module({
@@ -41,14 +57,18 @@ const VehiclesUseCases = [
     ...OrderUseCases,
     ...ProductUseCases,
     ...AuthUseCases,
-    ...VehiclesUseCases
+    ...VehiclesUseCases,
+    ...DriverUseCases,
+    ...TypeVehicleUseCases
   ],
   providers: [
     ...typeOrmProviders(),
     ...OrderUseCases,
     ...ProductUseCases,
     ...AuthUseCases,
-    ...VehiclesUseCases
+    ...VehiclesUseCases,
+    ...DriverUseCases,
+    ...TypeVehicleUseCases
   ]
 })
 export class DomainModule { }
