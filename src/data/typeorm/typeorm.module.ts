@@ -4,10 +4,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE } from 'src/utils/config/config';
 import { ClientService } from './service/client.service';
+import { DriverService } from './service/driver.service';
 import { OrderDetailService } from './service/order-detail.service';
 import { OrderService } from './service/order.service';
 import { OrderStatusService } from './service/orderStatus.service';
 import { ProductService } from './service/product.service';
+import { TypeVehicleService } from './service/typeVehicle.service';
 import { UserService } from './service/user.service';
 import { VehicleService } from './service/vehicle.service';
 
@@ -35,7 +37,9 @@ import { VehicleService } from './service/vehicle.service';
     ProductService,
     UserService,
     OrderStatusService,
-    VehicleService
+    VehicleService,
+    TypeVehicleService,
+    DriverService,
   ],
   providers: [
     ClientService,
@@ -44,7 +48,9 @@ import { VehicleService } from './service/vehicle.service';
     ProductService,
     UserService,
     OrderStatusService,
-    VehicleService
+    VehicleService,
+    TypeVehicleService,
+    DriverService,
   ]
 })
 export class TypeormModule { }

@@ -7,6 +7,9 @@ import { VehicleEntity } from '../entity/vehicle.entity';
 
 @Injectable()
 export class VehicleService implements VehicleRepository {
+  async insert(vehicle: Vehicle): Promise<Vehicle> {
+    return await VehicleEntity.create(vehicle).save();
+  }
 
   async findAll(relations?: string[]): Promise<Vehicle[]> {
     return await VehicleEntity.find<VehicleEntity>({ relations: relations ?? [] });
