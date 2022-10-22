@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { DomainModule } from 'src/domain/domain.module';
 import { UtilsModule } from 'src/utils/utils.module';
 import { AuthController } from './controller/auth.controller';
+import { CategoryController } from './controller/category.controller';
 import { DriverController } from './controller/driver.controller';
 import { OrderController } from './controller/order.controller';
 // import { AuthController } from './controller/auth.controller';
@@ -21,7 +22,8 @@ import { AuthenticationGuard } from './guard/authentication.guard';
     OrderController,
     VehicleController,
     DriverController,
-    TypeVehicleController
+    TypeVehicleController,
+    CategoryController
   ],
   providers: [
     AuthenticationGuard,

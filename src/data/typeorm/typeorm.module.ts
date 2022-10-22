@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE } from 'src/utils/config/config';
+import { CategoryService } from './service/category.service';
 import { ClientService } from './service/client.service';
 import { DriverService } from './service/driver.service';
 import { OrderDetailService } from './service/order-detail.service';
@@ -40,6 +41,7 @@ import { VehicleService } from './service/vehicle.service';
     VehicleService,
     TypeVehicleService,
     DriverService,
+    CategoryService
   ],
   providers: [
     ClientService,
@@ -51,6 +53,7 @@ import { VehicleService } from './service/vehicle.service';
     VehicleService,
     TypeVehicleService,
     DriverService,
+    CategoryService,
   ]
 })
 export class TypeormModule { }

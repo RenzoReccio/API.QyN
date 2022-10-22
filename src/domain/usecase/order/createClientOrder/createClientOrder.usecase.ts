@@ -44,10 +44,13 @@ export class CreateClientOrderUseCase implements BaseUseCase<CreateClientOrderDt
     let orderDetailInsert: OrderDetailModel[] = [];
     for (const orderDetail of dto.orderDetail) {
       let product = products.find(item => item.id = orderDetail.idProduct);
-      if(orderDetail.quantity > product.stock) throw new NoStock('No hay stock suficiente del producto ' + product.name)
+
+      if(orderDetail.quantity > product.stock) throw new NoStock('No hay stock suficiente del producto: ' + product.name)
       orderDetailInsert.push(new OrderDetailModel(null, order, product, orderDetail.quantity, product.salesPrice));
+      product.stock = product.stock - orderDetail.quantity;
     }
 
+    await this._productRepository.updateMany(products);
     //Insert
     order = await this._orderRepository.insert(order);
     await this._orderDetailRepository.insertMany(orderDetailInsert);

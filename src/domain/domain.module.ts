@@ -3,13 +3,18 @@ import { DataModule } from 'src/data/data.module';
 import { TypeormModule } from 'src/data/typeorm/typeorm.module';
 import { UtilsModule } from 'src/utils/utils.module';
 import { LoginUseCase } from './usecase/auth/login/login.usecase';
+import { ListCategoriesUseCase } from './usecase/category/listCategories/listCategories.usecase';
 import { ListDriversUseCase } from './usecase/driver/listDrivers/listDrivers.usecase';
 import { CreateClientOrderUseCase } from './usecase/order/createClientOrder/createClientOrder.usecase';
 import { ListOrderByIdUseCase } from './usecase/order/listOrderById/listOrderById.usecase';
 import { ListOrdersUseCase } from './usecase/order/listOrders/listOrders.usecase';
 import { ListOrderStatusUseCase } from './usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { UpdateOrderUseCase } from './usecase/order/updateOrder/updateOrder.usecase';
+import { CreateProductUseCase } from './usecase/product/createProduct/createProduct.usecase';
 import { ListCatalogUseCase } from './usecase/product/listCatalog/listCatalog.usecase';
+import { ListProductByIdUseCase } from './usecase/product/listProductById/listProductById.usecase';
+import { ListProductsUseCase } from './usecase/product/listProducts/listProducts.usecase';
+import { UpdateProductUseCase } from './usecase/product/updateProduct/updateProduct.usecase';
 import { ListTypeVehiclesUseCase } from './usecase/typeVehicle/listTypeVehicles/listTypeVehicles.usecase';
 import { CreateVehicleUseCase } from './usecase/vehicle/createVehicle/createVehicle.usecase';
 import { ListVehicleByIdUseCase } from './usecase/vehicle/listVehicleById/listVehicleById.usecase';
@@ -33,7 +38,11 @@ const OrderUseCases = [
 ]
 
 const ProductUseCases = [
-  ListCatalogUseCase
+  ListCatalogUseCase,
+  CreateProductUseCase,
+  UpdateProductUseCase,
+  ListProductByIdUseCase,
+  ListProductsUseCase,
 ]
 
 const VehiclesUseCases = [
@@ -47,8 +56,12 @@ const DriverUseCases = [
   ListDriversUseCase
 ]
 
-const TypeVehicleUseCases  = [
+const TypeVehicleUseCases = [
   ListTypeVehiclesUseCase
+]
+
+const CategoryUseCases = [
+  ListCategoriesUseCase
 ]
 
 @Module({
@@ -59,7 +72,8 @@ const TypeVehicleUseCases  = [
     ...AuthUseCases,
     ...VehiclesUseCases,
     ...DriverUseCases,
-    ...TypeVehicleUseCases
+    ...TypeVehicleUseCases,
+    ...CategoryUseCases
   ],
   providers: [
     ...typeOrmProviders(),
@@ -68,7 +82,8 @@ const TypeVehicleUseCases  = [
     ...AuthUseCases,
     ...VehiclesUseCases,
     ...DriverUseCases,
-    ...TypeVehicleUseCases
+    ...TypeVehicleUseCases,
+    ...CategoryUseCases
   ]
 })
 export class DomainModule { }

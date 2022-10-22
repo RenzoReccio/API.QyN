@@ -11,7 +11,7 @@ export class ListCatalogUseCase implements BaseUseCase<null, ListCatalogResponse
 
   async get(dto?: null): Promise<ListCatalogResponse[]> {
     let products = await this._productRepository.findAllCatalog(['category']);
-    return products.map(item => { return new ListCatalogResponse(item) });
+    return products.filter(item => item.minStock >= item.stock).map(item => { return new ListCatalogResponse(item) });
   }
 
 

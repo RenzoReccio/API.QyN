@@ -6,6 +6,16 @@ import { ProductEntity } from '../entity/product.entity';
 
 @Injectable()
 export class ProductService implements ProductRepository {
+  async update(product: Product): Promise<Product> {
+    return await ProductEntity.create(product).save();
+  }
+  async findOne(id: number, relations?: string[]): Promise<Product> {
+    return await ProductEntity.findOne({ relations: relations ?? [], where: { id: id } });
+  }
+  async updateMany(product: Product[]): Promise<Product[]> {
+    return await ProductEntity.save(ProductEntity.create(product));
+  }
+
   async getByIds(ids: number[]): Promise<Product[]> {
     return await ProductEntity.find({  where: { id: In(ids) } });
   }
