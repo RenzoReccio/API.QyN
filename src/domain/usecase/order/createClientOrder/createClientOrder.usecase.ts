@@ -3,8 +3,6 @@ import { NoStock } from "src/domain/error/noStock.error";
 import { ResourceNotFound } from "src/domain/error/resourceNotFound.exception";
 import { OrderModel } from "src/domain/model/order.model";
 import { OrderDetailModel } from "src/domain/model/orderDetail.model";
-// import { ProductModel } from "src/domain/model/product.model";
-
 import { ClientRepository } from "src/domain/repository/client.repository";
 import { OrderRepository } from "src/domain/repository/order.repository";
 import { OrderDetailRepository } from "src/domain/repository/orderDetail.repository";

@@ -26,6 +26,18 @@ export class ProductController {
   ) {
   }
 
+  @Get('/catalog')
+  @ApiResponse({ type: ListCatalogResponse, isArray: true, status: 200 })
+  async getCatalogProducts() {
+    let products = await this.listCatalogUseCase.get();
+    let response = new CustomResponse<ListCatalogResponse[]>(
+      `Productos encontrados: ${products.length}.`,
+      products,
+      null
+    )
+    return response;
+  }
+
   @Get('')
   @ApiResponse({ type: ListProductsResponse, isArray: true, status: 200 })
   async getProducts() {
@@ -46,18 +58,6 @@ export class ProductController {
     let response = new CustomResponse<ListProductByIdResponse>(
       `Producto con id: ${product.id} encontrado.`,
       product,
-      null
-    )
-    return response;
-  }
-
-  @Get('/catalog')
-  @ApiResponse({ type: ListCatalogResponse, isArray: true, status: 200 })
-  async getCatalogProducts() {
-    let products = await this.listCatalogUseCase.get();
-    let response = new CustomResponse<ListCatalogResponse[]>(
-      `Productos encontrados: ${products.length}.`,
-      products,
       null
     )
     return response;

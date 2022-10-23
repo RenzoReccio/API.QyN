@@ -4,6 +4,8 @@ import { TypeormModule } from 'src/data/typeorm/typeorm.module';
 import { UtilsModule } from 'src/utils/utils.module';
 import { LoginUseCase } from './usecase/auth/login/login.usecase';
 import { ListCategoriesUseCase } from './usecase/category/listCategories/listCategories.usecase';
+import { ListClientByIdUseCase } from './usecase/client/listClientById/listClientById.usecase';
+import { ListClientsUseCase } from './usecase/client/listClients/listClients.usecase';
 import { ListDriversUseCase } from './usecase/driver/listDrivers/listDrivers.usecase';
 import { CreateClientOrderUseCase } from './usecase/order/createClientOrder/createClientOrder.usecase';
 import { ListOrderByIdUseCase } from './usecase/order/listOrderById/listOrderById.usecase';
@@ -64,6 +66,11 @@ const CategoryUseCases = [
   ListCategoriesUseCase
 ]
 
+const ClientUseCases = [
+  ListClientByIdUseCase,
+  ListClientsUseCase
+]
+
 @Module({
   imports: [DataModule, UtilsModule],
   exports: [
@@ -73,7 +80,8 @@ const CategoryUseCases = [
     ...VehiclesUseCases,
     ...DriverUseCases,
     ...TypeVehicleUseCases,
-    ...CategoryUseCases
+    ...CategoryUseCases,
+    ...ClientUseCases
   ],
   providers: [
     ...typeOrmProviders(),
@@ -83,7 +91,8 @@ const CategoryUseCases = [
     ...VehiclesUseCases,
     ...DriverUseCases,
     ...TypeVehicleUseCases,
-    ...CategoryUseCases
+    ...CategoryUseCases,
+    ...ClientUseCases
   ]
 })
 export class DomainModule { }
