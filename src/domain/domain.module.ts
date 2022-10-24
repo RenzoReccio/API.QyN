@@ -18,6 +18,8 @@ import { ListCatalogUseCase } from './usecase/product/listCatalog/listCatalog.us
 import { ListProductByIdUseCase } from './usecase/product/listProductById/listProductById.usecase';
 import { ListProductsUseCase } from './usecase/product/listProducts/listProducts.usecase';
 import { UpdateProductUseCase } from './usecase/product/updateProduct/updateProduct.usecase';
+import { ListPurchaseOrderByIdUseCase } from './usecase/purchaseOrder/listPurchaseOrderById/listPurchaseOrderById.usecase';
+import { ListPurchaseOrdersUseCase } from './usecase/purchaseOrder/listPurchaseOrders/listPurchaseOrders.usecase';
 import { ListTypeDocumentUseCase } from './usecase/typeDocument/listTypeDocuments/listTypeDocuments.usecase';
 import { ListTypeVehiclesUseCase } from './usecase/typeVehicle/listTypeVehicles/listTypeVehicles.usecase';
 import { CreateVehicleUseCase } from './usecase/vehicle/createVehicle/createVehicle.usecase';
@@ -78,6 +80,10 @@ const TypeDocumentUseCase = [
   ListTypeDocumentUseCase
 ]
 
+const PurchaseOrderUseCase = [
+  ListPurchaseOrderByIdUseCase,
+  ListPurchaseOrdersUseCase,
+]
 @Module({
   imports: [DataModule, UtilsModule],
   exports: [
@@ -89,7 +95,8 @@ const TypeDocumentUseCase = [
     ...TypeVehicleUseCases,
     ...CategoryUseCases,
     ...ClientUseCases,
-    ...TypeDocumentUseCase
+    ...TypeDocumentUseCase,
+    ...PurchaseOrderUseCase,
   ],
   providers: [
     ...typeOrmProviders(),
@@ -101,7 +108,8 @@ const TypeDocumentUseCase = [
     ...TypeVehicleUseCases,
     ...CategoryUseCases,
     ...ClientUseCases,
-    ...TypeDocumentUseCase
+    ...TypeDocumentUseCase,
+    ...PurchaseOrderUseCase,
   ]
 })
 export class DomainModule { }
