@@ -10,6 +10,7 @@ import { OrderDetailService } from './service/order-detail.service';
 import { OrderService } from './service/order.service';
 import { OrderStatusService } from './service/orderStatus.service';
 import { ProductService } from './service/product.service';
+import { TypeDocumentService } from './service/typeDocument.service';
 import { TypeVehicleService } from './service/typeVehicle.service';
 import { UserService } from './service/user.service';
 import { VehicleService } from './service/vehicle.service';
@@ -41,7 +42,8 @@ import { VehicleService } from './service/vehicle.service';
     VehicleService,
     TypeVehicleService,
     DriverService,
-    CategoryService
+    CategoryService,
+    TypeDocumentService
   ],
   providers: [
     ClientService,
@@ -54,6 +56,7 @@ import { VehicleService } from './service/vehicle.service';
     TypeVehicleService,
     DriverService,
     CategoryService,
+    TypeDocumentService
   ]
 })
 export class TypeormModule { }

@@ -6,6 +6,7 @@ import { LoginUseCase } from './usecase/auth/login/login.usecase';
 import { ListCategoriesUseCase } from './usecase/category/listCategories/listCategories.usecase';
 import { ListClientByIdUseCase } from './usecase/client/listClientById/listClientById.usecase';
 import { ListClientsUseCase } from './usecase/client/listClients/listClients.usecase';
+import { UpdateClientUseCase } from './usecase/client/updateClient/updateClient.usecase';
 import { ListDriversUseCase } from './usecase/driver/listDrivers/listDrivers.usecase';
 import { CreateClientOrderUseCase } from './usecase/order/createClientOrder/createClientOrder.usecase';
 import { ListOrderByIdUseCase } from './usecase/order/listOrderById/listOrderById.usecase';
@@ -17,6 +18,7 @@ import { ListCatalogUseCase } from './usecase/product/listCatalog/listCatalog.us
 import { ListProductByIdUseCase } from './usecase/product/listProductById/listProductById.usecase';
 import { ListProductsUseCase } from './usecase/product/listProducts/listProducts.usecase';
 import { UpdateProductUseCase } from './usecase/product/updateProduct/updateProduct.usecase';
+import { ListTypeDocumentUseCase } from './usecase/typeDocument/listTypeDocuments/listTypeDocuments.usecase';
 import { ListTypeVehiclesUseCase } from './usecase/typeVehicle/listTypeVehicles/listTypeVehicles.usecase';
 import { CreateVehicleUseCase } from './usecase/vehicle/createVehicle/createVehicle.usecase';
 import { ListVehicleByIdUseCase } from './usecase/vehicle/listVehicleById/listVehicleById.usecase';
@@ -68,7 +70,12 @@ const CategoryUseCases = [
 
 const ClientUseCases = [
   ListClientByIdUseCase,
-  ListClientsUseCase
+  ListClientsUseCase,
+  UpdateClientUseCase
+]
+
+const TypeDocumentUseCase = [
+  ListTypeDocumentUseCase
 ]
 
 @Module({
@@ -81,7 +88,8 @@ const ClientUseCases = [
     ...DriverUseCases,
     ...TypeVehicleUseCases,
     ...CategoryUseCases,
-    ...ClientUseCases
+    ...ClientUseCases,
+    ...TypeDocumentUseCase
   ],
   providers: [
     ...typeOrmProviders(),
@@ -92,7 +100,8 @@ const ClientUseCases = [
     ...DriverUseCases,
     ...TypeVehicleUseCases,
     ...CategoryUseCases,
-    ...ClientUseCases
+    ...ClientUseCases,
+    ...TypeDocumentUseCase
   ]
 })
 export class DomainModule { }
