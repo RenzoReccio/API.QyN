@@ -17,19 +17,19 @@ export class UpdateOrderUseCase implements BaseUseCase<UpdateOrderDto, UpdateOrd
 
   async get(dto: UpdateOrderDto): Promise<UpdateOrderResponse> {
 
-    let orderStatus = await this._orderStatusRepository.findOne(dto.id);
-    if(!orderStatus) throw new ResourceNotFound('El estado dado no se encuentra registrado');
+    let orderStatus = await this._orderStatusRepository.findOne(dto.statusId);
+    if (!orderStatus) throw new ResourceNotFound('El estado dado no se encuentra registrado');
 
     let orderToUpdate = await this._orderRepository.findOne(dto.id);
-    if(!orderToUpdate) throw new ResourceNotFound('El pedido solicitado no se encuentra registrado');
-    
+    if (!orderToUpdate) throw new ResourceNotFound('El pedido solicitado no se encuentra registrado');
+
     let orderModel = new OrderModel(
-      dto.id, 
-      undefined, 
+      dto.id,
+      undefined,
       orderStatus,
-      undefined, 
-      dto.estimatedDate, 
-      dto.comments, 
+      dto.address,
+      dto.estimatedDate,
+      dto.comments,
       undefined
     );
     await this._orderRepository.update(orderModel)
