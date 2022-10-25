@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post, Put, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { OrderModel } from 'src/domain/model/order.model';
 import { CreateClientOrderDto } from 'src/domain/usecase/order/createClientOrder/createClientOrder.dto';
+import { CreateClientOrderResponse } from 'src/domain/usecase/order/createClientOrder/createClientOrder.response';
 import { CreateClientOrderUseCase } from 'src/domain/usecase/order/createClientOrder/createClientOrder.usecase';
 import { ListOrderByIdResponse } from 'src/domain/usecase/order/listOrderById/listOrderById.response';
 import { ListOrderByIdUseCase } from 'src/domain/usecase/order/listOrderById/listOrderById.usecase';
@@ -54,7 +54,7 @@ export class OrderController {
   }
 
   @Get(':id')
-  @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
+  @ApiResponse({ type: ListOrderByIdResponse, isArray: false, status: 200 })
   async getOrderById(@Param('id') id: number): Promise<CustomResponse<ListOrderByIdResponse>> {
     let order = await this.listOrderByIdUseCase.get(Number(id));
     let response = new CustomResponse<ListOrderByIdResponse>(
@@ -67,11 +67,11 @@ export class OrderController {
 
   @Post('client')
   @UseGuards(AuthenticationGuard)
-  @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
+  @ApiResponse({ type: CreateClientOrderResponse, isArray: false, status: 200 })
   async createOrderClient(@BearerTokenInformation() information: DataStoredInToken,  @Body() order: CreateClientOrderDto) {
     order.userId = Number(information.id);
     let orderInsert = await this.createClientOrderUseCase.get(order);
-    let response = new CustomResponse<UpdateOrderResponse>(
+    let response = new CustomResponse<CreateClientOrderResponse>(
       `Pedido con código: ${orderInsert.id}, creado.`,
       orderInsert,
       null
@@ -80,7 +80,7 @@ export class OrderController {
   }
 
   @Put(':id')
-  @ApiResponse({ type: OrderModel, isArray: false, status: 200 })
+  @ApiResponse({ type: UpdateOrderResponse, isArray: false, status: 200 })
   async updateOrder(@Param('id') id: string, @Body() order: UpdateOrderDto): Promise<CustomResponse<UpdateOrderResponse>> {
     order.id = Number(id);
     let orderUpdate = await this.updateOrderUseCase.get(order);
