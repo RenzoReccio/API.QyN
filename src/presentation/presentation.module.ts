@@ -6,11 +6,9 @@ import { CategoryController } from './controller/category.controller';
 import { ClientController } from './controller/client.controller';
 import { DriverController } from './controller/driver.controller';
 import { OrderController } from './controller/order.controller';
-// import { AuthController } from './controller/auth.controller';
-// import { ClientController } from './controller/client.controller';
-// import { OrderController } from './controller/order.controller';
 import { ProductController } from './controller/product.controller';
 import { PurchaseOrderController } from './controller/purchaseOrder.controller';
+import { SupplierController } from './controller/supplier.controller';
 import { TypeDocumentController } from './controller/typeDocument.controller';
 import { TypeVehicleController } from './controller/typeVehicle.controller';
 import { VehicleController } from './controller/vehicle.controller';
@@ -28,7 +26,8 @@ import { AuthenticationGuard } from './guard/authentication.guard';
     TypeVehicleController,
     CategoryController,
     TypeDocumentController,
-    PurchaseOrderController
+    PurchaseOrderController,
+    SupplierController,
   ],
   providers: [
     AuthenticationGuard,

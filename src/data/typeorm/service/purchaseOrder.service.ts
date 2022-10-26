@@ -9,8 +9,8 @@ export class PurchaseOrderService implements PurchaseOrderRepository {
     return PurchaseOrderEntity.create(purchaseOrder).save();
   }
 
-  update(purchaseOrder: PurchaseOrder): Promise<PurchaseOrder> {
-    throw new Error("Method not implemented.");
+  async update(purchaseOrder: PurchaseOrder): Promise<PurchaseOrder> {
+    return await PurchaseOrderEntity.create(purchaseOrder).save();
   }
 
   async findAll(relations?: string[]): Promise<PurchaseOrder[]> {

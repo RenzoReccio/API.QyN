@@ -21,6 +21,9 @@ import { UpdateProductUseCase } from './usecase/product/updateProduct/updateProd
 import { CreatePurchaseOrderUseCase } from './usecase/purchaseOrder/createPurchaseOrder/createPurchaseOrder.usecase';
 import { ListPurchaseOrderByIdUseCase } from './usecase/purchaseOrder/listPurchaseOrderById/listPurchaseOrderById.usecase';
 import { ListPurchaseOrdersUseCase } from './usecase/purchaseOrder/listPurchaseOrders/listPurchaseOrders.usecase';
+import { ListPurchaseOrderStatusUseCase } from './usecase/purchaseOrder/listPurchaseOrderStatus/listPurchaseOrderStatus.usecase';
+import { UpdatePurchaseOrderUseCase } from './usecase/purchaseOrder/updatePurchaseOrder/updatePurchaseOrder.usecase';
+import { ListSuppliersUseCase } from './usecase/supplier/listSuppliers/listSuppliers.usecase';
 import { ListTypeDocumentUseCase } from './usecase/typeDocument/listTypeDocuments/listTypeDocuments.usecase';
 import { ListTypeVehiclesUseCase } from './usecase/typeVehicle/listTypeVehicles/listTypeVehicles.usecase';
 import { CreateVehicleUseCase } from './usecase/vehicle/createVehicle/createVehicle.usecase';
@@ -84,7 +87,13 @@ const TypeDocumentUseCase = [
 const PurchaseOrderUseCase = [
   ListPurchaseOrderByIdUseCase,
   ListPurchaseOrdersUseCase,
-  CreatePurchaseOrderUseCase
+  CreatePurchaseOrderUseCase,
+  UpdatePurchaseOrderUseCase,
+  ListPurchaseOrderStatusUseCase,
+]
+
+const SupplierUseCases = [
+  ListSuppliersUseCase
 ]
 @Module({
   imports: [DataModule, UtilsModule],
@@ -99,6 +108,7 @@ const PurchaseOrderUseCase = [
     ...ClientUseCases,
     ...TypeDocumentUseCase,
     ...PurchaseOrderUseCase,
+    ...SupplierUseCases
   ],
   providers: [
     ...typeOrmProviders(),
@@ -112,6 +122,7 @@ const PurchaseOrderUseCase = [
     ...ClientUseCases,
     ...TypeDocumentUseCase,
     ...PurchaseOrderUseCase,
+    ...SupplierUseCases
   ]
 })
 export class DomainModule { }

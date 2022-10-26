@@ -14,10 +14,10 @@ export class DriverController {
   @Get('')
   @ApiResponse({ type: ListDriversResponse, isArray: true, status: 200 })
   async getDrivers() {
-    let vehicles = await this.listDriversUseCase.get();
+    let drivers = await this.listDriversUseCase.get();
     let response = new CustomResponse<ListDriversResponse[]>(
-      `Conductores encontrados: ${vehicles.length}.`,
-      vehicles,
+      `Conductores encontrados: ${drivers.length}.`,
+      drivers,
       null
     )
     return response;

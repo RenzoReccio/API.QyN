@@ -20,6 +20,6 @@ export class CreatePurchaseOrderDto {
   @ApiProperty()
   comments: string;
 
-  @ApiProperty({ type: [DetailCreatePurchaseOrderDto], isArray: true })
+  @ApiProperty({ type: DetailCreatePurchaseOrderDto, isArray: true })
   purchaseOrderDetails: DetailCreatePurchaseOrderDto[];
 }
