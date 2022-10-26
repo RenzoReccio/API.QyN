@@ -11,7 +11,7 @@ import { OrderService } from './service/order.service';
 import { OrderStatusService } from './service/orderStatus.service';
 import { ProductService } from './service/product.service';
 import { PurchaseOrderService } from './service/purchaseOrder.service';
-import { PurchaseOrderDetailService } from './service/purchaseOrderdetail.service';
+import { PurchaseOrderDetailService } from './service/purchaseOrderDetail.service';
 import { PurchaseOrderStatusService } from './service/purchaseOrderStatus.service';
 import { SupplierService } from './service/supplier.service';
 import { TypeDocumentService } from './service/typeDocument.service';
