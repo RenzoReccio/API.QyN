@@ -1,5 +1,9 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param } from "@nestjs/common";
+import { Post } from "@nestjs/common/decorators/http/request-mapping.decorator";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
+import { CreatePurchaseOrderDto } from "src/domain/usecase/purchaseOrder/createPurchaseOrder/createPurchaseOrder.dto";
+import { CreatePurchaseOrderResponse } from "src/domain/usecase/purchaseOrder/createPurchaseOrder/createPurchaseOrder.response";
+import { CreatePurchaseOrderUseCase } from "src/domain/usecase/purchaseOrder/createPurchaseOrder/createPurchaseOrder.usecase";
 import { ListPurchaseOrderByIdResponse } from "src/domain/usecase/purchaseOrder/listPurchaseOrderById/listPurchaseOrderById.response";
 import { ListPurchaseOrderByIdUseCase } from "src/domain/usecase/purchaseOrder/listPurchaseOrderById/listPurchaseOrderById.usecase";
 import { ListPurchaseOrdersResponse } from "src/domain/usecase/purchaseOrder/listPurchaseOrders/listPurchaseOrders.response";
@@ -11,7 +15,8 @@ import { CustomResponse } from "src/utils/response/response.model";
 export class PurchaseOrderController {
   constructor(
     private listPurchaseOrdersUseCase: ListPurchaseOrdersUseCase,
-    private listPurchaseOrderByIdUseCase: ListPurchaseOrderByIdUseCase
+    private listPurchaseOrderByIdUseCase: ListPurchaseOrderByIdUseCase,
+    private createPurchaseOrderUseCase: CreatePurchaseOrderUseCase,
   ) { }
 
   @Get('')
@@ -38,5 +43,16 @@ export class PurchaseOrderController {
     return response;
   }
 
+  @Post('')
+  @ApiResponse({ type: CreatePurchaseOrderResponse, isArray: false, status: 200 })
+  async createPurchaseOrder(@Body() purchaseOrder: CreatePurchaseOrderDto){
+    let purchaseOrderCreate = await this.createPurchaseOrderUseCase.get(purchaseOrder);
+    let response = new CustomResponse<CreatePurchaseOrderResponse>(
+      `Orden de compra con código: ${purchaseOrderCreate.id}, creada.`,
+      purchaseOrderCreate,
+      null
+    )
+    return response;
+  }
 
 }

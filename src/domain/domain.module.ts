@@ -18,6 +18,7 @@ import { ListCatalogUseCase } from './usecase/product/listCatalog/listCatalog.us
 import { ListProductByIdUseCase } from './usecase/product/listProductById/listProductById.usecase';
 import { ListProductsUseCase } from './usecase/product/listProducts/listProducts.usecase';
 import { UpdateProductUseCase } from './usecase/product/updateProduct/updateProduct.usecase';
+import { CreatePurchaseOrderUseCase } from './usecase/purchaseOrder/createPurchaseOrder/createPurchaseOrder.usecase';
 import { ListPurchaseOrderByIdUseCase } from './usecase/purchaseOrder/listPurchaseOrderById/listPurchaseOrderById.usecase';
 import { ListPurchaseOrdersUseCase } from './usecase/purchaseOrder/listPurchaseOrders/listPurchaseOrders.usecase';
 import { ListTypeDocumentUseCase } from './usecase/typeDocument/listTypeDocuments/listTypeDocuments.usecase';
@@ -83,6 +84,7 @@ const TypeDocumentUseCase = [
 const PurchaseOrderUseCase = [
   ListPurchaseOrderByIdUseCase,
   ListPurchaseOrdersUseCase,
+  CreatePurchaseOrderUseCase
 ]
 @Module({
   imports: [DataModule, UtilsModule],

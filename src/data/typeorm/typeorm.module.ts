@@ -11,11 +11,31 @@ import { OrderService } from './service/order.service';
 import { OrderStatusService } from './service/orderStatus.service';
 import { ProductService } from './service/product.service';
 import { PurchaseOrderService } from './service/purchaseOrder.service';
+import { PurchaseOrderDetailService } from './service/purchaseOrderdetail.service';
+import { PurchaseOrderStatusService } from './service/purchaseOrderStatus.service';
+import { SupplierService } from './service/supplier.service';
 import { TypeDocumentService } from './service/typeDocument.service';
 import { TypeVehicleService } from './service/typeVehicle.service';
 import { UserService } from './service/user.service';
 import { VehicleService } from './service/vehicle.service';
 
+const services = [
+  ClientService,
+  OrderDetailService,
+  OrderService,
+  ProductService,
+  UserService,
+  OrderStatusService,
+  VehicleService,
+  TypeVehicleService,
+  DriverService,
+  CategoryService,
+  TypeDocumentService,
+  PurchaseOrderService,
+  PurchaseOrderDetailService,
+  PurchaseOrderStatusService,
+  SupplierService
+]
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -34,32 +54,10 @@ import { VehicleService } from './service/vehicle.service';
     }),
   ],
   exports: [
-    ClientService,
-    OrderDetailService,
-    OrderService,
-    ProductService,
-    UserService,
-    OrderStatusService,
-    VehicleService,
-    TypeVehicleService,
-    DriverService,
-    CategoryService,
-    TypeDocumentService,
-    PurchaseOrderService
+    ...services
   ],
   providers: [
-    ClientService,
-    OrderDetailService,
-    OrderService,
-    ProductService,
-    UserService,
-    OrderStatusService,
-    VehicleService,
-    TypeVehicleService,
-    DriverService,
-    CategoryService,
-    TypeDocumentService,
-    PurchaseOrderService
+    ...services
   ]
 })
 export class TypeormModule { }

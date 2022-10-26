@@ -32,7 +32,6 @@ export class CreateClientOrderUseCase implements BaseUseCase<CreateClientOrderDt
     if (!clientAssociated) throw new ResourceNotFound('El usuario no tiene un cliente asociado');
 
     let order = new OrderModel(null, clientAssociated, orderStatusCreated, dto.address, new Date(), dto.comments, undefined)
-    order = await this._orderRepository.insert(order);
 
     let productIds = new Set<number>();
     dto.orderDetail.forEach(item => {
@@ -51,6 +50,9 @@ export class CreateClientOrderUseCase implements BaseUseCase<CreateClientOrderDt
     await this._productRepository.updateMany(products);
     //Insert
     order = await this._orderRepository.insert(order);
+    orderDetailInsert.forEach(item => {
+      item.order = order;
+    })
     await this._orderDetailRepository.insertMany(orderDetailInsert);
 
     return new CreateClientOrderResponse(order.id)

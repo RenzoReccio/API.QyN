@@ -17,7 +17,7 @@ export class PurchaseOrderEntity extends BaseEntity implements PurchaseOrder {
   arrivalDate: Date;
 
   @Column()
-  comments: String;
+  comments: string;
 
   @ManyToOne(() => PurchaseOrderStatusEntity)
   purchaseOrderStatus: PurchaseOrderStatusEntity;

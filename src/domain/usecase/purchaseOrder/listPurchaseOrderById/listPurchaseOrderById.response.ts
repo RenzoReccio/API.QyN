@@ -45,7 +45,7 @@ export class ListPurchaseOrderByIdResponse {
   @ApiProperty()
   purchaseOrderStatusId: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: [DetailListPurchaseOrderByIdResponse], isArray: true })
   purchaseOrderDetails: DetailListPurchaseOrderByIdResponse[];
 
   constructor(purchaseOrder: PurchaseOrder) {

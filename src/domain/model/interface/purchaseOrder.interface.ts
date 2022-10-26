@@ -7,7 +7,7 @@ export interface PurchaseOrder extends Auditory {
   id: number;
   supplier: Supplier;
   arrivalDate: Date;
-  comments: String;
+  comments: string;
   purchaseOrderStatus: PurchaseOrderStatus;
   purchaseOrderDetails: PurchaseOrderDetail[];
 }
