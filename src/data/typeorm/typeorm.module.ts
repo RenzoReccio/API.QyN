@@ -9,6 +9,7 @@ import { DriverService } from './service/driver.service';
 import { OrderDetailService } from './service/order-detail.service';
 import { OrderService } from './service/order.service';
 import { OrderStatusService } from './service/orderStatus.service';
+import { PersonService } from './service/person.service';
 import { ProductService } from './service/product.service';
 import { PurchaseOrderService } from './service/purchaseOrder.service';
 import { PurchaseOrderDetailService } from './service/purchaseOrderDetail.service';
@@ -34,8 +35,10 @@ const services = [
   PurchaseOrderService,
   PurchaseOrderDetailService,
   PurchaseOrderStatusService,
-  SupplierService
+  SupplierService,
+  PersonService
 ]
+
 @Module({
   imports: [
     ConfigModule.forRoot(),

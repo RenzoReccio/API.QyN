@@ -3,6 +3,7 @@ import { DataModule } from 'src/data/data.module';
 import { TypeormModule } from 'src/data/typeorm/typeorm.module';
 import { UtilsModule } from 'src/utils/utils.module';
 import { LoginUseCase } from './usecase/auth/login/login.usecase';
+import { SigInUseCase } from './usecase/auth/signin/signin.usecase';
 import { ListCategoriesUseCase } from './usecase/category/listCategories/listCategories.usecase';
 import { ListClientByIdUseCase } from './usecase/client/listClientById/listClientById.usecase';
 import { ListClientsUseCase } from './usecase/client/listClients/listClients.usecase';
@@ -37,7 +38,8 @@ const typeOrmProviders = (): Provider[] => {
 }
 
 const AuthUseCases = [
-  LoginUseCase
+  LoginUseCase,
+  SigInUseCase
 ]
 const OrderUseCases = [
   ListOrdersUseCase,
