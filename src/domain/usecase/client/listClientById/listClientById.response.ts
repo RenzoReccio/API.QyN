@@ -30,6 +30,7 @@ export class ListClientByIdResponse {
     this.id = client.id;
     this.typeDocumentId = client.typeDocument.id;
     this.numberDocument = client.numberDocument;
+    this.name = client.name;
     this.area = client.area;
     this.phone = client.phone;
     this.email = client.email;
