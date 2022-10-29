@@ -24,7 +24,10 @@ import { ListPurchaseOrderByIdUseCase } from './usecase/purchaseOrder/listPurcha
 import { ListPurchaseOrdersUseCase } from './usecase/purchaseOrder/listPurchaseOrders/listPurchaseOrders.usecase';
 import { ListPurchaseOrderStatusUseCase } from './usecase/purchaseOrder/listPurchaseOrderStatus/listPurchaseOrderStatus.usecase';
 import { UpdatePurchaseOrderUseCase } from './usecase/purchaseOrder/updatePurchaseOrder/updatePurchaseOrder.usecase';
+import { CreateSupplierUseCase } from './usecase/supplier/createSupplier/createSupplier.usecase';
+import { ListSupplierByIdUseCase } from './usecase/supplier/listSupplierById/listSupplierById.usecase';
 import { ListSuppliersUseCase } from './usecase/supplier/listSuppliers/listSuppliers.usecase';
+import { UpdateSupplierUseCase } from './usecase/supplier/updateSupplier/updateSupplier.usecase';
 import { ListTypeDocumentUseCase } from './usecase/typeDocument/listTypeDocuments/listTypeDocuments.usecase';
 import { ListTypeVehiclesUseCase } from './usecase/typeVehicle/listTypeVehicles/listTypeVehicles.usecase';
 import { CreateVehicleUseCase } from './usecase/vehicle/createVehicle/createVehicle.usecase';
@@ -95,7 +98,10 @@ const PurchaseOrderUseCase = [
 ]
 
 const SupplierUseCases = [
-  ListSuppliersUseCase
+  ListSuppliersUseCase,
+  ListSupplierByIdUseCase,
+  CreateSupplierUseCase,
+  UpdateSupplierUseCase
 ]
 @Module({
   imports: [DataModule, UtilsModule],
