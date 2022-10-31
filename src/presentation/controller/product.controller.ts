@@ -5,6 +5,8 @@ import { CreateProductResponse } from 'src/domain/usecase/product/createProduct/
 import { CreateProductUseCase } from 'src/domain/usecase/product/createProduct/createProduct.usecase';
 import { ListCatalogResponse } from 'src/domain/usecase/product/listCatalog/listCatalog.response';
 import { ListCatalogUseCase } from 'src/domain/usecase/product/listCatalog/listCatalog.usecase';
+import { ListMovementsResponse } from 'src/domain/usecase/product/listMovements/listMovements.response';
+import { ListMovementsUseCase } from 'src/domain/usecase/product/listMovements/listMovements.usecase';
 import { ListProductByIdResponse } from 'src/domain/usecase/product/listProductById/listProductById.response';
 import { ListProductByIdUseCase } from 'src/domain/usecase/product/listProductById/listProductById.usecase';
 import { ListProductsResponse } from 'src/domain/usecase/product/listProducts/listProducts.response';
@@ -21,6 +23,7 @@ export class ProductController {
     private readonly listCatalogUseCase: ListCatalogUseCase,
     private readonly listProductsUseCase: ListProductsUseCase,
     private readonly listProductByIdUseCase: ListProductByIdUseCase,
+    private readonly listMovementsUseCase: ListMovementsUseCase,
     private readonly createProductUseCase: CreateProductUseCase,
     private readonly updateProductUseCase: UpdateProductUseCase,
   ) {
@@ -57,6 +60,18 @@ export class ProductController {
     let product = await this.listProductByIdUseCase.get(Number(id));
     let response = new CustomResponse<ListProductByIdResponse>(
       `Producto con id: ${product.id} encontrado.`,
+      product,
+      null
+    )
+    return response;
+  }
+
+  @Get(':id/movement')
+  @ApiResponse({ type: ListMovementsResponse, isArray: false, status: 200 })
+  async getMovementsByProductId(@Param('id') id: string) {
+    let product = await this.listMovementsUseCase.get(Number(id));
+    let response = new CustomResponse<ListMovementsResponse[]>(
+      `Movimientos del producto con id: ${id} encontrados.`,
       product,
       null
     )

@@ -3,4 +3,5 @@ import { PurchaseOrderDetail } from "../model/interface/purchaseOrderDetail.inte
 export interface PurchaseOrderDetailRepository {
   insert(orderDetail: PurchaseOrderDetail): Promise<PurchaseOrderDetail>;
   insertMany(orderDetail: PurchaseOrderDetail[]): Promise<PurchaseOrderDetail[]>;
+  listByProductId(productId: number): Promise<PurchaseOrderDetail[]>;
 }

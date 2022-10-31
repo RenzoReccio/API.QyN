@@ -16,6 +16,7 @@ import { ListOrderStatusUseCase } from './usecase/order/listOrderStatus/listOrde
 import { UpdateOrderUseCase } from './usecase/order/updateOrder/updateOrder.usecase';
 import { CreateProductUseCase } from './usecase/product/createProduct/createProduct.usecase';
 import { ListCatalogUseCase } from './usecase/product/listCatalog/listCatalog.usecase';
+import { ListMovementsUseCase } from './usecase/product/listMovements/listMovements.usecase';
 import { ListProductByIdUseCase } from './usecase/product/listProductById/listProductById.usecase';
 import { ListProductsUseCase } from './usecase/product/listProducts/listProducts.usecase';
 import { UpdateProductUseCase } from './usecase/product/updateProduct/updateProduct.usecase';
@@ -58,6 +59,7 @@ const ProductUseCases = [
   UpdateProductUseCase,
   ListProductByIdUseCase,
   ListProductsUseCase,
+  ListMovementsUseCase
 ]
 
 const VehiclesUseCases = [

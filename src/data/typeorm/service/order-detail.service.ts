@@ -5,11 +5,13 @@ import { OrderDetailEntity } from '../entity/orderDetail.entity';
 
 @Injectable()
 export class OrderDetailService implements OrderDetailRepository {
+  async listByProductId(productId: number): Promise<OrderDetail[]> {
+    return await OrderDetailEntity.find({ where: { product: productId }, relations: ['order'] });
+  }
   async insert(orderDetail: OrderDetail): Promise<OrderDetail> {
     return await OrderDetailEntity.create(orderDetail).save();
   }
   async insertMany(orderDetail: OrderDetail[]): Promise<OrderDetail[]> {
     return await OrderDetailEntity.save(OrderDetailEntity.create(orderDetail));
-  } 
-
+  }
 }
