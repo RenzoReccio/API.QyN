@@ -8,7 +8,7 @@ export class DetailCreateClientOrderDto {
     allowNaN: false,
     maxDecimalPlaces: 0
   }, {
-    message: 'La cantidad no tiene el formato correcto.'
+    message: 'El id producto no tiene el formato correcto.'
   })
   idProduct: number;
 

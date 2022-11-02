@@ -10,6 +10,7 @@ import { BaseUseCase } from "../../base/base.usecase";
 import { CreatePurchaseOrderDto } from "./createPurchaseOrder.dto";
 import { CreatePurchaseOrderResponse } from "./createPurchaseOrder.response";
 import { ProductRepository } from "src/domain/repository/product.repository";
+import { ResourceNotFound } from "src/domain/error/resourceNotFound.exception";
 
 export class CreatePurchaseOrderUseCase implements BaseUseCase<CreatePurchaseOrderDto, CreatePurchaseOrderResponse>{
   constructor(
@@ -24,7 +25,10 @@ export class CreatePurchaseOrderUseCase implements BaseUseCase<CreatePurchaseOrd
   async get(dto?: CreatePurchaseOrderDto): Promise<CreatePurchaseOrderResponse> {
 
     let status = await this._purchaseOrderStatusRepository.findOne(1);
+    if (!status) throw new ResourceNotFound('El estado indicado no se encuentra registrado');
+
     let supplier = await this._supplierRepository.findOne(dto.supplierId);
+    if (!supplier) throw new ResourceNotFound('El proveedor indicado no se encuentra registrado');
 
     let purchaseOrder = new PurchaseOrderModel(undefined, supplier, dto.arrivalDate, dto.comments, status, undefined);
     let purchaseOrderDetail: PurchaseOrderDetailModel[] = []

@@ -6,7 +6,7 @@ import { PurchaseOrderDetailEntity } from '../entity/purchaseOrderDetail.entity'
 @Injectable()
 export class PurchaseOrderDetailService implements PurchaseOrderDetailRepository {
   async listByProductId(productId: number): Promise<PurchaseOrderDetail[]> {
-    return await PurchaseOrderDetailEntity.find({ where: { product: productId }, relations: ['purchaseOrder'] });
+    return await PurchaseOrderDetailEntity.find({ where: { product: productId, purchaseOrder: { purchaseOrderStatus: 5} }, relations: ['purchaseOrder'] });
   }
   async insert(purchaseOrderDetail: PurchaseOrderDetail): Promise<PurchaseOrderDetail> {
     return await PurchaseOrderDetailEntity.create(purchaseOrderDetail).save();

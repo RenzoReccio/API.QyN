@@ -25,7 +25,9 @@ export class AuthController {
       'Correcto',
       null
     )
-    return res.header('Authorization', bearerToken).json(response);
+    res.setHeader('Access-Control-Expose-Headers', 'authorization'); 
+
+    return res.header('authorization', bearerToken).json(response);
   }
 
   @Post('signin')
