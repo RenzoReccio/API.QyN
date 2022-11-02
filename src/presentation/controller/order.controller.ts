@@ -9,6 +9,8 @@ import { ListOrderResponse } from 'src/domain/usecase/order/listOrders/listOrder
 import { ListOrdersUseCase } from 'src/domain/usecase/order/listOrders/listOrders.usecase';
 import { ListOrderStatusResponse } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.response';
 import { ListOrderStatusUseCase } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.usecase';
+import { ListOrdersToAssignResponse } from 'src/domain/usecase/order/listOrdersToAssign/listOrdersToAssign.response';
+import { ListOrdersToAssignUseCase } from 'src/domain/usecase/order/listOrdersToAssign/listOrdersToAssign.usecase';
 import { UpdateOrderDto } from 'src/domain/usecase/order/updateOrder/updateOrder.dto';
 import { UpdateOrderResponse } from 'src/domain/usecase/order/updateOrder/updateOrder.response';
 import { UpdateOrderUseCase } from 'src/domain/usecase/order/updateOrder/updateOrder.usecase';
@@ -25,7 +27,8 @@ export class OrderController {
     private updateOrderUseCase: UpdateOrderUseCase,
     private listOrderStatusUseCase: ListOrderStatusUseCase,
     private listOrderByIdUseCase: ListOrderByIdUseCase,
-    private createClientOrderUseCase: CreateClientOrderUseCase
+    private createClientOrderUseCase: CreateClientOrderUseCase,
+    private listOrdersToAssignUseCase: ListOrdersToAssignUseCase
   ) {
   }
 
@@ -34,6 +37,19 @@ export class OrderController {
   async getOrders() {
     let orders = await this.listOrdersUseCase.get();
     let response = new CustomResponse<ListOrderResponse[]>(
+      `Pedidos encontrados: ${orders.length}.`,
+      orders,
+      null
+    )
+    return response;
+  }
+
+  
+  @Get('toAssign')
+  @ApiResponse({ type: ListOrdersToAssignResponse, isArray: true, status: 200 })
+  async getOrdersToAssign() {
+    let orders = await this.listOrdersToAssignUseCase.get();
+    let response = new CustomResponse<ListOrdersToAssignResponse[]>(
       `Pedidos encontrados: ${orders.length}.`,
       orders,
       null

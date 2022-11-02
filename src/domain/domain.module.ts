@@ -13,6 +13,7 @@ import { CreateClientOrderUseCase } from './usecase/order/createClientOrder/crea
 import { ListOrderByIdUseCase } from './usecase/order/listOrderById/listOrderById.usecase';
 import { ListOrdersUseCase } from './usecase/order/listOrders/listOrders.usecase';
 import { ListOrderStatusUseCase } from './usecase/order/listOrderStatus/listOrderStatus.usecase';
+import { ListOrdersToAssignUseCase } from './usecase/order/listOrdersToAssign/listOrdersToAssign.usecase';
 import { UpdateOrderUseCase } from './usecase/order/updateOrder/updateOrder.usecase';
 import { CreateProductUseCase } from './usecase/product/createProduct/createProduct.usecase';
 import { ListCatalogUseCase } from './usecase/product/listCatalog/listCatalog.usecase';
@@ -50,7 +51,8 @@ const OrderUseCases = [
   UpdateOrderUseCase,
   ListOrderStatusUseCase,
   ListOrderByIdUseCase,
-  CreateClientOrderUseCase
+  CreateClientOrderUseCase,
+  ListOrdersToAssignUseCase,
 ]
 
 const ProductUseCases = [
