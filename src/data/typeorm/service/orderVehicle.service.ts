@@ -3,18 +3,25 @@ import { OrderVehicleRepository } from "src/domain/repository/orderVehicle.repos
 import { OrderVehicleEntity } from "../entity/ordervehicle.entity";
 
 export class OrderVehicleService implements OrderVehicleRepository {
-  insert(orderVehicle: OrderVehicle): Promise<OrderVehicle> {
-    throw new Error("Method not implemented.");
-  }
-  
-  async findAllByVehicleId(vehicleId: number, relations?: string[]): Promise<OrderVehicle[]> {
-    return await OrderVehicleEntity.find({
-      where: { vehicle: { id: vehicleId } }
-      , relations: relations ?? []
+  async findOne(id: number, relations?: string[]): Promise<OrderVehicle> {
+    return await OrderVehicleEntity.findOne({
+      where: { id: id },
+      relations: relations ?? []
     })
   }
-  delete(orderVehicleId: number): Promise<OrderVehicle> {
-    throw new Error("Method not implemented.");
+
+  async insert(orderVehicle: OrderVehicle): Promise<OrderVehicle> {
+    return await OrderVehicleEntity.create(orderVehicle).save();
+  }
+
+  async findAllByVehicleId(vehicleId: number, relations?: string[]): Promise<OrderVehicle[]> {
+    return await OrderVehicleEntity.find({
+      where: { vehicle: { id: vehicleId } },
+      relations: relations ?? []
+    })
+  }
+  async delete(orderVehicle: OrderVehicle): Promise<OrderVehicle> {
+    return await OrderVehicleEntity.create(orderVehicle).remove();
   }
 
 }

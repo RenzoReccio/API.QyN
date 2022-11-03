@@ -1,7 +1,6 @@
 import { Inject } from "@nestjs/common";
 import { SupplierRepository } from "src/domain/repository/supplier.repository";
 import { BaseUseCase } from "../../base/base.usecase";
-import { ListSuppliersResponse } from "../listSuppliers/listSuppliers.response";
 import { ListSupplierByIdResponse } from "./listSupplierById.response";
 
 export class ListSupplierByIdUseCase implements BaseUseCase<number, ListSupplierByIdResponse> {

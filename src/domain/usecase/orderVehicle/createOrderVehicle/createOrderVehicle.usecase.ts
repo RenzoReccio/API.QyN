@@ -5,11 +5,11 @@ import { OrderRepository } from "src/domain/repository/order.repository";
 import { OrderVehicleRepository } from "src/domain/repository/orderVehicle.repository";
 import { VehicleRepository } from "src/domain/repository/vehicle.repository";
 import { BaseUseCase } from "../../base/base.usecase";
-import { CreaeOrderVehicleDto } from "./createOrderVehicle.dto";
+import { CreateOrderVehicleDto } from "./createOrderVehicle.dto";
 import { CreateOrderVehicleResponse } from "./createOrderVehicle.response";
 
 @Injectable()
-export class CreateOrderVehicleUseCase implements BaseUseCase<CreaeOrderVehicleDto, CreateOrderVehicleResponse>{
+export class CreateOrderVehicleUseCase implements BaseUseCase<CreateOrderVehicleDto, CreateOrderVehicleResponse>{
 
   constructor(
     @Inject('OrderVehicleRepository') private _orderVehicleRepository: OrderVehicleRepository,
@@ -17,7 +17,7 @@ export class CreateOrderVehicleUseCase implements BaseUseCase<CreaeOrderVehicleD
     @Inject('VehicleRepository') private _vehicleRepository: VehicleRepository,
   ) { }
 
-  async get(dto: CreaeOrderVehicleDto): Promise<CreateOrderVehicleResponse> {
+  async get(dto: CreateOrderVehicleDto): Promise<CreateOrderVehicleResponse> {
     let order = await this._orderRepository.findOne(dto.orderId);
     if(!order) throw new ResourceNotFound('El pedido indicado no se encuentra registrado');
 
