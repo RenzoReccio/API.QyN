@@ -3,6 +3,12 @@ import { OrderVehicleRepository } from "src/domain/repository/orderVehicle.repos
 import { OrderVehicleEntity } from "../entity/ordervehicle.entity";
 
 export class OrderVehicleService implements OrderVehicleRepository {
+  async findByOrderId(orderId: number): Promise<OrderVehicle> {
+    return await OrderVehicleEntity.findOne({
+      where: { order: orderId }
+    })
+  }
+
   async findOne(id: number, relations?: string[]): Promise<OrderVehicle> {
     return await OrderVehicleEntity.findOne({
       where: { id: id },

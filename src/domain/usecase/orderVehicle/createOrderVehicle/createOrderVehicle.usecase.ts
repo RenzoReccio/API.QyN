@@ -24,6 +24,9 @@ export class CreateOrderVehicleUseCase implements BaseUseCase<CreateOrderVehicle
     let vehicle = await this._vehicleRepository.findOne(dto.vehicleId)
     if(!vehicle) throw new ResourceNotFound('El vehiculo indicado no se encuentra registrado');
     
+    let orderVehicleExisting = await this._orderVehicleRepository.findByOrderId(dto.orderId)
+    if(orderVehicleExisting) throw new ResourceNotFound('El pedido indicado ya se encuentra asignado');
+
     let orderVehicle = new OrderVehicleModel(undefined, order, vehicle, new Date(dto.date))
 
     orderVehicle = await this._orderVehicleRepository.insert(orderVehicle)
