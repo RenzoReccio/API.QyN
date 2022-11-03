@@ -41,7 +41,7 @@ export class LoginResponse implements DataStoredInToken {
 
   constructor(user: User) {
     this.id = user.id;
-    this.name = user.person.firstName ?? '' + ' ' + user.person.lastName ?? '' + ' ' + user.person.lastName ?? '';
+    this.name = user.person.firstName ?? '' + ' ' + user.person.lastName ?? '' + ' ' + user.person.surName ?? '';
     this.name.trim();
     this.username = user.email;
     this.client = user.client ? new ClientInformationLoginResponse(user.client) : null;
