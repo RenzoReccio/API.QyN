@@ -23,7 +23,7 @@ export class UpdatePurchaseOrderUseCase implements BaseUseCase<UpdatePurchaseOrd
   ) { }
 
   async get(dto?: UpdatePurchaseOrderDto): Promise<UpdatePurchaseOrderResponse> {
-    let purchaseOrder = await this._purchaseOrderRepository.findOne(dto.id, ['purchaseOrderStatus']);
+    let purchaseOrder = await this._purchaseOrderRepository.findOne(dto.id, ['purchaseOrderStatus', 'purchaseOrderDetails', 'purchaseOrderDetails.product']);
     if (!purchaseOrder) throw new ResourceNotFound('La orden de compra indicada no se encuentra registrado');
 
     let status = await this._purchaseOrderStatusRepository.findOne(dto.purchaseOrderStatusId);
@@ -33,7 +33,7 @@ export class UpdatePurchaseOrderUseCase implements BaseUseCase<UpdatePurchaseOrd
       throw new ValidationError(`La orden de compra ya esta marcada como  ${purchaseOrder.purchaseOrderStatus.name} y no puede ser modificada`)
     }
 
-    if(dto.purchaseOrderStatusId != purchaseOrder.purchaseOrderStatus.id && dto.purchaseOrderStatusId == 5) {
+    if (dto.purchaseOrderStatusId != purchaseOrder.purchaseOrderStatus.id && dto.purchaseOrderStatusId == 5) {
       this.updateProductsStock(purchaseOrder);
     }
 
@@ -53,7 +53,7 @@ export class UpdatePurchaseOrderUseCase implements BaseUseCase<UpdatePurchaseOrd
 
     for (const purchaseOrderDetail of purchaseOrder.purchaseOrderDetails) {
       let product = products.find(item => item.id = purchaseOrderDetail.product.id);
-      if(!product) continue;
+      if (!product) continue;
 
       product.stock = product.stock + purchaseOrderDetail.quantity;
     }
