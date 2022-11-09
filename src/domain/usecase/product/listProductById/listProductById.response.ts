@@ -44,6 +44,7 @@ export class ListProductByIdResponse {
     this.categoryId = product.category.id;
     this.minStock = product.minStock;
     this.maxStock = product.maxStock;
+    this.stock = product.stock;
     this.showInCatalog = product.showInCatalog;
     this.urlImage = product.urlImage;
   }

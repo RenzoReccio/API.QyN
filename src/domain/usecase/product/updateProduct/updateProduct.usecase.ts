@@ -23,7 +23,7 @@ export class UpdateProductUseCase implements BaseUseCase<UpdateProductDto, Updat
 
     let productUpdate = new ProductModel(dto.id,
       dto.code, dto.name, dto.salesPrice, dto.purchasePrice,
-      category, dto.minStock, dto.maxStock, dto.stock,
+      category, dto.minStock, dto.maxStock, undefined,
       dto.showInCatalog, dto.urlImage
     )
 

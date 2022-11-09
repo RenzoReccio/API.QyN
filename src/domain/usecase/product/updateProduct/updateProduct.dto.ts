@@ -24,10 +24,7 @@ export class UpdateProductDto {
 
   @ApiProperty()
   maxStock: number;
-
-  @ApiProperty()
-  stock: number;
-
+  
   @ApiProperty()
   showInCatalog: boolean;
 
