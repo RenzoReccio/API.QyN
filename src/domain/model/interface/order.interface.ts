@@ -11,4 +11,6 @@ export interface Order extends Auditory{
   estimatedDate: Date;
   comments: string;
   orderDetails: OrderDetail[];
+  punctuation: number;
+  postComments: string;
 }

@@ -34,4 +34,10 @@ export class OrderEntity extends BaseEntity implements Order {
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column({ nullable: true })
+  punctuation: number;
+
+  @Column({ nullable: true })
+  postComments: string;
 }

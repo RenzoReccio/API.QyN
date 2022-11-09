@@ -1,4 +1,3 @@
-import { ApiProperty } from "@nestjs/swagger";
 import { Client } from "./interface/client.interface";
 import { Order } from "./interface/order.interface";
 import { OrderDetail } from "./interface/orderDetail.interface";
@@ -16,6 +15,8 @@ export class OrderModel implements Order {
   address: string;
   createdAt: Date;
   updatedAt: Date;
+  punctuation: number;
+  postComments: string;
 
   constructor(
     id: number, client: Client, orderStatus: OrderStatus, address: string,
