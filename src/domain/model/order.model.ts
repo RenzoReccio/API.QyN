@@ -5,7 +5,7 @@ import { OrderStatus } from "./interface/orderStatus.interface";
 
 export class OrderModel implements Order {
 
-    
+
   id: number;
   client: Client;
   orderStatus: OrderStatus;
@@ -20,7 +20,8 @@ export class OrderModel implements Order {
 
   constructor(
     id: number, client: Client, orderStatus: OrderStatus, address: string,
-    estimatedDate: Date, comments: string, orderDetails: OrderDetail[]
+    estimatedDate: Date, comments: string, orderDetails: OrderDetail[],
+    punctuation?: number, postComments?: string
   ) {
     this.id = id;
     this.client = client;
@@ -29,6 +30,8 @@ export class OrderModel implements Order {
     this.comments = comments;
     this.orderDetails = orderDetails;
     this.address = address;
+    this.punctuation = punctuation;
+    this.postComments = postComments;
     this.createdAt = undefined;
     this.updatedAt = undefined;
   }

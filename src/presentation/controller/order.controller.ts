@@ -11,6 +11,9 @@ import { ListOrderStatusResponse } from 'src/domain/usecase/order/listOrderStatu
 import { ListOrderStatusUseCase } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { ListOrdersToAssignResponse } from 'src/domain/usecase/order/listOrdersToAssign/listOrdersToAssign.response';
 import { ListOrdersToAssignUseCase } from 'src/domain/usecase/order/listOrdersToAssign/listOrdersToAssign.usecase';
+import { SubmitOrderCommentsDto } from 'src/domain/usecase/order/submitOrderComments/submitOrderComments.dto';
+import { SubmitOrderCommentsResponse } from 'src/domain/usecase/order/submitOrderComments/submitOrderComments.response';
+import { SubmitOrderCommentsUseCase } from 'src/domain/usecase/order/submitOrderComments/submitOrderComments.usecase';
 import { UpdateOrderDto } from 'src/domain/usecase/order/updateOrder/updateOrder.dto';
 import { UpdateOrderResponse } from 'src/domain/usecase/order/updateOrder/updateOrder.response';
 import { UpdateOrderUseCase } from 'src/domain/usecase/order/updateOrder/updateOrder.usecase';
@@ -28,7 +31,8 @@ export class OrderController {
     private listOrderStatusUseCase: ListOrderStatusUseCase,
     private listOrderByIdUseCase: ListOrderByIdUseCase,
     private createClientOrderUseCase: CreateClientOrderUseCase,
-    private listOrdersToAssignUseCase: ListOrdersToAssignUseCase
+    private listOrdersToAssignUseCase: ListOrdersToAssignUseCase,
+    private submitOrderCommentsUseCase: SubmitOrderCommentsUseCase
   ) {
   }
 
@@ -44,7 +48,7 @@ export class OrderController {
     return response;
   }
 
-  
+
   @Get('toAssign')
   @ApiResponse({ type: ListOrdersToAssignResponse, isArray: true, status: 200 })
   async getOrdersToAssign() {
@@ -84,12 +88,25 @@ export class OrderController {
   @Post('client')
   @UseGuards(AuthenticationGuard)
   @ApiResponse({ type: CreateClientOrderResponse, isArray: false, status: 200 })
-  async createOrderClient(@BearerTokenInformation() information: DataStoredInToken,  @Body() order: CreateClientOrderDto) {
+  async createOrderClient(@BearerTokenInformation() information: DataStoredInToken, @Body() order: CreateClientOrderDto) {
     order.userId = Number(information.id);
     let orderInsert = await this.createClientOrderUseCase.get(order);
     let response = new CustomResponse<CreateClientOrderResponse>(
       `Pedido con código: ${orderInsert.id}, creado.`,
       orderInsert,
+      null
+    )
+    return response;
+  }
+
+  @Put(':id/comment')
+  @ApiResponse({ type: SubmitOrderCommentsResponse, isArray: false, status: 200 })
+  async submitOrderComments(@Param('id') id: string, @Body() order: SubmitOrderCommentsDto) {
+    order.id = Number(id);
+    let orderUpdate = await this.submitOrderCommentsUseCase.get(order);
+    let response = new CustomResponse<UpdateOrderResponse>(
+      `Pedido con código: ${orderUpdate.id}, comentado.`,
+      orderUpdate,
       null
     )
     return response;

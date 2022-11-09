@@ -14,6 +14,7 @@ import { ListOrderByIdUseCase } from './usecase/order/listOrderById/listOrderByI
 import { ListOrdersUseCase } from './usecase/order/listOrders/listOrders.usecase';
 import { ListOrderStatusUseCase } from './usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { ListOrdersToAssignUseCase } from './usecase/order/listOrdersToAssign/listOrdersToAssign.usecase';
+import { SubmitOrderCommentsUseCase } from './usecase/order/submitOrderComments/submitOrderComments.usecase';
 import { UpdateOrderUseCase } from './usecase/order/updateOrder/updateOrder.usecase';
 import { CreateOrderVehicleUseCase } from './usecase/orderVehicle/createOrderVehicle/createOrderVehicle.usecase';
 import { DeleteOrderVehicleUseCase } from './usecase/orderVehicle/deleteOrderVehicle/deleteOrderVehicle.usecase';
@@ -56,6 +57,7 @@ const OrderUseCases = [
   ListOrderByIdUseCase,
   CreateClientOrderUseCase,
   ListOrdersToAssignUseCase,
+  SubmitOrderCommentsUseCase
 ]
 
 const ProductUseCases = [
