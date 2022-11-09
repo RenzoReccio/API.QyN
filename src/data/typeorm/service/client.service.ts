@@ -9,7 +9,7 @@ export class ClientService implements ClientRepository {
 
 
   async findByUserId(userId: number): Promise<Client> {
-    return await ClientEntity.createQueryBuilder("client").leftJoinAndSelect("client.user", "user").where("user.id = :userId", { userId: userId }).getOne()
+    return await ClientEntity.createQueryBuilder("client").leftJoinAndSelect("client.user", "user").where("user.id = :userId", { userId: userId }).leftJoinAndSelect("client.typeDocument", "typeDocument").getOne()
   }
 
   async findByRuc(ruc: string): Promise<Client> {

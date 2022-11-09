@@ -6,6 +6,7 @@ import { LoginUseCase } from './usecase/auth/login/login.usecase';
 import { SigInUseCase } from './usecase/auth/signin/signin.usecase';
 import { ListCategoriesUseCase } from './usecase/category/listCategories/listCategories.usecase';
 import { ListClientByIdUseCase } from './usecase/client/listClientById/listClientById.usecase';
+import { ListClientByUserIdUseCase } from './usecase/client/listClientByUserId/listClientByUserId.usecase';
 import { ListClientsUseCase } from './usecase/client/listClients/listClients.usecase';
 import { UpdateClientUseCase } from './usecase/client/updateClient/updateClient.usecase';
 import { ListDriversUseCase } from './usecase/driver/listDrivers/listDrivers.usecase';
@@ -91,7 +92,8 @@ const CategoryUseCases = [
 const ClientUseCases = [
   ListClientByIdUseCase,
   ListClientsUseCase,
-  UpdateClientUseCase
+  UpdateClientUseCase,
+  ListClientByUserIdUseCase
 ]
 
 const TypeDocumentUseCase = [
