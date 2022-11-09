@@ -24,7 +24,7 @@ export class SigInUseCase implements BaseUseCase<SignInDto, string>{
   async get(dto: SignInDto): Promise<string> {
     let typeDocument = await this._typeDocumentRepository.findOne(dto.typeDocumentId);
 
-    let client = new ClientModel(undefined, typeDocument, dto.numberDocument, dto.companyName || dto.firstName + ' ' + dto.lastName, '', dto.phone, dto.email, dto.address);
+    let client = new ClientModel(undefined, typeDocument, dto.numberDocument, dto.companyName || (dto.firstName + ' ' + dto.lastName), '', dto.phone, dto.email, dto.address);
     client = await this._clientRepository.insert(client);
 
     let person = new PersonModel(undefined, dto.firstName, dto.lastName, dto.surName, dto.bornDate)
