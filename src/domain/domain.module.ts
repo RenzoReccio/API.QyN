@@ -13,6 +13,7 @@ import { ListDriversUseCase } from './usecase/driver/listDrivers/listDrivers.use
 import { CreateClientOrderUseCase } from './usecase/order/createClientOrder/createClientOrder.usecase';
 import { ListOrderByIdUseCase } from './usecase/order/listOrderById/listOrderById.usecase';
 import { ListOrdersUseCase } from './usecase/order/listOrders/listOrders.usecase';
+import { ListOrdersByUserIdUseCase } from './usecase/order/listOrdersByUserId/listOrdersByUserId.usecase';
 import { ListOrderStatusUseCase } from './usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { ListOrdersToAssignUseCase } from './usecase/order/listOrdersToAssign/listOrdersToAssign.usecase';
 import { SubmitOrderCommentsUseCase } from './usecase/order/submitOrderComments/submitOrderComments.usecase';
@@ -58,7 +59,8 @@ const OrderUseCases = [
   ListOrderByIdUseCase,
   CreateClientOrderUseCase,
   ListOrdersToAssignUseCase,
-  SubmitOrderCommentsUseCase
+  SubmitOrderCommentsUseCase,
+  ListOrdersByUserIdUseCase
 ]
 
 const ProductUseCases = [

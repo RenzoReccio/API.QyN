@@ -7,6 +7,8 @@ import { ListOrderByIdResponse } from 'src/domain/usecase/order/listOrderById/li
 import { ListOrderByIdUseCase } from 'src/domain/usecase/order/listOrderById/listOrderById.usecase';
 import { ListOrderResponse } from 'src/domain/usecase/order/listOrders/listOrders.response';
 import { ListOrdersUseCase } from 'src/domain/usecase/order/listOrders/listOrders.usecase';
+import { ListOrderByUserIdResponse } from 'src/domain/usecase/order/listOrdersByUserId/listOrdersByUserId.response';
+import { ListOrdersByUserIdUseCase } from 'src/domain/usecase/order/listOrdersByUserId/listOrdersByUserId.usecase';
 import { ListOrderStatusResponse } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.response';
 import { ListOrderStatusUseCase } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { ListOrdersToAssignResponse } from 'src/domain/usecase/order/listOrdersToAssign/listOrdersToAssign.response';
@@ -32,7 +34,8 @@ export class OrderController {
     private listOrderByIdUseCase: ListOrderByIdUseCase,
     private createClientOrderUseCase: CreateClientOrderUseCase,
     private listOrdersToAssignUseCase: ListOrdersToAssignUseCase,
-    private submitOrderCommentsUseCase: SubmitOrderCommentsUseCase
+    private submitOrderCommentsUseCase: SubmitOrderCommentsUseCase,
+    private listOrdersByUserIdUseCase: ListOrdersByUserIdUseCase
   ) {
   }
 
@@ -73,6 +76,19 @@ export class OrderController {
     return response;
   }
 
+  @Get('client')
+  @UseGuards(AuthenticationGuard)
+  @ApiResponse({ type: ListOrderByUserIdResponse, isArray: true, status: 200 })
+  async getOrdersByUserId(@BearerTokenInformation() information: DataStoredInToken) {
+    let orderInsert = await this.listOrdersByUserIdUseCase.get(Number(information.id));
+    let response = new CustomResponse<ListOrderByUserIdResponse[]>(
+      `Pedidos encontrados: ${orderInsert.length}.`,
+      orderInsert,
+      null
+    )
+    return response;
+  }
+  
   @Get(':id')
   @ApiResponse({ type: ListOrderByIdResponse, isArray: false, status: 200 })
   async getOrderById(@Param('id') id: number): Promise<CustomResponse<ListOrderByIdResponse>> {

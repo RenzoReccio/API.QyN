@@ -4,9 +4,22 @@ import { OrderRepository } from 'src/domain/repository/order.repository';
 import { In, Not } from 'typeorm';
 import { OrderEntity } from '../entity/order.entity';
 import { OrderVehicleEntity } from '../entity/ordervehicle.entity';
+import { UserEntity } from '../entity/users.entity';
 
 @Injectable()
 export class OrderService implements OrderRepository {
+  async findByUserId(userId: number, relations?: string[]): Promise<Order[]> {
+    let user = await UserEntity.findOneOrFail({ where: { id: userId }, relations: ['client'] })
+
+    return await OrderEntity.find({
+      where: {
+        client: user.client.id
+      },
+      relations: relations ?? [],
+      order: { id: 'ASC' }
+    })
+  }
+
   async findOrdersReadyToAssign(relations?: string[]): Promise<Order[]> {
     let orderVehicle = await OrderVehicleEntity.find({ relations: ['order'] })
     let orderIds = new Set<number>(orderVehicle.map(item => { return item.order.id }))

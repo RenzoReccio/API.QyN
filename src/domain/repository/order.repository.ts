@@ -6,4 +6,5 @@ export interface OrderRepository {
   findAll(relations?: string[]): Promise<Order[]>;
   findOrdersReadyToAssign(relations?: string[]): Promise<Order[]>;
   findOne(id: number, relations?: string[]): Promise<Order>;
+  findByUserId(userId: number, relations?: string[]): Promise<Order[]>;
 }
