@@ -40,9 +40,9 @@ export class CreateClientOrderUseCase implements BaseUseCase<CreateClientOrderDt
     let products = await this._productRepository.getByIds(Array.from(productIds))
     let orderDetailInsert: OrderDetailModel[] = [];
     for (const orderDetail of dto.orderDetail) {
-      let product = products.find(item => item.id = orderDetail.idProduct);
+      let product = products.find(item => item.id == orderDetail.idProduct);
 
-      if(orderDetail.quantity > product.stock) throw new NoStock('No hay stock suficiente del producto: ' + product.name)
+      if (orderDetail.quantity > product.stock) throw new NoStock('No hay stock suficiente del producto: ' + product.name)
       orderDetailInsert.push(new OrderDetailModel(null, order, product, orderDetail.quantity, product.salesPrice));
       product.stock = product.stock - orderDetail.quantity;
     }
@@ -56,7 +56,7 @@ export class CreateClientOrderUseCase implements BaseUseCase<CreateClientOrderDt
     await this._orderDetailRepository.insertMany(orderDetailInsert);
 
     return new CreateClientOrderResponse(order.id)
-    
+
   }
 
 
