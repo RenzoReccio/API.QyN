@@ -24,7 +24,7 @@ export class ListCatalogResponse {
     this.id = product.id;
     this.code = product.code;
     this.name = product.name;
-    this.type = product.category.name;
+    this.type = product?.category?.name ?? '';
     this.salesPrice = product.salesPrice;
     this.urlImage = product.urlImage;
   }

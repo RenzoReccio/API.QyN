@@ -16,8 +16,8 @@ export class ListProductsResponse {
 
   constructor(product: Product) {
     this.id = product.id;
-    this.name = product.code +' - '+product.name;
-    this.type = product.category.name;
+    this.name = product.code + ' - ' + product.name;
+    this.type = product?.category?.name ?? '';
     this.showInCatalog = product.showInCatalog;
   }
 }
