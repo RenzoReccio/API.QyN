@@ -84,12 +84,20 @@ export class ListOrderByIdResponse {
   @ApiProperty({ type: [OrderDetailListOrderByIdResponse], isArray: true })
   orderDetails: OrderDetailListOrderByIdResponse[];
 
+  @ApiProperty()
+  punctuation: number;
+
+  @ApiProperty()
+  postComments: string;
+
   constructor(order: Order) {
     this.id = order.id;
     this.orderStatusId = order.orderStatus.id;
     this.estimatedDate = order.estimatedDate;
     this.address = order.address;
     this.comments = order.comments;
+    this.punctuation = order.punctuation;
+    this.postComments = order.postComments;
     this.client = new ClientListOrderByIdResponse(order.client);
     this.orderDetails = order.orderDetails.map(item => new OrderDetailListOrderByIdResponse(item))
   }

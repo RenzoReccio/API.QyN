@@ -18,5 +18,4 @@ export class ListOrderByIdUseCase implements BaseUseCase<number, ListOrderByIdRe
     ]);
     return new ListOrderByIdResponse(order);
   }
-
 }
