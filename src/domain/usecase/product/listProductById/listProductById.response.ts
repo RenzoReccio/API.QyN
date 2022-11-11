@@ -41,7 +41,7 @@ export class ListProductByIdResponse {
     this.name = product.name;
     this.salesPrice = product.salesPrice;
     this.purchasePrice = product.purchasePrice;
-    this.categoryId = product.category.id;
+    this.categoryId = product?.category?.id ?? null;
     this.minStock = product.minStock;
     this.maxStock = product.maxStock;
     this.stock = product.stock;
