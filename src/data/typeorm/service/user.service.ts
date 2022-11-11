@@ -5,8 +5,12 @@ import { UserEntity } from '../entity/users.entity';
 
 @Injectable()
 export class UserService implements UserRepository {
+  async findById(id: number, relations?: string[]): Promise<User> {
+    return await UserEntity.findOne<UserEntity>({ where: { id: id }, relations: relations ?? [] });
+  }
+  
   async findAll(relations?: string[]): Promise<User[]> {
-    return await UserEntity.find<UserEntity>({relations: relations ?? []});
+    return await UserEntity.find<UserEntity>({ relations: relations ?? [] });
   }
 
   async insert(user: User): Promise<User> {
@@ -16,7 +20,7 @@ export class UserService implements UserRepository {
   async findManyByIds(ids: Set<number>): Promise<User[]> {
     return await UserEntity.findByIds(Array.from(ids));
   }
-  
+
   async findByEmail(email: string, relations: string[]): Promise<User> {
     return await UserEntity.findOne({ relations: relations ?? [], where: { email: email } });
   }

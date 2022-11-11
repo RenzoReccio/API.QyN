@@ -5,4 +5,6 @@ export interface UserRepository {
   findManyByIds(ids: Set<number>): Promise<User[]>;
   insert(user: User): Promise<User>;
   findAll(relations?: string[]): Promise<User[]>;
+  findById(id: number, relations?: string[]): Promise<User>;
+
 }
