@@ -5,6 +5,10 @@ import { PersonEntity } from '../entity/person.entity';
 
 @Injectable()
 export class PersonService implements PersonRepository {
+  async update(person: Person): Promise<Person> {
+    return await PersonEntity.create(person).save();
+  }
+
   async insert(person: Person): Promise<Person> {
     return await PersonEntity.create(person).save();
   }

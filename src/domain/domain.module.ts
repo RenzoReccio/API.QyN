@@ -38,8 +38,11 @@ import { ListSuppliersUseCase } from './usecase/supplier/listSuppliers/listSuppl
 import { UpdateSupplierUseCase } from './usecase/supplier/updateSupplier/updateSupplier.usecase';
 import { ListTypeDocumentUseCase } from './usecase/typeDocument/listTypeDocuments/listTypeDocuments.usecase';
 import { ListTypeVehiclesUseCase } from './usecase/typeVehicle/listTypeVehicles/listTypeVehicles.usecase';
+import { CreateUserUseCase } from './usecase/user/createUser/createUser.usecase';
 import { ListUserByIdUseCase } from './usecase/user/listUserById/listUserById.usecase';
 import { ListUsersUseCase } from './usecase/user/listUsers/listUsers.usecase';
+import { UpdateUserUseCase } from './usecase/user/updateUser/updateUser.usecase';
+import { UpdateUserPasswordUseCase } from './usecase/user/updateUserPassword/updateUserPassword.usecase';
 import { CreateVehicleUseCase } from './usecase/vehicle/createVehicle/createVehicle.usecase';
 import { ListVehicleByIdUseCase } from './usecase/vehicle/listVehicleById/listVehicleById.usecase';
 import { ListVehiclesUseCase } from './usecase/vehicle/listVehicles/listVehicles.usecase';
@@ -127,7 +130,10 @@ const OrderVehicleUseCases = [
 
 const UserUseCases = [
   ListUsersUseCase,
-  ListUserByIdUseCase
+  ListUserByIdUseCase,
+  CreateUserUseCase,
+  UpdateUserPasswordUseCase,
+  UpdateUserUseCase
 ]
 
 @Module({
