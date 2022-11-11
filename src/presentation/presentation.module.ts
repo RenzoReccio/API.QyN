@@ -12,6 +12,7 @@ import { PurchaseOrderController } from './controller/purchaseOrder.controller';
 import { SupplierController } from './controller/supplier.controller';
 import { TypeDocumentController } from './controller/typeDocument.controller';
 import { TypeVehicleController } from './controller/typeVehicle.controller';
+import { UserController } from './controller/user.controller';
 import { VehicleController } from './controller/vehicle.controller';
 import { AuthenticationGuard } from './guard/authentication.guard';
 
@@ -29,7 +30,8 @@ import { AuthenticationGuard } from './guard/authentication.guard';
     TypeDocumentController,
     PurchaseOrderController,
     SupplierController,
-    OrderVehicleController
+    OrderVehicleController,
+    UserController
   ],
   providers: [
     AuthenticationGuard,

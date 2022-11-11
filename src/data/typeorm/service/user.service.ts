@@ -5,6 +5,10 @@ import { UserEntity } from '../entity/users.entity';
 
 @Injectable()
 export class UserService implements UserRepository {
+  async findAll(relations?: string[]): Promise<User[]> {
+    return await UserEntity.find<UserEntity>({relations: relations ?? []});
+  }
+
   async insert(user: User): Promise<User> {
     return await UserEntity.create(user).save();
   }
