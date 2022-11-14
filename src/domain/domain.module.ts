@@ -32,6 +32,7 @@ import { ListPurchaseOrderByIdUseCase } from './usecase/purchaseOrder/listPurcha
 import { ListPurchaseOrdersUseCase } from './usecase/purchaseOrder/listPurchaseOrders/listPurchaseOrders.usecase';
 import { ListPurchaseOrderStatusUseCase } from './usecase/purchaseOrder/listPurchaseOrderStatus/listPurchaseOrderStatus.usecase';
 import { UpdatePurchaseOrderUseCase } from './usecase/purchaseOrder/updatePurchaseOrder/updatePurchaseOrder.usecase';
+import { ListRolsUseCase } from './usecase/rol/listRols/listRols.usecase';
 import { CreateSupplierUseCase } from './usecase/supplier/createSupplier/createSupplier.usecase';
 import { ListSupplierByIdUseCase } from './usecase/supplier/listSupplierById/listSupplierById.usecase';
 import { ListSuppliersUseCase } from './usecase/supplier/listSuppliers/listSuppliers.usecase';
@@ -136,6 +137,10 @@ const UserUseCases = [
   UpdateUserUseCase
 ]
 
+const RolUseCases = [
+  ListRolsUseCase
+]
+
 @Module({
   imports: [DataModule, UtilsModule],
   exports: [
@@ -151,7 +156,8 @@ const UserUseCases = [
     ...PurchaseOrderUseCase,
     ...SupplierUseCases,
     ...OrderVehicleUseCases,
-    ...UserUseCases
+    ...UserUseCases,
+    ...RolUseCases,
   ],
   providers: [
     ...typeOrmProviders(),
@@ -167,7 +173,8 @@ const UserUseCases = [
     ...PurchaseOrderUseCase,
     ...SupplierUseCases,
     ...OrderVehicleUseCases,
-    ...UserUseCases
+    ...UserUseCases,
+    ...RolUseCases,
   ]
 })
 export class DomainModule { }

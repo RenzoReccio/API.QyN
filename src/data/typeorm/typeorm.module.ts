@@ -15,6 +15,7 @@ import { ProductService } from './service/product.service';
 import { PurchaseOrderService } from './service/purchaseOrder.service';
 import { PurchaseOrderDetailService } from './service/purchaseOrderDetail.service';
 import { PurchaseOrderStatusService } from './service/purchaseOrderStatus.service';
+import { RolService } from './service/rol.service';
 import { SupplierService } from './service/supplier.service';
 import { TypeDocumentService } from './service/typeDocument.service';
 import { TypeVehicleService } from './service/typeVehicle.service';
@@ -38,7 +39,8 @@ const services = [
   PurchaseOrderStatusService,
   SupplierService,
   PersonService,
-  OrderVehicleService
+  OrderVehicleService,
+  RolService
 ]
 
 @Module({
