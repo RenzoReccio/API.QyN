@@ -18,6 +18,9 @@ export class UpdateProductUseCase implements BaseUseCase<UpdateProductDto, Updat
 
   async get(dto?: UpdateProductDto): Promise<UpdateProductResponse> {
 
+    let productExist = await this._productRepository.findOne(dto.id);
+    if (!productExist) throw new ResourceNotFound('El producto indicado no se encuentra registrado');
+
     if (dto.minStock >= dto.maxStock) throw new ValidationError('El stock minimo no puede ser mayor al stock maximo.')
 
     let category = await this._categoryRepository.findOne(dto.categoryId);

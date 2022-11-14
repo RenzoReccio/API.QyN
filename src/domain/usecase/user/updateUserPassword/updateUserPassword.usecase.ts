@@ -18,6 +18,8 @@ export class UpdateUserPasswordUseCase implements BaseUseCase<UpdateUserPassword
   }
 
   async get(dto: UpdateUserPasswordDto): Promise<UpdateUserPasswordResponse> {
+    let userExist = await this._userRepository.findById(dto.id);
+    if (!userExist) throw new ValidationError('No existe el usuario indicado')
 
     let encryptedPassword = await this._authService.encriptPassword(dto.password.trim())
     let user = new UserModel(dto.id, undefined, encryptedPassword, undefined, undefined, undefined)

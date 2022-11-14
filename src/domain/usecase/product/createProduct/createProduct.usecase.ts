@@ -19,13 +19,18 @@ export class CreateProductUseCase implements BaseUseCase<CreateProductDto, Creat
 
     if (dto.minStock >= dto.maxStock) throw new ValidationError('El stock minimo no puede ser mayor al stock maximo.')
 
+    if (dto.stock > dto.maxStock || dto.stock < dto.minStock) throw new ValidationError('El stock debe estar entre el stock minimo y el stock maximo.')
+
     let category = await this._categoryRepository.findOne(dto.categoryId);
     if (!category) throw new ResourceNotFound('La categoria no se encuentra registrada');
 
+    let productCode = await this._productRepository.getOneByCode(dto.code.trim().toUpperCase());
+    if (productCode) throw new ValidationError('Ya existe un producto con el codigo ingresado');
+
     let productInsert = new ProductModel(undefined,
-      dto.code, dto.name, dto.salesPrice, dto.purchasePrice,
+      dto.code.trim().toUpperCase(), dto.name.trim(), dto.salesPrice, dto.purchasePrice,
       category, dto.minStock, dto.maxStock, dto.stock,
-      dto.showInCatalog, dto.urlImage
+      dto.showInCatalog, dto.urlImage.trim()
     )
     productInsert = await this._productRepository.insert(productInsert)
     return new CreateProductResponse(productInsert.id);

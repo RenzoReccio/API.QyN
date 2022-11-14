@@ -34,7 +34,7 @@ export class UpdatePurchaseOrderUseCase implements BaseUseCase<UpdatePurchaseOrd
     }
 
     if (dto.purchaseOrderStatusId != purchaseOrder.purchaseOrderStatus.id && dto.purchaseOrderStatusId == 5) {
-      this.updateProductsStock(purchaseOrder);
+      await this.updateProductsStock(purchaseOrder);
     }
 
     let purchaseOrderUpdate = new PurchaseOrderModel(dto.id, undefined, dto.arrivalDate, dto.comments.trim(), status, undefined);
@@ -52,7 +52,7 @@ export class UpdatePurchaseOrderUseCase implements BaseUseCase<UpdatePurchaseOrd
     let products = await this._productRepository.getByIds(Array.from(productIds))
 
     for (const purchaseOrderDetail of purchaseOrder.purchaseOrderDetails) {
-      let product = products.find(item => item.id = purchaseOrderDetail.product.id);
+      let product = products.find(item => item.id == purchaseOrderDetail.product.id);
       if (!product) continue;
 
       product.stock = product.stock + purchaseOrderDetail.quantity;
