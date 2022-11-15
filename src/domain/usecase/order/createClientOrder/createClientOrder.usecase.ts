@@ -6,8 +6,10 @@ import { OrderDetailModel } from "src/domain/model/orderDetail.model";
 import { ClientRepository } from "src/domain/repository/client.repository";
 import { OrderRepository } from "src/domain/repository/order.repository";
 import { OrderDetailRepository } from "src/domain/repository/orderDetail.repository";
+import { OrderMailRepository } from "src/domain/repository/orderMail.repository";
 import { OrderStatusRepository } from "src/domain/repository/orderStatus.repository";
 import { ProductRepository } from "src/domain/repository/product.repository";
+import { UserRepository } from "src/domain/repository/user.repository";
 import { BaseUseCase } from "../../base/base.usecase";
 import { CreateClientOrderDto } from "./createClientOrder.dto";
 import { CreateClientOrderResponse } from "./createClientOrder.response";
@@ -19,7 +21,9 @@ export class CreateClientOrderUseCase implements BaseUseCase<CreateClientOrderDt
     @Inject('OrderDetailRepository') private _orderDetailRepository: OrderDetailRepository,
     @Inject('OrderStatusRepository') private _orderStatusRepository: OrderStatusRepository,
     @Inject('ClientRepository') private _clientRepository: ClientRepository,
-    @Inject('ProductRepository') private _productRepository: ProductRepository
+    @Inject('ProductRepository') private _productRepository: ProductRepository,
+    @Inject('OrderMailRepository') private _orderMailRepository: OrderMailRepository,
+    @Inject('UserRepository') private _userRepository: UserRepository,
   ) {
 
   }
@@ -55,6 +59,9 @@ export class CreateClientOrderUseCase implements BaseUseCase<CreateClientOrderDt
     })
     await this._orderDetailRepository.insertMany(orderDetailInsert);
 
+    //Send mail
+    let user = await this._userRepository.findById(dto.userId, ['person'])
+    await this._orderMailRepository.sendMailToClient(user, order, orderDetailInsert)
     return new CreateClientOrderResponse(order.id)
 
   }

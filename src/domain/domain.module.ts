@@ -1,5 +1,6 @@
 import { Module, Provider } from '@nestjs/common';
 import { DataModule } from 'src/data/data.module';
+import { MailModule } from 'src/data/mail/mail.module';
 import { TypeormModule } from 'src/data/typeorm/typeorm.module';
 import { UtilsModule } from 'src/utils/utils.module';
 import { LoginUseCase } from './usecase/auth/login/login.usecase';
@@ -52,6 +53,10 @@ import { UpdateVehicleUseCase } from './usecase/vehicle/updateVehicle/updateVehi
 
 const typeOrmProviders = (): Provider[] => {
   return Reflect.getMetadata('providers', TypeormModule).map((item: Function) => { return { provide: item.name.replace('Service', 'Repository'), useClass: item } })
+}
+
+const mailProviders = (): Provider[] => {
+  return Reflect.getMetadata('providers', MailModule).map((item: Function) => { return { provide: item.name.replace('Service', 'Repository'), useClass: item } })
 }
 
 const AuthUseCases = [
@@ -161,6 +166,7 @@ const RolUseCases = [
   ],
   providers: [
     ...typeOrmProviders(),
+    ...mailProviders(),
     ...OrderUseCases,
     ...ProductUseCases,
     ...AuthUseCases,

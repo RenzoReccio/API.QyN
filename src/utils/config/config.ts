@@ -10,3 +10,5 @@ export const SECRET_KEY = () => process.env.SECRET_KEY;
 export const LOG_FORMAT = () => process.env.LOG_FORMAT;
 export const LOG_DIR = () => process.env.LOG_DIR;
 export const ORIGIN = () => process.env.ORIGIN;
+export const EMAIL_USER = () => process.env.EMAIL_USER;
+export const EMAIL_PASSWORD = () => process.env.EMAIL_PASSWORD;
