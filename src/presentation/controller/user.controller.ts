@@ -5,6 +5,8 @@ import { CreateUserResponse } from 'src/domain/usecase/user/createUser/createUse
 import { CreateUserUseCase } from 'src/domain/usecase/user/createUser/createUser.usecase';
 import { ListUserByIdResponse } from 'src/domain/usecase/user/listUserById/listUserById.response';
 import { ListUserByIdUseCase } from 'src/domain/usecase/user/listUserById/listUserById.usecase';
+import { ListUserRolsResponse } from 'src/domain/usecase/user/listUserRols/listUserRols.response';
+import { ListUserRolsUseCase } from 'src/domain/usecase/user/listUserRols/listUserRols.usecase';
 import { ListUsersResponse } from 'src/domain/usecase/user/listUsers/listUsers.response';
 import { ListUsersUseCase } from 'src/domain/usecase/user/listUsers/listUsers.usecase';
 import { UpdateUserDto } from 'src/domain/usecase/user/updateUser/updateUser.dto';
@@ -24,7 +26,8 @@ export class UserController {
     private createUserUseCase: CreateUserUseCase,
     private updateUserUseCase: UpdateUserUseCase,
     private updateUserPasswordUseCase: UpdateUserPasswordUseCase,
-  ){}
+    private listUserRolsUseCase: ListUserRolsUseCase,
+  ) { }
 
   @Get('')
   @ApiResponse({ type: ListUsersResponse, isArray: true, status: 200 })
@@ -45,6 +48,18 @@ export class UserController {
     let response = new CustomResponse<ListUserByIdResponse>(
       `Usuario con id: ${id} encontrado.`,
       user,
+      null
+    )
+    return response;
+  }
+
+  @Get(':id/rols')
+  @ApiResponse({ type: ListUserRolsResponse, isArray: true, status: 200 })
+  async getUserRols(@Param('id') id: number) {
+    let rols = await this.listUserRolsUseCase.get(Number(id));
+    let response = new CustomResponse<ListUserRolsResponse[]>(
+      `Roles encontrados ${rols.length}.`,
+      rols,
       null
     )
     return response;

@@ -20,6 +20,7 @@ import { SupplierService } from './service/supplier.service';
 import { TypeDocumentService } from './service/typeDocument.service';
 import { TypeVehicleService } from './service/typeVehicle.service';
 import { UserService } from './service/user.service';
+import { UserRolService } from './service/userRol.service';
 import { VehicleService } from './service/vehicle.service';
 
 const services = [
@@ -40,7 +41,8 @@ const services = [
   SupplierService,
   PersonService,
   OrderVehicleService,
-  RolService
+  RolService,
+  UserRolService
 ]
 
 @Module({
