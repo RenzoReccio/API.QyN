@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsEmail, IsNumber, IsNumberString, IsPhoneNumber, IsString } from "class-validator";
+import { IsDateString, IsEmail, IsNumber, IsNumberString, IsPhoneNumber, IsString, MinLength } from "class-validator";
 
 export class SignInDto {
   @ApiProperty()
@@ -8,7 +8,10 @@ export class SignInDto {
 
   @ApiProperty()
   @IsString({
-    message: 'La contraseña tiene el formato correcto'
+    message: 'La contraseña no tiene el formato correcto'
+  })
+  @MinLength(5, {
+    message: 'La contraseña debe tener 5 caracteres como minimo'
   })
   password: string;
 

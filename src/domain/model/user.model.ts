@@ -9,7 +9,8 @@ export class UserModel implements User {
   isActive: boolean;
   client: Client;
   person: Person;
-
+  passwordChangeToken: string;
+  passwordChangeRequestedDate: Date;
   constructor(
     id: number,
     email: string,
@@ -17,6 +18,8 @@ export class UserModel implements User {
     isActive: boolean,
     client: Client,
     person: Person,
+    passwordChangeToken?: string,
+    passwordChangeRequestedDate?: Date
   ) {
     this.id = id;
     this.email = email;
@@ -24,5 +27,9 @@ export class UserModel implements User {
     this.isActive = isActive;
     this.client = client;
     this.person = person;
+    this.passwordChangeToken = passwordChangeToken;
+    this.passwordChangeRequestedDate = passwordChangeRequestedDate;
+
   }
+
 }

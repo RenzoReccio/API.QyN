@@ -28,6 +28,12 @@ export class UserEntity extends BaseEntity implements User {
   @JoinColumn()
   client: ClientEntity;
 
+  @Column({ nullable: true })
+  passwordChangeToken: string;
+
+  @Column({ nullable: true })
+  passwordChangeRequestedDate: Date;
+
   @Column()
   @CreateDateColumn()
   createdAt: Date;

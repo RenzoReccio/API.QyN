@@ -3,6 +3,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { Module } from '@nestjs/common';
 import { join } from 'path';
 import { EMAIL_PASSWORD, EMAIL_USER } from 'src/utils/config/config';
+import { AuthMailService } from './services/authMail.service';
 import { OrderMailService } from './services/orderMail.service';
 
 @Module({
@@ -27,7 +28,7 @@ import { OrderMailService } from './services/orderMail.service';
       })
     }),
   ],
-  providers: [OrderMailService],
-  exports: [OrderMailService], // 👈 export for DI
+  providers: [OrderMailService, AuthMailService],
+  exports: [OrderMailService, AuthMailService], // 👈 export for DI
 })
 export class MailModule { }

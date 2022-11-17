@@ -6,6 +6,7 @@ import { ValidationException } from './validation.error';
 @Catch(Error)
 export class GlobalExceptionHandler implements ExceptionFilter {
   catch(exception: Error, host: ArgumentsHost) {
+    // console.error(exception)
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();

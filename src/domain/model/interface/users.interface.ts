@@ -8,4 +8,7 @@ export interface User {
   isActive: boolean;
   client: Client;
   person: Person;
+  //Change password fields
+  passwordChangeToken: string;
+  passwordChangeRequestedDate: Date;
 }

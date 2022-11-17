@@ -3,7 +3,9 @@ import { DataModule } from 'src/data/data.module';
 import { MailModule } from 'src/data/mail/mail.module';
 import { TypeormModule } from 'src/data/typeorm/typeorm.module';
 import { UtilsModule } from 'src/utils/utils.module';
+import { ChangePasswordUseCase } from './usecase/auth/changePassword/changePassword.usecase';
 import { LoginUseCase } from './usecase/auth/login/login.usecase';
+import { RequestPasswordChangeUseCase } from './usecase/auth/requestPasswordChange/requestPasswordChange.usecase';
 import { SigInUseCase } from './usecase/auth/signin/signin.usecase';
 import { ListCategoriesUseCase } from './usecase/category/listCategories/listCategories.usecase';
 import { ListClientByIdUseCase } from './usecase/client/listClientById/listClientById.usecase';
@@ -62,8 +64,11 @@ const mailProviders = (): Provider[] => {
 
 const AuthUseCases = [
   LoginUseCase,
-  SigInUseCase
-]
+  SigInUseCase,
+  RequestPasswordChangeUseCase,
+  ChangePasswordUseCase
+];
+
 const OrderUseCases = [
   ListOrdersUseCase,
   UpdateOrderUseCase,
