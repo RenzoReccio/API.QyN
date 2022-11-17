@@ -11,6 +11,8 @@ import { ListOrderByUserIdResponse } from 'src/domain/usecase/order/listOrdersBy
 import { ListOrdersByUserIdUseCase } from 'src/domain/usecase/order/listOrdersByUserId/listOrdersByUserId.usecase';
 import { ListOrderStatusResponse } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.response';
 import { ListOrderStatusUseCase } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.usecase';
+import { ListOrderStatusHistoryResponse } from 'src/domain/usecase/order/listOrderStatusHistory/listOrderStatusHistory.response';
+import { ListOrderStatusHistoryUseCase } from 'src/domain/usecase/order/listOrderStatusHistory/listOrderStatusHistory.usecase';
 import { ListOrdersToAssignResponse } from 'src/domain/usecase/order/listOrdersToAssign/listOrdersToAssign.response';
 import { ListOrdersToAssignUseCase } from 'src/domain/usecase/order/listOrdersToAssign/listOrdersToAssign.usecase';
 import { SubmitOrderCommentsDto } from 'src/domain/usecase/order/submitOrderComments/submitOrderComments.dto';
@@ -35,7 +37,9 @@ export class OrderController {
     private createClientOrderUseCase: CreateClientOrderUseCase,
     private listOrdersToAssignUseCase: ListOrdersToAssignUseCase,
     private submitOrderCommentsUseCase: SubmitOrderCommentsUseCase,
-    private listOrdersByUserIdUseCase: ListOrdersByUserIdUseCase
+    private listOrdersByUserIdUseCase: ListOrdersByUserIdUseCase,
+    private listOrderStatusHistoryUseCase: ListOrderStatusHistoryUseCase
+
   ) {
   }
 
@@ -101,6 +105,18 @@ export class OrderController {
     return response;
   }
 
+  @Get(':id/statusHistory')
+  @ApiResponse({ type: ListOrderStatusHistoryResponse, isArray: true, status: 200 })
+  async getOrderStatusHistory(@Param('id') id: number) {
+    let orderStatusHistory = await this.listOrderStatusHistoryUseCase.get(Number(id));
+    let response = new CustomResponse<ListOrderStatusHistoryResponse[]>(
+      `Historial de estados.`,
+      orderStatusHistory,
+      null
+    )
+    return response;
+  }
+  
   @Post('client')
   @UseGuards(AuthenticationGuard)
   @ApiResponse({ type: CreateClientOrderResponse, isArray: false, status: 200 })
