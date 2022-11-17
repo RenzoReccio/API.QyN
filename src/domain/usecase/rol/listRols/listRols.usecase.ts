@@ -6,10 +6,10 @@ import { ListRolsResponse } from "./listRols.response";
 export class ListRolsUseCase implements BaseUseCase<null, ListRolsResponse[]>{
   constructor(
     @Inject('RolRepository') private _rolRepository: RolRepository,
-  ){}
+  ) { }
 
   async get(dto?: null): Promise<ListRolsResponse[]> {
     let rols = await this._rolRepository.findAll()
-    return rols.map(item => { return new ListRolsResponse(item) });
+    return rols.filter(item => item.id != 1).map(item => { return new ListRolsResponse(item) });
   }
 }
