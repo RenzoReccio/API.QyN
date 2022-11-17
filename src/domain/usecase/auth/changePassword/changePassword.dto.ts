@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MinLength } from "class-validator";
+import { IsEmail, IsString, MinLength } from "class-validator";
 
 export class ChangePasswordDto {
   @ApiProperty()
@@ -11,6 +11,10 @@ export class ChangePasswordDto {
   })
   password: string;
 
+  @ApiProperty()
+  @IsEmail({ message: 'El correo no tiene el formato correcto' })
+  email: string;
+  
   @ApiProperty()
   token: string;
 }

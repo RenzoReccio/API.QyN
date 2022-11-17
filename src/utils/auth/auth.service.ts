@@ -34,6 +34,6 @@ export class AuthService implements IAuthService {
   }
 
   async generateRandomToken(): Promise<string> {
-    return require('crypto').randomBytes(32).toString("hex");
+    return require('crypto').randomBytes(6).toString("hex");
   }
 }
