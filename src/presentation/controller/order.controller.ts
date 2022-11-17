@@ -11,6 +11,8 @@ import { ListOrderByUserIdResponse } from 'src/domain/usecase/order/listOrdersBy
 import { ListOrdersByUserIdUseCase } from 'src/domain/usecase/order/listOrdersByUserId/listOrdersByUserId.usecase';
 import { ListOrdersDeliveredOutOfTimeTimeResponse } from 'src/domain/usecase/order/listOrdersDeliveredOutOfTime/listOrdersDeliveredOutOfTime.response';
 import { ListOrdersDeliveredOutOfTimeUseCase } from 'src/domain/usecase/order/listOrdersDeliveredOutOfTime/listOrdersDeliveredOutOfTime.usecase';
+import { ListOrdersPunctuationResponse } from 'src/domain/usecase/order/listOrdersPunctutation/listOrdersPunctutation.response';
+import { ListOrdersPunctuationUseCase } from 'src/domain/usecase/order/listOrdersPunctutation/listOrdersPunctutation.usecase';
 import { ListOrderStatusResponse } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.response';
 import { ListOrderStatusUseCase } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { ListOrderStatusHistoryResponse } from 'src/domain/usecase/order/listOrderStatusHistory/listOrderStatusHistory.response';
@@ -41,7 +43,9 @@ export class OrderController {
     private submitOrderCommentsUseCase: SubmitOrderCommentsUseCase,
     private listOrdersByUserIdUseCase: ListOrdersByUserIdUseCase,
     private listOrderStatusHistoryUseCase: ListOrderStatusHistoryUseCase,
-    private listOrdersDeliveredOutOfTimeUseCase: ListOrdersDeliveredOutOfTimeUseCase
+    private listOrdersDeliveredOutOfTimeUseCase: ListOrdersDeliveredOutOfTimeUseCase,
+    private listOrdersPunctuationUseCase: ListOrdersPunctuationUseCase
+
   ) {
   }
 
@@ -59,10 +63,22 @@ export class OrderController {
 
   @Get('report/delivered')
   @ApiResponse({ type: ListOrdersDeliveredOutOfTimeTimeResponse, isArray: true, status: 200 })
-  async getOrdersReport() {
+  async getOrdersDeliverdeReport() {
     let orders = await this.listOrdersDeliveredOutOfTimeUseCase.get();
     let response = new CustomResponse<ListOrdersDeliveredOutOfTimeTimeResponse[]>(
-      `Pedidos para reporte.`,
+      `Pedidos entregados en el año ${new Date().getFullYear()}.`,
+      orders,
+      null
+    )
+    return response;
+  }
+
+  @Get('report/punctuation')
+  @ApiResponse({ type: ListOrdersPunctuationResponse, isArray: true, status: 200 })
+  async getOrdersPuncutationReport() {
+    let orders = await this.listOrdersPunctuationUseCase.get();
+    let response = new CustomResponse<ListOrdersPunctuationResponse[]>(
+      `Califación de pedidos del periodo ${new Date().getMonth() + 1}-${new Date().getFullYear()}.`,
       orders,
       null
     )
@@ -105,7 +121,7 @@ export class OrderController {
     )
     return response;
   }
-  
+
   @Get(':id')
   @ApiResponse({ type: ListOrderByIdResponse, isArray: false, status: 200 })
   async getOrderById(@Param('id') id: number): Promise<CustomResponse<ListOrderByIdResponse>> {
@@ -129,7 +145,7 @@ export class OrderController {
     )
     return response;
   }
-  
+
   @Post('client')
   @UseGuards(AuthenticationGuard)
   @ApiResponse({ type: CreateClientOrderResponse, isArray: false, status: 200 })
