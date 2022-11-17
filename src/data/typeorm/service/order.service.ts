@@ -8,6 +8,9 @@ import { UserEntity } from '../entity/users.entity';
 
 @Injectable()
 export class OrderService implements OrderRepository {
+  findAllOrderDelivered(relations?: string[]): Promise<Order[]> {
+    return OrderEntity.find({ relations: relations ?? [], order: { id: 'ASC' }, where: { orderStatus: 7 } })
+  }
   async findByUserId(userId: number, relations?: string[]): Promise<Order[]> {
     let user = await UserEntity.findOneOrFail({ where: { id: userId }, relations: ['client'] })
 

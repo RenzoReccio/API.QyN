@@ -9,6 +9,8 @@ import { ListOrderResponse } from 'src/domain/usecase/order/listOrders/listOrder
 import { ListOrdersUseCase } from 'src/domain/usecase/order/listOrders/listOrders.usecase';
 import { ListOrderByUserIdResponse } from 'src/domain/usecase/order/listOrdersByUserId/listOrdersByUserId.response';
 import { ListOrdersByUserIdUseCase } from 'src/domain/usecase/order/listOrdersByUserId/listOrdersByUserId.usecase';
+import { ListOrdersDeliveredOutOfTimeTimeResponse } from 'src/domain/usecase/order/listOrdersDeliveredOutOfTime/listOrdersDeliveredOutOfTime.response';
+import { ListOrdersDeliveredOutOfTimeUseCase } from 'src/domain/usecase/order/listOrdersDeliveredOutOfTime/listOrdersDeliveredOutOfTime.usecase';
 import { ListOrderStatusResponse } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.response';
 import { ListOrderStatusUseCase } from 'src/domain/usecase/order/listOrderStatus/listOrderStatus.usecase';
 import { ListOrderStatusHistoryResponse } from 'src/domain/usecase/order/listOrderStatusHistory/listOrderStatusHistory.response';
@@ -38,8 +40,8 @@ export class OrderController {
     private listOrdersToAssignUseCase: ListOrdersToAssignUseCase,
     private submitOrderCommentsUseCase: SubmitOrderCommentsUseCase,
     private listOrdersByUserIdUseCase: ListOrdersByUserIdUseCase,
-    private listOrderStatusHistoryUseCase: ListOrderStatusHistoryUseCase
-
+    private listOrderStatusHistoryUseCase: ListOrderStatusHistoryUseCase,
+    private listOrdersDeliveredOutOfTimeUseCase: ListOrdersDeliveredOutOfTimeUseCase
   ) {
   }
 
@@ -55,6 +57,17 @@ export class OrderController {
     return response;
   }
 
+  @Get('report/delivered')
+  @ApiResponse({ type: ListOrdersDeliveredOutOfTimeTimeResponse, isArray: true, status: 200 })
+  async getOrdersReport() {
+    let orders = await this.listOrdersDeliveredOutOfTimeUseCase.get();
+    let response = new CustomResponse<ListOrdersDeliveredOutOfTimeTimeResponse[]>(
+      `Pedidos para reporte.`,
+      orders,
+      null
+    )
+    return response;
+  }
 
   @Get('toAssign')
   @ApiResponse({ type: ListOrdersToAssignResponse, isArray: true, status: 200 })
