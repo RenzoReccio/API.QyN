@@ -1,8 +1,10 @@
 import { Person } from 'src/domain/model/interface/person.interface';
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
+import { UserRol } from 'src/domain/model/interface/userRol.interface';
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
 import { User } from '../../../domain/model/interface/users.interface';
 import { ClientEntity } from './client.entity';
 import { PersonEntity } from './person.entity';
+import { UserRolEntity } from './userRol.entity';
 
 @Entity()
 export class UserEntity extends BaseEntity implements User {
@@ -27,6 +29,9 @@ export class UserEntity extends BaseEntity implements User {
   @OneToOne(() => ClientEntity, (clientEntity) => clientEntity.user)
   @JoinColumn()
   client: ClientEntity;
+
+  @OneToMany(() => UserRolEntity, (userRolEntity) => userRolEntity.user)
+  userRols: UserRol[];
 
   @Column({ nullable: true })
   passwordChangeToken: string;

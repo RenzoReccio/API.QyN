@@ -11,9 +11,9 @@ export class UserRolEntity extends BaseEntity implements UserRol {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(()=> UserEntity)
+  @ManyToOne(() => UserEntity, (userEntity) => userEntity.userRols)
   user: User;
-  
-  @ManyToOne(()=> RolEntity)
+
+  @ManyToOne(() => RolEntity)
   rol: Rol;
 }
