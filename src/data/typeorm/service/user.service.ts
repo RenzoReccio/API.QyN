@@ -21,6 +21,9 @@ export class UserService implements UserRepository {
     return await UserEntity.find<UserEntity>({ relations: relations ?? [] });
   }
 
+  async findAllSystemUsers(relations?: string[]): Promise<User[]> {
+    return await UserEntity.find<UserEntity>({ relations: relations ?? [] });
+  }
   async insert(user: User): Promise<User> {
     return await UserEntity.create(user).save();
   }

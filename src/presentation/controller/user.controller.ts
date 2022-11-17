@@ -15,6 +15,9 @@ import { UpdateUserUseCase } from 'src/domain/usecase/user/updateUser/updateUser
 import { UpdateUserPasswordDto } from 'src/domain/usecase/user/updateUserPassword/updateUserPassword.dto';
 import { UpdateUserPasswordResponse } from 'src/domain/usecase/user/updateUserPassword/updateUserPassword.response';
 import { UpdateUserPasswordUseCase } from 'src/domain/usecase/user/updateUserPassword/updateUserPassword.usecase';
+import { UpdateUserRolsDto } from 'src/domain/usecase/user/updateUserRols/updateUserRols.dto';
+import { UpdateUserRolsResponse } from 'src/domain/usecase/user/updateUserRols/updateUserRols.response';
+import { UpdateUserRolsUseCase } from 'src/domain/usecase/user/updateUserRols/updateUserRols.usecase';
 import { CustomResponse } from 'src/utils/response/response.model';
 
 @Controller('user')
@@ -27,6 +30,7 @@ export class UserController {
     private updateUserUseCase: UpdateUserUseCase,
     private updateUserPasswordUseCase: UpdateUserPasswordUseCase,
     private listUserRolsUseCase: ListUserRolsUseCase,
+    private updateUserRolsUseCase: UpdateUserRolsUseCase,
   ) { }
 
   @Get('')
@@ -59,6 +63,19 @@ export class UserController {
     let rols = await this.listUserRolsUseCase.get(Number(id));
     let response = new CustomResponse<ListUserRolsResponse[]>(
       `Roles encontrados ${rols.length}.`,
+      rols,
+      null
+    )
+    return response;
+  }
+
+  @Put(':id/rols')
+  @ApiResponse({ type: ListUserRolsResponse, isArray: true, status: 200 })
+  async upodateUserRols(@Param('id') id: number, @Body() user: UpdateUserRolsDto) {
+    user.userId = Number(id);
+    let rols = await this.updateUserRolsUseCase.get(user);
+    let response = new CustomResponse<UpdateUserRolsResponse>(
+      `Usuario con id: ${user.userId}, actualizado.`,
       rols,
       null
     )

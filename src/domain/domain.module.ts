@@ -49,6 +49,7 @@ import { ListUserRolsUseCase } from './usecase/user/listUserRols/listUserRols.us
 import { ListUsersUseCase } from './usecase/user/listUsers/listUsers.usecase';
 import { UpdateUserUseCase } from './usecase/user/updateUser/updateUser.usecase';
 import { UpdateUserPasswordUseCase } from './usecase/user/updateUserPassword/updateUserPassword.usecase';
+import { UpdateUserRolsUseCase } from './usecase/user/updateUserRols/updateUserRols.usecase';
 import { CreateVehicleUseCase } from './usecase/vehicle/createVehicle/createVehicle.usecase';
 import { ListVehicleByIdUseCase } from './usecase/vehicle/listVehicleById/listVehicleById.usecase';
 import { ListVehiclesUseCase } from './usecase/vehicle/listVehicles/listVehicles.usecase';
@@ -149,6 +150,7 @@ const UserUseCases = [
   UpdateUserPasswordUseCase,
   UpdateUserUseCase,
   ListUserRolsUseCase,
+  UpdateUserRolsUseCase,
 ]
 
 const RolUseCases = [
