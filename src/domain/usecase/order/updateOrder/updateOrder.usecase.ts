@@ -3,8 +3,10 @@ import { ResourceNotFound } from "src/domain/error/resourceNotFound.exception";
 import { ValidationError } from "src/domain/error/validation.error";
 import { Order } from "src/domain/model/interface/order.interface";
 import { OrderModel } from "src/domain/model/order.model";
+import { OrderStatusHistoryModel } from "src/domain/model/orderStatusHistory.model";
 import { OrderRepository } from "src/domain/repository/order.repository";
 import { OrderStatusRepository } from "src/domain/repository/orderStatus.repository";
+import { OrderStatusHistoryRepository } from "src/domain/repository/orderStatusHistory.repository";
 import { ProductRepository } from "src/domain/repository/product.repository";
 import { BaseUseCase } from "../../base/base.usecase";
 import { UpdateOrderDto } from "./updateOrder.dto";
@@ -19,7 +21,8 @@ export class UpdateOrderUseCase implements BaseUseCase<UpdateOrderDto, UpdateOrd
   constructor(
     @Inject('OrderRepository') private _orderRepository: OrderRepository,
     @Inject('OrderStatusRepository') private _orderStatusRepository: OrderStatusRepository,
-    @Inject('ProductRepository') private _productRepository: ProductRepository
+    @Inject('ProductRepository') private _productRepository: ProductRepository,
+    @Inject('OrderStatusHistoryRepository') private _orderStatusHistoryRepository: OrderStatusHistoryRepository,
   ) { }
 
   async get(dto: UpdateOrderDto): Promise<UpdateOrderResponse> {
@@ -36,6 +39,9 @@ export class UpdateOrderUseCase implements BaseUseCase<UpdateOrderDto, UpdateOrd
       throw new ValidationError(`El pedido ya esta marcado como  ${order.orderStatus.name} y no puede ser modificado`)
     }
 
+    if (dto.statusId != order.orderStatus.id) {
+      await this._orderStatusHistoryRepository.insert(new OrderStatusHistoryModel(undefined, order, orderStatus));
+    }
     //Si el pedido es rechazado actualizamos el stock
     if (dto.statusId != order.orderStatus.id && dto.statusId == 2) {
       await this.updateProductsStock(order);

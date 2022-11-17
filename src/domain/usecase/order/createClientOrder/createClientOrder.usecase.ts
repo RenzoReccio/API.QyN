@@ -3,11 +3,13 @@ import { NoStock } from "src/domain/error/noStock.error";
 import { ResourceNotFound } from "src/domain/error/resourceNotFound.exception";
 import { OrderModel } from "src/domain/model/order.model";
 import { OrderDetailModel } from "src/domain/model/orderDetail.model";
+import { OrderStatusHistoryModel } from "src/domain/model/orderStatusHistory.model";
 import { ClientRepository } from "src/domain/repository/client.repository";
 import { OrderRepository } from "src/domain/repository/order.repository";
 import { OrderDetailRepository } from "src/domain/repository/orderDetail.repository";
 import { OrderMailRepository } from "src/domain/repository/orderMail.repository";
 import { OrderStatusRepository } from "src/domain/repository/orderStatus.repository";
+import { OrderStatusHistoryRepository } from "src/domain/repository/orderStatusHistory.repository";
 import { ProductRepository } from "src/domain/repository/product.repository";
 import { UserRepository } from "src/domain/repository/user.repository";
 import { BaseUseCase } from "../../base/base.usecase";
@@ -24,6 +26,7 @@ export class CreateClientOrderUseCase implements BaseUseCase<CreateClientOrderDt
     @Inject('ProductRepository') private _productRepository: ProductRepository,
     @Inject('OrderMailRepository') private _orderMailRepository: OrderMailRepository,
     @Inject('UserRepository') private _userRepository: UserRepository,
+    @Inject('OrderStatusHistoryRepository') private _orderStatusHistoryRepository: OrderStatusHistoryRepository,
   ) {
 
   }
@@ -58,7 +61,7 @@ export class CreateClientOrderUseCase implements BaseUseCase<CreateClientOrderDt
       item.order = order;
     })
     await this._orderDetailRepository.insertMany(orderDetailInsert);
-
+    await this._orderStatusHistoryRepository.insert(new OrderStatusHistoryModel(undefined, order, orderStatusCreated));
     //Send mail
     let user = await this._userRepository.findById(dto.userId, ['person'])
     await this._orderMailRepository.sendMailToClient(user, order, orderDetailInsert)

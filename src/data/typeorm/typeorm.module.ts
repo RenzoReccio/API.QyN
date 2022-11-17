@@ -9,6 +9,7 @@ import { DriverService } from './service/driver.service';
 import { OrderDetailService } from './service/order-detail.service';
 import { OrderService } from './service/order.service';
 import { OrderStatusService } from './service/orderStatus.service';
+import { OrderStatusHistoryService } from './service/orderStatusHistory.service';
 import { OrderVehicleService } from './service/orderVehicle.service';
 import { PersonService } from './service/person.service';
 import { ProductService } from './service/product.service';
@@ -42,7 +43,8 @@ const services = [
   PersonService,
   OrderVehicleService,
   RolService,
-  UserRolService
+  UserRolService,
+  OrderStatusHistoryService
 ]
 
 @Module({
