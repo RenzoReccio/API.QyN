@@ -1,7 +1,13 @@
+import { ApiProperty } from "@nestjs/swagger";
 
 export class ListOrdersDeliveredOutOfTimeTimeResponse {
+  @ApiProperty()
   month: string;
-  quantityDeliveredOutOfTime: number; 
+
+  @ApiProperty()
+  quantityDeliveredOutOfTime: number;
+  
+  @ApiProperty()
   quantityDeliveredInTime: number; 
 
   constructor(month: string, quantityDeliveredOutOfTime: number, quantityDeliveredInTime: number) {

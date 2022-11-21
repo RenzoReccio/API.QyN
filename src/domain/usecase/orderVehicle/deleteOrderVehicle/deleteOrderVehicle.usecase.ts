@@ -24,7 +24,7 @@ export class DeleteOrderVehicleUseCase implements BaseUseCase<number, DeleteOrde
     let orderVehicle = await this._orderVehicleRepository.findOne(id, ['order']);
     if (!orderVehicle) throw new ResourceNotFound('La asignacion indicada no se encuentra registrado');
     let order = await this._orderRepository.findOne(orderVehicle.order.id, ['orderStatus'])
-    if (order.orderStatus.id == 7) throw new ValidationError('El pedido ya ha sido entregado');
+    if (order.orderStatus.id != 4 && order.orderStatus.id != 5) throw new ValidationError('Solo se puede eliminar la asignacion si el pedido esta en estado: Listo para enviar o En preparacion.');
 
     //En preparacion
     let orderStatus = await this._orderStatusRepository.findOne(4);

@@ -1,4 +1,4 @@
-import { Inject } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { ResourceNotFound } from "src/domain/error/resourceNotFound.exception";
 import { ValidationError } from "src/domain/error/validation.error";
 import { PurchaseOrder } from "src/domain/model/interface/purchaseOrder.interface";
@@ -10,6 +10,7 @@ import { BaseUseCase } from "../../base/base.usecase";
 import { UpdatePurchaseOrderDto } from "./updatePurchaseOrder.dto";
 import { UpdatePurchaseOrderResponse } from "./updatePurchaseOrder.response";
 
+@Injectable()
 export class UpdatePurchaseOrderUseCase implements BaseUseCase<UpdatePurchaseOrderDto, UpdatePurchaseOrderResponse>{
 
   //Rechazado, Recibido
@@ -33,8 +34,12 @@ export class UpdatePurchaseOrderUseCase implements BaseUseCase<UpdatePurchaseOrd
       throw new ValidationError(`La orden de compra ya esta marcada como  ${purchaseOrder.purchaseOrderStatus.name} y no puede ser modificada`)
     }
 
+    if (purchaseOrder.purchaseOrderStatus.id != dto.purchaseOrderStatusId) {
+      this.validationStates(purchaseOrder.purchaseOrderStatus.id, dto.purchaseOrderStatusId)
+    }
+
     if (dto.purchaseOrderStatusId != purchaseOrder.purchaseOrderStatus.id && dto.purchaseOrderStatusId == 5) {
-      await this.updateProductsStock(purchaseOrder);
+      await this.updateProductsStockAndPrice(purchaseOrder);
     }
 
     let purchaseOrderUpdate = new PurchaseOrderModel(dto.id, undefined, dto.arrivalDate, dto.comments.trim(), status, undefined);
@@ -44,7 +49,16 @@ export class UpdatePurchaseOrderUseCase implements BaseUseCase<UpdatePurchaseOrd
     return new UpdatePurchaseOrderResponse(purchaseOrderUpdate.id)
   }
 
-  async updateProductsStock(purchaseOrder: PurchaseOrder) {
+  validationStates(oldState: number, newState: number) {
+
+    if (oldState == 1 && newState != 2) throw new ValidationError('No se puede cambiar de Creado a otro estado que no sea Enviado');
+
+    if (oldState == 2 && (newState != 3 && newState != 4)) throw new ValidationError('No se puede cambiar de Enviado a otro estado que no sea Rechazado o Aceptado');
+
+    if (oldState == 4 && newState != 5) throw new ValidationError('No se puede cambiar de Aceptado a otro estado que no sea Recibido');
+  }
+
+  private async updateProductsStockAndPrice(purchaseOrder: PurchaseOrder) {
     let productIds = new Set<number>();
     purchaseOrder.purchaseOrderDetails.forEach(item => {
       productIds.add(item.product.id)
@@ -56,6 +70,7 @@ export class UpdatePurchaseOrderUseCase implements BaseUseCase<UpdatePurchaseOrd
       if (!product) continue;
 
       product.stock = product.stock + purchaseOrderDetail.quantity;
+      product.purchasePrice = purchaseOrderDetail.purchasePrice;
     }
 
     await this._productRepository.updateMany(products);

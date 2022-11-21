@@ -7,6 +7,7 @@ import { OrderStatusHistoryModel } from "src/domain/model/orderStatusHistory.mod
 import { OrderRepository } from "src/domain/repository/order.repository";
 import { OrderStatusRepository } from "src/domain/repository/orderStatus.repository";
 import { OrderStatusHistoryRepository } from "src/domain/repository/orderStatusHistory.repository";
+import { OrderVehicleRepository } from "src/domain/repository/orderVehicle.repository";
 import { ProductRepository } from "src/domain/repository/product.repository";
 import { BaseUseCase } from "../../base/base.usecase";
 import { UpdateOrderDto } from "./updateOrder.dto";
@@ -23,6 +24,7 @@ export class UpdateOrderUseCase implements BaseUseCase<UpdateOrderDto, UpdateOrd
     @Inject('OrderStatusRepository') private _orderStatusRepository: OrderStatusRepository,
     @Inject('ProductRepository') private _productRepository: ProductRepository,
     @Inject('OrderStatusHistoryRepository') private _orderStatusHistoryRepository: OrderStatusHistoryRepository,
+    @Inject('OrderVehicleRepository') private _orderVehicleRepository: OrderVehicleRepository,
   ) { }
 
   async get(dto: UpdateOrderDto): Promise<UpdateOrderResponse> {
@@ -41,6 +43,7 @@ export class UpdateOrderUseCase implements BaseUseCase<UpdateOrderDto, UpdateOrd
 
     if (dto.statusId != order.orderStatus.id) {
       await this._orderStatusHistoryRepository.insert(new OrderStatusHistoryModel(undefined, order, orderStatus));
+      await this.validationStates(order.id, order.orderStatus.id, dto.statusId)
     }
     //Si el pedido es rechazado actualizamos el stock
     if (dto.statusId != order.orderStatus.id && dto.statusId == 2) {
@@ -59,6 +62,25 @@ export class UpdateOrderUseCase implements BaseUseCase<UpdateOrderDto, UpdateOrd
     await this._orderRepository.update(orderModel)
 
     return new UpdateOrderResponse(orderModel);
+  }
+
+  async validationStates(orderId: number, oldState: number, newState: number) {
+    if (oldState == 1 && (newState != 3 && newState != 2)) throw new ValidationError('No se puede cambiar de creado a otro estado que no sea aceptado o rechazado');
+
+    if (oldState == 3 && newState != 4) throw new ValidationError('No se puede cambiar de Aceptado a otro estado que no sea En preparacion');
+
+    if (oldState == 4 && newState != 5) throw new ValidationError('No se puede cambiar de En preparacion a otro estado que no sea Listo para enviar');
+
+    if (oldState == 5 && newState != 6) throw new ValidationError('No se puede cambiar de Listo para enviar a otro estado que no sea En camino');
+
+    if (oldState == 6 && newState != 7) throw new ValidationError('No se puede cambiar de En camino a otro estado que no sea Entregado');
+
+    if (oldState == 4 && newState == 5) {
+      let orderVehicle = await this._orderVehicleRepository.findByOrderId(orderId)
+      if (!orderVehicle) {
+        throw new ValidationError('Se debe asignar un vehiculo al pedido para poder cambiar al siguiente estado');
+      }
+    }
   }
 
   async updateProductsStock(order: Order) {
