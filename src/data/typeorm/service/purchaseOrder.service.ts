@@ -14,7 +14,7 @@ export class PurchaseOrderService implements PurchaseOrderRepository {
   }
 
   async findAll(relations?: string[]): Promise<PurchaseOrder[]> {
-    return await PurchaseOrderEntity.find({ relations: relations ?? [], order: { id: 'ASC' } })
+    return await PurchaseOrderEntity.find({ relations: relations ?? [], order: { id: 'DESC' } })
   }
 
   async findOne(id: number, relations?: string[]): Promise<PurchaseOrder> {

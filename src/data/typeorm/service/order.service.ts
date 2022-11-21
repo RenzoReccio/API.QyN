@@ -42,7 +42,7 @@ export class OrderService implements OrderRepository {
   }
 
   async findAll(relations?: string[]): Promise<Order[]> {
-    return OrderEntity.find({ relations: relations ?? [], order: { id: 'ASC' } })
+    return OrderEntity.find({ relations: relations ?? [], order: { id: 'DESC' } })
   }
 
   async insert(order: Order): Promise<Order> {
