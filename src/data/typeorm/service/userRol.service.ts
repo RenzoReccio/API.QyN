@@ -5,6 +5,9 @@ import { UserRolEntity } from '../entity/userRol.entity';
 
 @Injectable()
 export class UserRolService implements UserRolRepository {
+  async insert(userRol: UserRol): Promise<UserRol> {
+    return await UserRolEntity.save(UserRolEntity.create(userRol));
+  }
   async insertMany(userRols: UserRol[]): Promise<UserRol[]> {
     return await UserRolEntity.save(UserRolEntity.create(userRols));
   }

@@ -1,3 +1,10 @@
+export interface MenuInformation {
+  id: number;
+  url: string;
+  icon: string;
+  title: string;
+  childs: MenuInformation[];
+}
 export interface ClientInformation {
   typeDocument: string;
 
@@ -18,4 +25,6 @@ export interface DataStoredInToken {
   username: string;
 
   client: ClientInformation;
+
+  menus: MenuInformation[]
 }
