@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Client } from "src/domain/model/interface/client.interface";
 import { Order } from "src/domain/model/interface/order.interface";
 import { OrderDetail } from "src/domain/model/interface/orderDetail.interface";
-import { OrderVehicle } from "src/domain/model/interface/orderVehicle.interface";
+import { OrderVehicle } from "src/domain/model/interface/ordervehicle.interface";
 
 export class AssignationListOrderByIdResponse {
   date: Date;
