@@ -30,8 +30,8 @@ export class SubmitOrderCommentsUseCase implements BaseUseCase<SubmitOrderCommen
       undefined,
       undefined,
       undefined,
-      order.punctuation,
-      order.postComments
+      dto.punctuation,
+      dto.commentsOnOrder,
     );
     await this._orderRepository.update(orderModel)
 
