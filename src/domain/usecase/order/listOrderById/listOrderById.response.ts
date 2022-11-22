@@ -2,7 +2,27 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Client } from "src/domain/model/interface/client.interface";
 import { Order } from "src/domain/model/interface/order.interface";
 import { OrderDetail } from "src/domain/model/interface/orderDetail.interface";
+import { OrderVehicle } from "src/domain/model/interface/orderVehicle.interface";
 
+export class AssignationListOrderByIdResponse {
+  date: Date;
+  vehicleId: number;
+  typeVehicle: string;
+  driverName: string;
+  plate: string;
+  brand: string;
+  color: string;
+
+  constructor(orderVehicle: OrderVehicle) {
+    this.date = orderVehicle.date;
+    this.vehicleId = orderVehicle?.vehicle?.id;
+    this.typeVehicle = orderVehicle?.vehicle?.typeVehicle?.name;
+    this.plate = orderVehicle?.vehicle?.plate;
+    this.brand = orderVehicle?.vehicle?.brand;
+    this.color = orderVehicle?.vehicle?.brand;
+    this.color = orderVehicle?.vehicle?.driver?.person?.firstName + ' ' + orderVehicle?.vehicle?.driver?.person?.lastName;
+  }
+}
 
 export class ClientListOrderByIdResponse {
   @ApiProperty()
@@ -84,13 +104,16 @@ export class ListOrderByIdResponse {
   @ApiProperty({ type: [OrderDetailListOrderByIdResponse], isArray: true })
   orderDetails: OrderDetailListOrderByIdResponse[];
 
+  @ApiProperty({ type: [AssignationListOrderByIdResponse] })
+  assignation: AssignationListOrderByIdResponse;
+
   @ApiProperty()
   punctuation: number;
 
   @ApiProperty()
   postComments: string;
 
-  constructor(order: Order) {
+  constructor(order: Order, assignation: OrderVehicle) {
     this.id = order.id;
     this.orderStatusId = order.orderStatus.id;
     this.estimatedDate = order.estimatedDate;
@@ -98,7 +121,8 @@ export class ListOrderByIdResponse {
     this.comments = order.comments;
     this.punctuation = order.punctuation;
     this.postComments = order.postComments;
-    this.client = new ClientListOrderByIdResponse(order.client);
+    this.client = order != null ? new ClientListOrderByIdResponse(order.client) : null;
     this.orderDetails = order.orderDetails.map(item => new OrderDetailListOrderByIdResponse(item))
+    this.assignation = assignation != null ? new AssignationListOrderByIdResponse(assignation) : null;
   }
 }
