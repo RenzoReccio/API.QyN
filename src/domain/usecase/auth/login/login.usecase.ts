@@ -62,6 +62,6 @@ export class LoginUseCase implements BaseUseCase<LoginDto, string>{
       }
     }
 
-    return parentMenus.sort((({ id: a }, { id: b }) => b - a));
+    return parentMenus.sort((({ id: a }, { id: b }) => a - b));
   }
 }
