@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { IncorrectPassword } from "src/domain/error/incorrectPassword.error";
 import { ResourceNotFound } from "src/domain/error/resourceNotFound.exception";
+import { ValidationError } from "src/domain/error/validation.error";
 import { Menu } from "src/domain/model/interface/menu.interface";
 import { UserRol } from "src/domain/model/interface/userRol.interface";
 import { RolRepository } from "src/domain/repository/rol.repository";
@@ -25,6 +26,8 @@ export class LoginUseCase implements BaseUseCase<LoginDto, string>{
 
     let user = await this._userRepository.findByEmail(dto.userName.trim(), ['person', 'client', 'client.typeDocument']);
     if (!user) throw new ResourceNotFound(`No se encontró el usuario con correo: ${dto.userName.trim()}`);
+
+    if (!user.isActive) throw new ValidationError(`El usuario indicado se encuentra inhabilitado`);
 
     const isPasswordMatching: boolean = await this._authService.validatePassword(dto.password.trim(), user.password.trim());
     if (!isPasswordMatching) throw new IncorrectPassword();
