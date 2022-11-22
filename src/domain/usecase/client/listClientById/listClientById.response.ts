@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Client } from "src/domain/model/interface/client.interface";
+import { User } from "src/domain/model/interface/users.interface";
 
 export class ListClientByIdResponse {
   @ApiProperty()
@@ -26,7 +27,10 @@ export class ListClientByIdResponse {
   @ApiProperty()
   address: string;
 
-  constructor(client: Client) {
+  @ApiProperty()
+  isActive: boolean;
+
+  constructor(client: Client, user: User) {
     this.id = client.id;
     this.typeDocumentId = client.typeDocument.id;
     this.numberDocument = client.numberDocument;
@@ -35,5 +39,6 @@ export class ListClientByIdResponse {
     this.phone = client.phone;
     this.email = client.email;
     this.address = client.address;
+    this.isActive = user.isActive;
   }
 }

@@ -42,7 +42,7 @@ export class ClientController {
   async getClientByUserId(@BearerTokenInformation() information: DataStoredInToken) {
 
     let client = await this.listClientByUserIdUseCase.get(Number(information.id));
-    let response = new CustomResponse<ListClientByIdResponse>(
+    let response = new CustomResponse<ListClientByUserIdResponse>(
       `Cliente encontrado con id: ${client.id}.`,
       client,
       null

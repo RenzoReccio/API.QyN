@@ -8,5 +8,5 @@ export interface UserRepository {
   update(user: User): Promise<User>;
   findAll(relations?: string[]): Promise<User[]>;
   findById(id: number, relations?: string[]): Promise<User>;
-
+  findByclientId(clientId: number, relations?: string[]): Promise<User>;
 }
