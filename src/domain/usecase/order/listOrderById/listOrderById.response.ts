@@ -20,7 +20,7 @@ export class AssignationListOrderByIdResponse {
     this.plate = orderVehicle?.vehicle?.plate;
     this.brand = orderVehicle?.vehicle?.brand;
     this.color = orderVehicle?.vehicle?.brand;
-    this.color = orderVehicle?.vehicle?.driver?.person?.firstName + ' ' + orderVehicle?.vehicle?.driver?.person?.lastName;
+    this.driverName = orderVehicle?.vehicle?.driver?.person?.firstName + ' ' + orderVehicle?.vehicle?.driver?.person?.lastName;
   }
 }
 
