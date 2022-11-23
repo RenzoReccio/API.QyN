@@ -27,10 +27,7 @@ export class ListClientByIdResponse {
   @ApiProperty()
   address: string;
 
-  @ApiProperty()
-  isActive: boolean;
-
-  constructor(client: Client, user: User) {
+  constructor(client: Client) {
     this.id = client.id;
     this.typeDocumentId = client.typeDocument.id;
     this.numberDocument = client.numberDocument;
@@ -39,6 +36,5 @@ export class ListClientByIdResponse {
     this.phone = client.phone;
     this.email = client.email;
     this.address = client.address;
-    this.isActive = user.isActive;
   }
 }

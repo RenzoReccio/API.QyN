@@ -4,8 +4,6 @@ import { ValidationError } from "src/domain/error/validation.error";
 import { ClientModel } from "src/domain/model/client.model";
 import { ClientRepository } from "src/domain/repository/client.repository";
 import { TypeDocumentRepository } from "src/domain/repository/typeDocument.repository";
-import { UserRepository } from "src/domain/repository/user.repository";
-
 import { BaseUseCase } from "../../base/base.usecase";
 import { UpdateClientDto } from "./updateClient.dto";
 import { UpdateClientResponse } from "./updateClient.response";
@@ -14,8 +12,6 @@ export class UpdateClientUseCase implements BaseUseCase<UpdateClientDto, UpdateC
   constructor(
     @Inject('ClientRepository') private _clientRepository: ClientRepository,
     @Inject('TypeDocumentRepository') private _typeDocumentRepository: TypeDocumentRepository,
-    @Inject('UserRepository') private _userRepository: UserRepository
-
   ) { }
 
   async get(dto?: UpdateClientDto): Promise<UpdateClientResponse> {
@@ -34,11 +30,7 @@ export class UpdateClientUseCase implements BaseUseCase<UpdateClientDto, UpdateC
       dto.email, dto.address
     );
 
-    let user = await this._userRepository.findByclientId(client.id)
-    user.isActive = dto.isActive;
-
     client = await this._clientRepository.update(client);
-    await this._userRepository.update(user);
 
     return new UpdateClientResponse(client.id);
   }

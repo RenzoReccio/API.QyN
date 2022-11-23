@@ -38,8 +38,4 @@ export class UpdateClientDto {
   @ApiProperty()
   @IsString({ message: 'La direccion no tiene el formato correcto.' })
   address: string;
-
-  @ApiProperty()
-  @IsString({ message: 'El "Esta activo" no tiene el formato correcto.' })
-  isActive: boolean;
 }
