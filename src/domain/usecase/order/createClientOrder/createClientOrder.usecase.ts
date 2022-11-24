@@ -38,7 +38,9 @@ export class CreateClientOrderUseCase implements BaseUseCase<CreateClientOrderDt
     let clientAssociated = await this._clientRepository.findByUserId(dto.userId)
     if (!clientAssociated) throw new ResourceNotFound('El usuario no tiene un cliente asociado');
 
-    let order = new OrderModel(null, clientAssociated, orderStatusCreated, dto.address, new Date(), dto.comments, undefined)
+    let actualDate = new Date();
+    actualDate.setDate(actualDate.getDate() + 5);
+    let order = new OrderModel(null, clientAssociated, orderStatusCreated, dto.address, actualDate, dto.comments, undefined)
 
     let productIds = new Set<number>();
     dto.orderDetail.forEach(item => {
