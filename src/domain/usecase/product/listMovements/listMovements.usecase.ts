@@ -15,6 +15,7 @@ export class ListMovementsUseCase implements BaseUseCase<number, ListMovementsRe
   ) { }
 
   async get(idProduct?: number): Promise<ListMovementsResponse[]> {
+    let product = await this._productRepository.findOne(idProduct);
     let outputs = await this._orderDetailRepository.listByProductId(idProduct);
     let inputs = await this._purchaseOrderDetailRepository.listByProductId(idProduct);
     let movements: ListMovementsResponse[] = [];
@@ -22,6 +23,17 @@ export class ListMovementsUseCase implements BaseUseCase<number, ListMovementsRe
     movements.push(...outputs.map(item => { return new ListMovementsResponse(item.order.updatedAt, 'Salida', item.quantity) }))
 
     movements.sort((a, b) => a.date.getTime() - b.date.getTime())
+
+    let stock = product.stock;
+    for (const movement of movements) {
+      let oldStock = stock;
+      if (movement.typeMovement == 'Ingreso') {
+        stock -= movement.quantity
+      } else {
+        stock += movement.quantity
+      }
+      movement.stock = oldStock;
+    }
     return movements;
   }
 
