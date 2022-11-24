@@ -42,8 +42,8 @@ export class UpdateOrderUseCase implements BaseUseCase<UpdateOrderDto, UpdateOrd
     }
 
     if (dto.statusId != order.orderStatus.id) {
-      await this._orderStatusHistoryRepository.insert(new OrderStatusHistoryModel(undefined, order, orderStatus));
       await this.validationStates(order.id, order.orderStatus.id, dto.statusId)
+      await this._orderStatusHistoryRepository.insert(new OrderStatusHistoryModel(undefined, order, orderStatus));
     }
     //Si el pedido es rechazado actualizamos el stock
     if (dto.statusId != order.orderStatus.id && dto.statusId == 2) {
