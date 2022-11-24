@@ -22,6 +22,8 @@ export class UpdateProductUseCase implements BaseUseCase<UpdateProductDto, Updat
     if (!productExist) throw new ResourceNotFound('El producto indicado no se encuentra registrado');
 
     if (dto.minStock >= dto.maxStock) throw new ValidationError('El stock minimo no puede ser mayor al stock maximo.')
+    
+    if (dto.purchasePrice > dto.salesPrice) throw new ValidationError('El precio de venta debe ser mayor al precio de compra.')
 
     let category = await this._categoryRepository.findOne(dto.categoryId);
     if (!category) throw new ResourceNotFound('La categoria no se encuentra registrada');

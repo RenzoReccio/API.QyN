@@ -21,6 +21,8 @@ export class CreateProductUseCase implements BaseUseCase<CreateProductDto, Creat
 
     if (dto.stock > dto.maxStock || dto.stock < dto.minStock) throw new ValidationError('El stock debe estar entre el stock minimo y el stock maximo.')
 
+    if (dto.purchasePrice > dto.salesPrice) throw new ValidationError('El precio de venta debe ser mayor al precio de compra.')
+
     let category = await this._categoryRepository.findOne(dto.categoryId);
     if (!category) throw new ResourceNotFound('La categoria no se encuentra registrada');
 
