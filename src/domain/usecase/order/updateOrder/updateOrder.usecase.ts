@@ -73,7 +73,7 @@ export class UpdateOrderUseCase implements BaseUseCase<UpdateOrderDto, UpdateOrd
 
     if (oldState == 5 && newState != 6) throw new ValidationError('No se puede cambiar de Listo para enviar a otro estado que no sea En camino');
 
-    if (oldState == 6 && newState != 7) throw new ValidationError('No se puede cambiar de En camino a otro estado que no sea Entregado');
+    if (oldState == 6 && (newState != 5 && newState != 7)) throw new ValidationError('No se puede cambiar de En camino a otro estado que no sea Entregado o Listo para enviar');
 
     if (oldState == 4 && newState == 5) {
       let orderVehicle = await this._orderVehicleRepository.findByOrderId(orderId)
