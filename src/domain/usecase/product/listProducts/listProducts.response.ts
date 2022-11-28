@@ -14,10 +14,13 @@ export class ListProductsResponse {
   @ApiProperty()
   showInCatalog: boolean;
 
+  @ApiProperty()
+  urlImage: string;
   constructor(product: Product) {
     this.id = product.id;
-    this.name = product.code + ' - ' + product.name;
+    this.name = product.name;
     this.type = product?.category?.name ?? '';
     this.showInCatalog = product.showInCatalog;
+    this.urlImage = product.urlImage;
   }
 }
