@@ -19,7 +19,7 @@ export class SupplierService implements SupplierRepository {
   }
 
   async findAll(relations?: string[]): Promise<Supplier[]> {
-    return await SupplierEntity.find<SupplierEntity>({ relations: relations ?? [] });
+    return await SupplierEntity.find<SupplierEntity>({ relations: relations ?? [], order: { id: 'ASC' } });
   }
 
   async findOne(id: number, relations?: string[]): Promise<Supplier> {

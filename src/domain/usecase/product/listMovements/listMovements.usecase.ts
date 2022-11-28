@@ -22,7 +22,7 @@ export class ListMovementsUseCase implements BaseUseCase<number, ListMovementsRe
     movements.push(...inputs.map(item => { return new ListMovementsResponse(item.purchaseOrder.updatedAt, 'Ingreso', item.quantity) }))
     movements.push(...outputs.map(item => { return new ListMovementsResponse(item.order.updatedAt, 'Salida', item.quantity) }))
 
-    movements.sort((a, b) => a.date.getTime() - b.date.getTime())
+    movements.sort((a, b) => b.date.getTime() - a.date.getTime())
 
     let stock = product.stock;
     for (const movement of movements) {

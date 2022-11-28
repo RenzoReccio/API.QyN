@@ -22,7 +22,7 @@ export class UserService implements UserRepository {
   }
 
   async findAll(relations?: string[]): Promise<User[]> {
-    return await UserEntity.find<UserEntity>({ relations: relations ?? [] });
+    return await UserEntity.find<UserEntity>({ relations: relations ?? [], order: { id: 'ASC' } });
   }
 
   async insert(user: User): Promise<User> {

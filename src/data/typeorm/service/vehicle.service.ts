@@ -18,7 +18,7 @@ export class VehicleService implements VehicleRepository {
   }
 
   async findAll(relations?: string[]): Promise<Vehicle[]> {
-    return await VehicleEntity.find<VehicleEntity>({ relations: relations ?? [] });
+    return await VehicleEntity.find<VehicleEntity>({ relations: relations ?? [], order: { id: 'ASC' } });
   }
 
   async findOne(id: number, relations?: string[]): Promise<Vehicle> {

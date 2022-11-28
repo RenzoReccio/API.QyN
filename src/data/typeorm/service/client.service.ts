@@ -17,7 +17,7 @@ export class ClientService implements ClientRepository {
   }
 
   async findAll(relations?: string[]): Promise<Client[]> {
-    return await ClientEntity.find<ClientEntity>({ relations: relations ?? [] });
+    return await ClientEntity.find<ClientEntity>({ relations: relations ?? [], order: { id: 'ASC' } });
   }
 
   async findOne(id: number, relations?: string[]): Promise<Client> {

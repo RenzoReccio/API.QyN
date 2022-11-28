@@ -33,6 +33,6 @@ export class ProductService implements ProductRepository {
   }
 
   async findAll(relations?: string[]): Promise<Product[]> {
-    return await ProductEntity.find({ relations: relations ?? [] });
+    return await ProductEntity.find({ relations: relations ?? [], order: { id: 'ASC' } });
   }
 }
