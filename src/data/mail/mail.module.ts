@@ -5,6 +5,7 @@ import { join } from 'path';
 import { EMAIL_PASSWORD, EMAIL_USER } from 'src/utils/config/config';
 import { AuthMailService } from './services/authMail.service';
 import { OrderMailService } from './services/orderMail.service';
+import { PurchaseOrderMailService } from './services/purchaseOrderMail.service';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { OrderMailService } from './services/orderMail.service';
       })
     }),
   ],
-  providers: [OrderMailService, AuthMailService],
-  exports: [OrderMailService, AuthMailService], // 👈 export for DI
+  providers: [OrderMailService, AuthMailService, PurchaseOrderMailService],
+  exports: [OrderMailService, AuthMailService, PurchaseOrderMailService],
 })
 export class MailModule { }

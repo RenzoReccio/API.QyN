@@ -27,9 +27,28 @@ export class OrderMailService implements OrderMailRepository {
         fullPrice: fullPrice.toFixed(2),
         orderDetail: orderDetail.map(item => { return { name: item.product.name, quantity: item.quantity, price: item.salesPrice.toFixed(2) } }),
         fullName: fullName,
-        order: order
+        order: order,
+        actualDate: this.format(new Date())
       },
     });
+  }
+
+  format(inputDate: Date) {
+    let date, month, year;
+  
+    date = inputDate.getDate();
+    month = inputDate.getMonth() + 1;
+    year = inputDate.getFullYear();
+  
+      date = date
+          .toString()
+          .padStart(2, '0');
+  
+      month = month
+          .toString()
+          .padStart(2, '0');
+  
+    return `${date}.${month}.${year}`;
   }
 
 }
