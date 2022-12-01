@@ -42,7 +42,7 @@ export class CreatePurchaseOrderUseCase implements BaseUseCase<CreatePurchaseOrd
     let products = await this._productRepository.getByIds(Array.from(productIds))
 
     for (const detail of dto.purchaseOrderDetails) {
-      let product = products.find(item => item.id = detail.productId);
+      let product = products.find(item => item.id == detail.productId);
 
       purchaseOrderDetail.push(
         new PurchaseOrderDetailModel(undefined,

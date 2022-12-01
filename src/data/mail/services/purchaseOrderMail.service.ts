@@ -36,10 +36,6 @@ export class PurchaseOrderMailService implements PurchaseOrderMailRepository {
     });
   }
 
-  async sendMailToClient(user: User, order: Order, orderDetail: OrderDetail[]): Promise<void> {
-   
-  }
-
   format(inputDate: Date) {
     let date, month, year;
   
