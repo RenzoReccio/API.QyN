@@ -4,6 +4,7 @@ import { UtilsModule } from 'src/utils/utils.module';
 import { AuthController } from './controller/auth.controller';
 import { CategoryController } from './controller/category.controller';
 import { ClientController } from './controller/client.controller';
+import { DashboardController } from './controller/dashboard.controller';
 import { DriverController } from './controller/driver.controller';
 import { OrderController } from './controller/order.controller';
 import { OrderVehicleController } from './controller/orderVehicle.controller';
@@ -33,7 +34,8 @@ import { AuthenticationGuard } from './guard/authentication.guard';
     SupplierController,
     OrderVehicleController,
     UserController,
-    RolController
+    RolController,
+    DashboardController
   ],
   providers: [
     AuthenticationGuard,

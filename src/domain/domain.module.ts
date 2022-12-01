@@ -12,6 +12,7 @@ import { ListClientByIdUseCase } from './usecase/client/listClientById/listClien
 import { ListClientByUserIdUseCase } from './usecase/client/listClientByUserId/listClientByUserId.usecase';
 import { ListClientsUseCase } from './usecase/client/listClients/listClients.usecase';
 import { UpdateClientUseCase } from './usecase/client/updateClient/updateClient.usecase';
+import { ListForDashboardUseCase } from './usecase/dashboard/listForDashBoard/listForDashboard.usecase';
 import { ListDriversUseCase } from './usecase/driver/listDrivers/listDrivers.usecase';
 import { CreateClientOrderUseCase } from './usecase/order/createClientOrder/createClientOrder.usecase';
 import { ListOrderByIdUseCase } from './usecase/order/listOrderById/listOrderById.usecase';
@@ -161,6 +162,9 @@ const RolUseCases = [
   ListRolsUseCase
 ]
 
+const DashBoardUseCases = [
+  ListForDashboardUseCase
+]
 @Module({
   imports: [DataModule, UtilsModule],
   exports: [
@@ -178,6 +182,7 @@ const RolUseCases = [
     ...OrderVehicleUseCases,
     ...UserUseCases,
     ...RolUseCases,
+    ...DashBoardUseCases
   ],
   providers: [
     ...typeOrmProviders(),
@@ -196,6 +201,7 @@ const RolUseCases = [
     ...OrderVehicleUseCases,
     ...UserUseCases,
     ...RolUseCases,
+    ...DashBoardUseCases
   ]
 })
 export class DomainModule { }
