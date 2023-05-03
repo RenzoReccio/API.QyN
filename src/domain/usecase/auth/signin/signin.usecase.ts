@@ -52,11 +52,12 @@ export class SigInUseCase implements BaseUseCase<SignInDto, string>{
     let encryptedPassword = await this._authService.encriptPassword(dto.password.trim())
     let user = new UserModel(undefined, dto.email.trim(), encryptedPassword, true, client, person)
 
+    user = await this._userRepository.insert(user)
+
     //Inserting client rol for user
     let userRol = new UserRolModel(undefined, user, rol);
     await this._userRolRepository.insert(userRol);
 
-    user = await this._userRepository.insert(user)
     return 'Usuario creado';
   }
 
